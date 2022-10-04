@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,91 +6,91 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       category: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       country: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       coordinates: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       bedsQty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       guestsQty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       costPerNight: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       kitchen: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       bathroom: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       aitConditioning: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       heating: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       wifi: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       pets: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       smoking: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       parking: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       tv: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       hairdryer: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       washingMachine: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       refrigerator: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       stove: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       rating: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Flats');
-  }
+  },
 };
