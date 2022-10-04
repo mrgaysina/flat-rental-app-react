@@ -93,7 +93,7 @@ const SingleCard = ({el,photo}) => {
             variant="body2"
             color="text.secondary"
           >
-            <b style={{ color: 'black' }}>${el.costPerNight}</b> ночь
+            <b style={{ color: 'black' }}>{el.costPerNight}</b> руб./сутки
           </Typography>
         </CardContent>
       </Card>
