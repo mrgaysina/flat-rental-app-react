@@ -55,3 +55,6 @@
 
 7. Установка WebSocketServer
   - npm i ws // // пока не стоит
+
+
+npx sequelize model:generate --name Flat --attributes category:string,country:string,city:string,address:string,coordinates:string,type:string,bedsQty:integer,guestsQty:integer,costPerNight:integer,description:text,kitchen:boolean,bathroom:integer,aitConditioning:boolean,heating:boolean,wifi:boolean,pets:boolean,smoking:boolean,parking:text,tv:boolean,hairdryer:boolean,washingMachine:boolean,refrigerator:boolean,stove:boolean,rating:integer
