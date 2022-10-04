@@ -12,8 +12,10 @@ import StarIcon from '@mui/icons-material/Star';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
-const SingleCard = ({el}) => {
+const SingleCard = ({el,photo}) => {
+  // console.log('photo!!!',photo);
   return (
+  
     <div style={{ position: 'relative' }}>
       <div
         style={{
@@ -37,7 +39,25 @@ const SingleCard = ({el}) => {
           boxShadow: 0,
         }}
       >
-        <Carousel showStatus={false} showArrows={true}  >
+
+            <Carousel showStatus={false} showArrows={true}>
+        {
+          photo
+          .filter((p)=> p.flatId === el.id)
+          .map((p)=> {
+           return <CardMedia
+              sx={{ borderRadius: '5%' }}
+              component="img"
+              height="290"
+              width="305"
+              image= {p.photoLink}
+              alt="green iguana"
+            />
+          })
+        }
+          </Carousel>
+
+        {/* <Carousel showStatus={false} showArrows={true}  >
           <CardMedia
             sx={{ borderRadius: '5%' }}
             component="img"
@@ -46,23 +66,7 @@ const SingleCard = ({el}) => {
             image="https://trizio.ru/img-srv01/052017/img_post/top_348.jpg"
             alt="green iguana"
           />
-          <CardMedia
-            sx={{ borderRadius: '5%' }}
-            component="img"
-            height="290"
-            width="305"
-            image="https://houses.ru/upload/medialibrary/7e4/kk04.jpg"
-            alt="green iguana"
-          />
-          <CardMedia
-            sx={{ borderRadius: '5%' }}
-            component="img"
-            height="290"
-            width="305"
-            image="https://i.pinimg.com/originals/c3/a0/f0/c3a0f0010e46a525c3e3709c97f4a232.png"
-            alt="green iguana"
-          />
-        </Carousel>
+        </Carousel> */}
         <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
           <div className="container__rate">
             <Typography
