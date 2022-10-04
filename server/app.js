@@ -7,6 +7,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 // экспорт роутов
+const cardRoute = require('./routes/card.route');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(session({
 }));
 
 // app.use роуты
+app.use('/allFlat', cardRoute);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);

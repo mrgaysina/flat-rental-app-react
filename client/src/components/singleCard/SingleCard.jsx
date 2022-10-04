@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import StarIcon from '@mui/icons-material/Star';
 
-const SingleCard = () => {
+const SingleCard = ({el}) => {
   return (
     <div style={{ position: 'relative' }}>
       <div
@@ -48,7 +48,7 @@ const SingleCard = () => {
               component="div"
               align="center"
             >
-              Россия, Москва
+              {el.country}, {el.city}
             </Typography>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <StarIcon sx={{ fontSize: '16px' }} />
@@ -59,7 +59,7 @@ const SingleCard = () => {
             variant="body2"
             color="text.secondary"
           >
-            Национальный парк Залесье
+            {el.address}
             <br />
             9-15 окт.
           </Typography>
@@ -67,7 +67,7 @@ const SingleCard = () => {
             variant="body2"
             color="text.secondary"
           >
-            <b style={{ color: 'black' }}>$40</b> ночь
+            <b style={{ color: 'black' }}>${el.costPerNight}</b> ночь
           </Typography>
         </CardContent>
       </Card>
