@@ -6,23 +6,17 @@ import axios from 'axios';
 
 const Cards = () => {
   const [ card, setCard ]= useState([]);
-  // const [ date, setDate ] = useState([]);
-  // const [ price, setPrice ] = useState([]);
-  // const [ mark, setMark ] = useState([]);
+  const [ photo, setPhoto ] = useState([]);
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/allFlat', {withCredentials: true})
     .then((res)=>{
-      setCard(res.data)
-      // setDate(res.data)
-      // setPrice(res.data)
-      // setMark(res.data)
-      console.log('res.data', res.data);
+      setCard(res.data.flat)
+      setPhoto(res.data.photoflat)
+      // console.log('res.data', res.data);
     })
-    // console.log('adress', adress);
-    // console.log('date', date);
-    // console.log('price', price);
-    // console.log('mark', mark);
+
   },[])
   return (
     <Box
@@ -33,7 +27,7 @@ const Cards = () => {
     alignItems="center"
     >
       {
-        card.map((el) =>  <SingleCard el={el} key={el.id} setCard={setCard}/>)
+        card.map((el) =>  <SingleCard key={el.id} el={el} photo={photo}/>)
       }
    
     </Box>
