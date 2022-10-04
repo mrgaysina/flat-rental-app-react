@@ -1,6 +1,12 @@
-.container__rate{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+.container__rate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.slider-wrapper {
+  border-radius: 15px;
+}
+
+
