@@ -13,7 +13,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
 const SingleCard = ({el,photo}) => {
-  // console.log('photo!!!',photo);
   return (
   
     <div style={{ position: 'relative' }}>
@@ -39,8 +38,7 @@ const SingleCard = ({el,photo}) => {
           boxShadow: 0,
         }}
       >
-
-            <Carousel showStatus={false} showArrows={true}>
+          <Carousel showStatus={false} showArrows={true}>
         {
           photo
           .filter((p)=> p.flatId === el.id)
@@ -56,17 +54,6 @@ const SingleCard = ({el,photo}) => {
           })
         }
           </Carousel>
-
-        {/* <Carousel showStatus={false} showArrows={true}  >
-          <CardMedia
-            sx={{ borderRadius: '5%' }}
-            component="img"
-            height="290"
-            width="305"
-            image="https://trizio.ru/img-srv01/052017/img_post/top_348.jpg"
-            alt="green iguana"
-          />
-        </Carousel> */}
         <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
           <div className="container__rate">
             <Typography
