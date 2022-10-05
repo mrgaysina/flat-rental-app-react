@@ -13,8 +13,12 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux'
 import { addCard, addPhoto} from '../../RTKSlice/rtkslice'
+import { useNavigate } from 'react-router-dom';
 
 const SingleCard = ({el}) => {
+
+  const navigate = useNavigate();
+
   return (
   
     <div style={{ position: 'relative' }}>
@@ -55,7 +59,7 @@ const SingleCard = ({el}) => {
           })
         }
           </Carousel>
-        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
+        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }} onClick={() => navigate(`/allFlats/${el.id}`)}>
           <div className="container__rate">
             <Typography
               variant="h7"
