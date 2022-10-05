@@ -81,10 +81,11 @@ route.post('/refresh_token', async (req, res) => {
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
     // token is valid, check if user exist
-    const user = await User.findByPK(payload.userId);
+    const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
+    console.log('user from refresh_token', user);
     if (!user) return res.send({ accesstoken: '' });
     // user exist, check if refreshtoken exist on user
-    if (user.refreshtoken !== token) { return res.send({ accesstoken: '' }); } // ????? найти токен в связанной модели
+    if (user['Token.refreshtoken'] !== token) { return res.send({ accesstoken: '' }); } // найти токен в связанной модели
     // token exist, create new Refresh- and accesstoken
     const accesstoken = createAccessToken(user.id);
     const refreshtoken = createRefreshToken(user.id);
