@@ -599,7 +599,7 @@ module.exports = {
       photos: JSON.stringify(['https://a0.muscache.com/im/pictures/miso/Hosting-51815553/original/e447b69e-c3c9-45a1-904e-708b4e2534c6.jpeg?im_w=1200', 'https://a0.muscache.com/im/pictures/miso/Hosting-51815553/original/94e345e1-555e-4205-9738-3a5fc570f7c5.jpeg?im_w=720']),
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    },
     
   // {
   //   id: 2,
