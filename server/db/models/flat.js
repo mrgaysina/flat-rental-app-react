@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.User, { through: models.Favorite, foreignKey: 'flatId' });
       this.belongsToMany(models.User, { through: models.Owner, foreignKey: 'flatId' });
-      this.hasMany(models.PhotoFlat, { foreignKey: 'flatId' });
+      // this.hasMany(models.PhotoFlat, { foreignKey: 'flatId' });
       this.hasMany(models.Booking, { foreignKey: 'flatId' });
       this.hasMany(models.Review, { foreignKey: 'flatId' });
 
@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     washingMachine: DataTypes.BOOLEAN,
     refrigerator: DataTypes.BOOLEAN,
     stove: DataTypes.BOOLEAN,
-    rating: DataTypes.INTEGER
+    rating: DataTypes.INTEGER,
+    photos: DataTypes.JSON,
   }, {
     sequelize,
     modelName: 'Flat',
