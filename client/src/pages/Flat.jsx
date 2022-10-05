@@ -25,6 +25,7 @@ export const Flat = () => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center'}} >
       <YaMap x={x} y={y}/>
+      <Calculator id={id}/>
     </Box>
     
   )

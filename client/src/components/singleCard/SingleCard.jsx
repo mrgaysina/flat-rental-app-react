@@ -59,7 +59,7 @@ const SingleCard = ({el}) => {
           })
         }
           </Carousel>
-        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }} onClick={() => navigate(`/allFlats/${el.id}`)}>
+        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }} onClick={() => navigate(`/flat/${el.id}`)}>
           <div className="container__rate">
             <Typography
               variant="h7"

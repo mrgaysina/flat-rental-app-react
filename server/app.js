@@ -3,12 +3,19 @@ require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
+/* const session = require('express-session');
+const FileStore = require('session-file-store')(session); */
+const cookieParser = require('cookie-parser');
 
 // экспорт роутов
+
+const userRoute = require('./src/routes/user.route');
 const cardRoute = require('./routes/card.route');
+
 const yaMapRoute = require('./routes/yaMap.route');
+
+const flatRoute = require('./routes/flat.route');
+const bookingRoute = require('./routes/booking.route');
 
 const app = express();
 
@@ -21,18 +28,25 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({
+app.use(cookieParser());
+/* app.use(session({
   store: new FileStore(),
   httpOnly: true,
   secret: process.env.SECRET || 'kshfiugkkshsnfl',
   resave: true,
   saveUninitialized: false,
   cookie: { secure: false },
-}));
+})); */
 
 // app.use роуты
 app.use('/allFlat', cardRoute);
 app.use('/yaMap', yaMapRoute);
+app.use('/flat', flatRoute);
+app.use('/flat/booking', bookingRoute);
+app.use('/', userRoute);
+app.use('/singleFlat', singleFaltRoute);
+
+
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);
