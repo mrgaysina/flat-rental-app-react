@@ -8,8 +8,11 @@ const FileStore = require('session-file-store')(session); */
 const cookieParser = require('cookie-parser');
 
 // экспорт роутов
-const cardRoute = require('./src/routes/card.route');
+
 const userRoute = require('./src/routes/user.route');
+const cardRoute = require('./routes/card.route');
+const singleFaltRoute = require('./routes/singleFlat.route');
+
 
 const app = express();
 
@@ -35,6 +38,8 @@ app.use(cookieParser());
 // app.use роуты
 app.use('/allFlat', cardRoute);
 app.use('/', userRoute);
+app.use('/singleFlat', singleFaltRoute);
+
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);

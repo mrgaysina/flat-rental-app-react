@@ -80,6 +80,9 @@ module.exports = {
       rating: {
         type: Sequelize.INTEGER,
       },
+      photos: {
+        type: Sequelize.JSON,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

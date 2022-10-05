@@ -11,9 +11,14 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import StarIcon from '@mui/icons-material/Star';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { useDispatch, useSelector } from 'react-redux'
+import { addCard, addPhoto} from '../../RTKSlice/rtkslice'
+import { useNavigate } from 'react-router-dom';
 
-const SingleCard = ({el,photo}) => {
-  // console.log('photo!!!',photo);
+const SingleCard = ({el}) => {
+
+  const navigate = useNavigate();
+
   return (
   
     <div style={{ position: 'relative' }}>
@@ -39,35 +44,22 @@ const SingleCard = ({el,photo}) => {
           boxShadow: 0,
         }}
       >
-
-            <Carousel showStatus={false} showArrows={true}>
+          <Carousel showStatus={false} showArrows={true}>
         {
-          photo
-          .filter((p)=> p.flatId === el.id)
+          el.photos
           .map((p)=> {
            return <CardMedia
               sx={{ borderRadius: '5%' }}
               component="img"
               height="290"
               width="305"
-              image= {p.photoLink}
+              image= {p}
               alt="green iguana"
             />
           })
         }
           </Carousel>
-
-        {/* <Carousel showStatus={false} showArrows={true}  >
-          <CardMedia
-            sx={{ borderRadius: '5%' }}
-            component="img"
-            height="290"
-            width="305"
-            image="https://trizio.ru/img-srv01/052017/img_post/top_348.jpg"
-            alt="green iguana"
-          />
-        </Carousel> */}
-        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
+        <CardContent sx={{ textAlign: 'left', padding: '10px 0 0 0' }} onClick={() => navigate(`/allFlats/${el.id}`)}>
           <div className="container__rate">
             <Typography
               variant="h7"

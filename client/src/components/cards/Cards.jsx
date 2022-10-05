@@ -3,21 +3,47 @@ import SingleCard from '../../components/singleCard/SingleCard';
 import Box from '@mui/material/Box';
 import './Cards.css';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllCard } from '../../RTKSlice/rtkslice'
 
 const Cards = () => {
-  const [ card, setCard ]= useState([]);
-  const [ photo, setPhoto ] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [fetching, setFetching] = useState(true);
+  const card = useSelector(store => store.toolkit.card)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get('http://localhost:3001/allFlat', {withCredentials: true})
-    .then((res)=>{
-      setCard(res.data.flat)
-      setPhoto(res.data.photoflat)
-      // console.log('res.data', res.data);
-    })
+    if(fetching){
 
-  },[])
+      axios.post('http://localhost:3001/allFlat', {currentPage}, {withCredentials: true})
+      .then((res)=>{
+        console.log('res.data',res.data);
+        dispatch(getAllCard([...card,...res.data.flat.rows]));
+        setCurrentPage((prevState) => prevState + 10);
+      })
+      .finally(()=> setFetching(false))
+    }
+
+  },[fetching])
+
+  useEffect(() => {
+          document.addEventListener('scroll', scrollHandler);
+          return function () {
+             document.removeEventListener('scroll', scrollHandler);
+          };
+       }, []);
+    
+       const scrollHandler = (e) => {
+          if (
+             e.target.documentElement.scrollHeight -
+                (e.target.documentElement.scrollTop + window.innerHeight) <
+             100
+          ) {
+             setFetching(true);
+          }
+       };
+
   return (
     <Box
     className="wrapper"
@@ -27,7 +53,7 @@ const Cards = () => {
     alignItems="center"
     >
       {
-        card.map((el) =>  <SingleCard key={el.id} el={el} photo={photo}/>)
+        card.map((el) =>  <SingleCard key={el.id} el={el}  />)
       }
    
     </Box>
