@@ -18,7 +18,6 @@ const Cards = () => {
 
       axios.post('http://localhost:3001/allFlat', {currentPage}, {withCredentials: true})
       .then((res)=>{
-        console.log('res.data',res.data);
         dispatch(getAllCard([...card,...res.data.flat.rows]));
         setCurrentPage((prevState) => prevState + 10);
       })

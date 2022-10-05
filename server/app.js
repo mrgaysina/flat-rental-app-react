@@ -11,7 +11,9 @@ const cookieParser = require('cookie-parser');
 
 const userRoute = require('./src/routes/user.route');
 const cardRoute = require('./routes/card.route');
-const singleFaltRoute = require('./routes/singleFlat.route');
+const flatRoute = require('./routes/flat.route');
+const bookingRoute = require('./routes/booking.route');
+
 
 
 const app = express();
@@ -37,6 +39,8 @@ app.use(cookieParser());
 
 // app.use роуты
 app.use('/allFlat', cardRoute);
+app.use('/flat', flatRoute);
+app.use('/flat/booking', bookingRoute);
 app.use('/', userRoute);
 app.use('/singleFlat', singleFaltRoute);
 
