@@ -53,9 +53,8 @@ const Cards = () => {
     alignItems="center"
     >
       {
-        card.map((el) =>  <SingleCard key={el.id} el={el}  />)
+        card.map((el) =>  <SingleCard key={el.id} el={el}/>)
       }
-   
     </Box>
   );
 };
