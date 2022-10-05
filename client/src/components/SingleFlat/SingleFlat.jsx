@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+
+import { addCard, addPhoto} from '../../RTKSlice/rtkslice'
 
 const Flats = () => {
   const [ card, setCard ]= useState([]);

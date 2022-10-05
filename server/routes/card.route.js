@@ -1,16 +1,19 @@
 const route = require('express').Router();
 
-const { Flat, PhotoFlat } = require('../db/models');
+const { Flat } = require('../db/models');
 
-route.get('/', async (req, res) => {
+route.post('/', async (req, res) => {
   try {
-    const flat = await Flat.findAll({ raw: true});
-    const photoflat = await PhotoFlat.findAll({ raw: true });
-    console.log('photoflat', photoflat);
-    res.json({ flat, photoflat });
+    console.log('req.body',req.body);
+    const flat = await Flat.findAndCountAll({ raw: true, limit: 10, offset: req.body.currentPage });
+    // const photoflat = await PhotoFlat.findAll({ raw: true });
+    // console.log('!!!!!!!!!!!', flat);
+    res.json({ flat });
   } catch (error) {
     console.error('Error', error);
   }
 });
+
+
 
 module.exports = route;

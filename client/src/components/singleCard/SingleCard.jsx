@@ -11,8 +11,10 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import StarIcon from '@mui/icons-material/Star';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { useDispatch, useSelector } from 'react-redux'
+import { addCard, addPhoto} from '../../RTKSlice/rtkslice'
 
-const SingleCard = ({el,photo}) => {
+const SingleCard = ({el}) => {
   return (
   
     <div style={{ position: 'relative' }}>
@@ -40,15 +42,14 @@ const SingleCard = ({el,photo}) => {
       >
           <Carousel showStatus={false} showArrows={true}>
         {
-          photo
-          .filter((p)=> p.flatId === el.id)
+          el.photos
           .map((p)=> {
            return <CardMedia
               sx={{ borderRadius: '5%' }}
               component="img"
               height="290"
               width="305"
-              image= {p.photoLink}
+              image= {p}
               alt="green iguana"
             />
           })
