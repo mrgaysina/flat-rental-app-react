@@ -8,7 +8,7 @@ const FileStore = require('session-file-store')(session);
 
 // экспорт роутов
 const cardRoute = require('./routes/card.route');
-const singleFaltRoute = require('./routes/singleFlat.route');
+const yaMapRoute = require('./routes/yaMap.route');
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.use(session({
 
 // app.use роуты
 app.use('/allFlat', cardRoute);
-app.use('/singleFlat', singleFaltRoute);
+app.use('/yaMap', yaMapRoute);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);

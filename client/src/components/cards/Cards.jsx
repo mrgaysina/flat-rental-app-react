@@ -5,6 +5,7 @@ import './Cards.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCard } from '../../RTKSlice/rtkslice'
+import { YaMap } from '../yaMap/YaMap';
 
 const Cards = () => {
 
@@ -18,7 +19,6 @@ const Cards = () => {
 
       axios.post('http://localhost:3001/allFlat', {currentPage}, {withCredentials: true})
       .then((res)=>{
-        console.log('res.data',res.data);
         dispatch(getAllCard([...card,...res.data.flat.rows]));
         setCurrentPage((prevState) => prevState + 10);
       })
@@ -46,15 +46,13 @@ const Cards = () => {
 
   return (
     <Box
-    className="wrapper"
-    marginTop="20px"
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
+      className="wrapper"
+      marginTop="20px"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
     >
-      {
-        card.map((el) =>  <SingleCard key={el.id} el={el}/>)
-      }
+      {card.map((el) => <SingleCard key={el.id} el={el} />)}
     </Box>
   );
 };
