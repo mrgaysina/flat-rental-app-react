@@ -47,11 +47,13 @@
 
 5. Установка библиотеки для шифрования 
 - npm i sha256 или bcrypt
+npm i bcryptjs
 
 6. Куки и сессии
-- npm i cookie-parser // пока не стоит
+- npm i cookie-parser 
 - npm i express-session
 - npm i session-file-store
+npm i jsonwebtoken
 
 7. Установка WebSocketServer
   - npm i ws // // пока не стоит
