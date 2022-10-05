@@ -1,6 +1,6 @@
 const route = require('express').Router();
 
-const { Flat, PhotoFlat } = require('../db/models');
+const { Flat, PhotoFlat } = require('../../db/models');
 
 route.get('/', async (req, res) => {
   try {
