@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 
 
 const Content = ({user}) => {
+  console.log('user from content', user);
 
   // Could have something here to check for the time when the accesstoken expires
 

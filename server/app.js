@@ -43,7 +43,7 @@ app.use('/allFlat', cardRoute);
 app.use('/yaMap', yaMapRoute);
 app.use('/flat', flatRoute);
 app.use('/flat/booking', bookingRoute);
-app.use('/', userRoute);
+app.use('/auth', userRoute);
 // app.use('/singleFlat', singleFaltRoute);
 
 

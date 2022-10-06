@@ -1,15 +1,16 @@
-import './App.css';
-import React, {useState, useEffect} from 'react';
+import "./App.css";
+import React, { useState, useEffect } from "react";
 // import Home from './pages/Home';
-import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
-import { Flat } from './pages/Flat'
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Login from './components/signUp/Login'
-import Register from './components/signUp/Register'
-import Protected from './components/signUp/Protected'
-import Navigation from './components/signUp/Navigation'
-import Content from './components/signUp/Content'
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import { Flat } from "./pages/Flat";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Login from "./components/signUp/Login";
+import Register from "./components/signUp/Register";
+import Protected from "./components/signUp/Protected";
+import Navigation from "./components/signUp/Navigation";
+import Content from "./components/signUp/Content";
+import axios from "axios";
 
 function App() {
   const [user, setUser] = useState({});
@@ -17,49 +18,52 @@ function App() {
   const navigate = useNavigate();
 
   const logOutCallback = async () => {
-    await fetch('http://localhost:4000/logout', {
-      method: 'POST',
-      credentials: 'include', // Needed to include the cookie
+    await axios.get("http://localhost:30001/auth/logout", {
+      withCredentials: true,
     });
     // Clear user from context
     setUser({});
     // Navigate back to startpage
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   // First thing, check if a refreshtoken exist
   useEffect(() => {
     async function checkRefreshToken() {
-      const result = await (await fetch('http://localhost:4000/refresh_token', {
-        method: 'POST',
-        credentials: 'include', // Needed to include the cookie
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })).json();
-        setUser({
-          accesstoken: result.accesstoken,
-        });
-        setLoading(false);
+
+       const result = await axios.post(
+      "http://localhost:3001/auth/refresh_token",
+      {},
+      { withCredentials: true }
+    );
+    console.log('result',result );
+      setUser({
+        accesstoken: result.data.accesstoken,
+      });
+      setLoading(false);
     }
     checkRefreshToken();
   }, []);
 
   // if (loading) return <div>Loading ...</div>
 
-
   return (
     <div className="App">
       <Navbar />
-      <Navigation logOutCallback={logOutCallback}/>
+      <Navigation logOutCallback={logOutCallback} />
       <Routes>
-        <Route path="login" element={<Login user={user} setUser={setUser}/>}/>
-        <Route path="register" element={<Register/>}/>
-        <Route path="protected" element={<Protected user={user} setUser={setUser}/>}/>
-        <Route path="content" element={<Content user={user} setUser={setUser}/>}/>
+        <Route path="login" element={<Login user={user} setUser={setUser} />} />
+        <Route path="register" element={<Register />} />
+        <Route
+          path="protected"
+          element={<Protected user={user} setUser={setUser} />}
+        />
+        <Route
+          path="content"
+          element={<Content user={user} setUser={setUser} />}
+        />
         {/* <Route path={`/`} element={<Home />}/> */}
-        <Route path={`/flat/:id`} element={<Flat />}/>
-
+        <Route path={`/flat/:id`} element={<Flat />} />
       </Routes>
       <Footer />
     </div>

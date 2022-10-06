@@ -10,21 +10,20 @@ const Login = ({ user, setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await (
-      await axios.post(
-        "http://localhost:3001/auth/login",
-        { email, password },
-        { withCredentials: true }
-      )
-    ).json();
+    const result = await axios.post(
+      "http://localhost:3001/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
+    console.log('result data from login', result.data);
 
-    if (result.accesstoken) {
+    if (result.data.accesstoken) {
       setUser({
-        accesstoken: result.accesstoken,
+        accesstoken: result.data.accesstoken,
       });
       navigate("/");
     } else {
-      console.log(result.error);
+      console.log('error');
     }
   };
 
