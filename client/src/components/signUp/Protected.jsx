@@ -8,9 +8,13 @@ const Protected = ({ user }) => {
 
   useEffect(() => {
     async function fetchProtected() {
-      const result = await axios.post("http://localhost:3001/auth/protected", {
-        withCredentials: true,
-      });
+      const result = await axios.post(
+        "http://localhost:3001/auth/protected",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       if (result.data) setContent(result.data);
     }
     fetchProtected();

@@ -19,6 +19,8 @@ const Login = ({ user, setUser }) => {
 
     if (result.data.accesstoken) {
       setUser({
+        id:result.data.id,
+        email: result.data.email,
         accesstoken: result.data.accesstoken,
       });
       navigate("/");
@@ -28,7 +30,7 @@ const Login = ({ user, setUser }) => {
   };
 
   useEffect(() => {
-    console.log(user);
+    console.log('user from login useEffect', user);
   }, [user]);
 
   const handleChange = (e) => {

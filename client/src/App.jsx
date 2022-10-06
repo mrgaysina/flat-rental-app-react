@@ -18,7 +18,7 @@ function App() {
   const navigate = useNavigate();
 
   const logOutCallback = async () => {
-    await axios.get("http://localhost:30001/auth/logout", {
+    await axios.post("http://localhost:3001/auth/logout",{user},{
       withCredentials: true,
     });
     // Clear user from context
@@ -36,8 +36,10 @@ function App() {
       {},
       { withCredentials: true }
     );
-    console.log('result',result );
+    console.log('result.data',result.data );
       setUser({
+        id:result.data.id,
+        email: result.data.email,
         accesstoken: result.data.accesstoken,
       });
       setLoading(false);
@@ -45,7 +47,7 @@ function App() {
     checkRefreshToken();
   }, []);
 
-  // if (loading) return <div>Loading ...</div>
+  if (loading) return <div>Loading ...</div> //какой-то лоудер можно приделать
 
   return (
     <div className="App">

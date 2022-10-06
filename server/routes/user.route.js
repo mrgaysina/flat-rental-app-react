@@ -15,7 +15,7 @@ const {
 const { User, Token } = require('../db/models');
 
 route.post('/signup', async (req, res) => {
-  console.log('req.body from signup ==>', req.body);
+  // console.log('req.body from signup ==>', req.body);
   const { name, email, password } = req.body;
   const userCheck = await User.findOne({ where: { email }, raw: true });
   if (userCheck) {
@@ -26,18 +26,18 @@ route.post('/signup', async (req, res) => {
   }
 });
 route.post('/login', async (req, res) => {
-  console.log('req.body from login ==>', req.body);
+  // console.log('req.body from login ==>', req.body);
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email }, raw: true });
-  console.log('user from login', user);
+  // console.log('user from login', user);
 
   if (user) {
     if (password === user.password) {
       // 3. Create Refresh- and Accesstoken
       const accesstoken = createAccessToken(user.id);
-      console.log('accesstoken from login ==>', accesstoken);
+      // console.log('accesstoken from login ==>', accesstoken);
       const refreshtoken = createRefreshToken(user.id);
-      console.log('refreshtoken from login ==>', refreshtoken);
+      // console.log('refreshtoken from login ==>', refreshtoken);
       // 4. Store Refreshtoken with user in "db"
       // Could also use different version numbers instead.
       // Then just increase the version number on the revoke endpoint
@@ -53,8 +53,9 @@ route.post('/login', async (req, res) => {
         httpOnly: true,
         path: '/auth/refresh_token',
       }); */
-      console.log('from login ==> req.cookies.refreshtoken===>', req.cookies.refreshtoken);
+      // console.log('from login: req.cookies.refreshtoken===>', req.cookies.refreshtoken);
       sendAccessToken(req, res, accesstoken);
+      // res.json({ user: user.email, name: user.name, id: user.id });
     } else {
       return res.send('wrong password');
     }
@@ -63,9 +64,11 @@ route.post('/login', async (req, res) => {
   }
 });
 
-route.get('/logout', (req, res) => {
+route.post('/logout', (req, res) => {
+  console.log('req.body from logout', req.body);
   res.clearCookie('refreshtoken', { path: '/auth/refresh_token' });
   // Logic here for also remove refreshtoken from db
+
   return res.send({
     message: 'Logged out',
   });
@@ -87,7 +90,7 @@ route.post('/protected', async (req, res) => {
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  console.log('token from refresh_token ==>', token);
+  // console.log('token from refresh_token ==>', token);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
@@ -96,7 +99,7 @@ route.post('/refresh_token', async (req, res) => {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
-    console.log('user from refresh_token', user);
+    // console.log('user from refresh_token', user);
     if (!user) return res.send({ accesstoken: '' });
     // user exist, check if refreshtoken exist on user
     if (user['Token.refreshToken'] !== token) { return res.send({ accesstoken: '' }); } // найти токен в связанной модели
@@ -108,7 +111,9 @@ route.post('/refresh_token', async (req, res) => {
     await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
     // All good to go, send new refreshtoken and accesstoken
     sendRefreshToken(res, refreshtoken);
-    return res.send({ accesstoken });
+    return res.send({
+      accesstoken, email: user.email, name: user.userName, id: user.id,
+    });
   } catch (err) {
     return res.send({ accesstoken: '' });
   }
