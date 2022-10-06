@@ -16,6 +16,8 @@ import { addCard, addPhoto } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
 
 const SingleCard = ({ el, isFetching }) => {
+
+  const navigate = useNavigate();
   return (
     <div>
       {isFetching ? (

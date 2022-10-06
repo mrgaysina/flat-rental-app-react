@@ -3,9 +3,12 @@ import SingleCard from '../../components/singleCard/SingleCard';
 import Box from '@mui/material/Box';
 import './Cards.css';
 import axios from 'axios';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
+import { YaMap } from '../yaMap/YaMap';
+
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,6 +35,7 @@ const Cards = () => {
           setFetching(false);
           setIsFetching(false);
         });
+
     }
   }, [fetching]);
 
@@ -53,6 +57,7 @@ const Cards = () => {
   };
 
   return (
+
     <div className="wrapper">
       {card.map((el) => (
         <SingleCard
