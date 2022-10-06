@@ -14,6 +14,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard, addPhoto } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const SingleCard = ({ el, isFetching }) => {
 

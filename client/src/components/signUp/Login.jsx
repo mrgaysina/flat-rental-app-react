@@ -1,42 +1,40 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { navigate } from '@reach/router';
-import { UserContext } from '../App';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Login = () => {
-  const [user, setUser] = useContext(UserContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ user, setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = async e => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await (await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      credentials: 'include', // Needed to include the cookie
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })).json();
-    
-    if (result.accesstoken) {
+    const result = await axios.post(
+      "http://localhost:3001/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
+    console.log('result data from login', result.data);
+
+    if (result.data.accesstoken) {
       setUser({
-        accesstoken: result.accesstoken,
+        id:result.data.id,
+        email: result.data.email,
+        accesstoken: result.data.accesstoken,
       });
-      navigate('/');
+      navigate("/");
     } else {
-      console.log(result.error);
+      console.log('error');
     }
   };
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    console.log('user from login useEffect', user);
+  }, [user]);
 
-  const handleChange = e => {
-    if (e.currentTarget.name === 'email') {
+  const handleChange = (e) => {
+    if (e.currentTarget.name === "email") {
       setEmail(e.currentTarget.value);
     } else {
       setPassword(e.currentTarget.value);

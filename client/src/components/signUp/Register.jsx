@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
-import { navigate } from '@reach/router';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await (await fetch('http://localhost:4000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })).json();
+    const result = await axios.post(
+      "http://localhost:3001/auth/signup",
+      { name, email, password },
+      { withCredentials: true }
+    );
+
     if (!result.error) {
-      console.log(result.message);
-      navigate('/');
+      console.log(result.data);
+      navigate("/login");
     } else {
       console.log(result.error);
     }
   };
 
-  const handleChange = e => {
-    if (e.currentTarget.name === 'email') {
+  const handleChange = (e) => {
+  if (e.currentTarget.name === "name") {
+    setName(e.currentTarget.value)
+  } else if (e.currentTarget.name === "email") {
       setEmail(e.currentTarget.value);
     } else {
       setPassword(e.currentTarget.value);
@@ -38,6 +39,14 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <div>Register</div>
         <div className="login-input">
+        <input
+            value={name}
+            onChange={handleChange}
+            type="text"
+            name="name"
+            placeholder="Name"
+            autoComplete="name"
+          />
           <input
             value={email}
             onChange={handleChange}
