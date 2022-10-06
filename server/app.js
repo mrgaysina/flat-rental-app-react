@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 // экспорт роутов
 
-const userRoute = require('./src/routes/user.route');
+// const userRoute = require('./src/routes/user.route');
 const cardRoute = require('./routes/card.route');
 
 const yaMapRoute = require('./routes/yaMap.route');
@@ -20,10 +20,12 @@ const bookingRoute = require('./routes/booking.route');
 const app = express();
 
 const PORT = process.env.PORT || 3001;
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
+  })
+);
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
@@ -43,10 +45,8 @@ app.use('/allFlat', cardRoute);
 app.use('/yaMap', yaMapRoute);
 app.use('/flat', flatRoute);
 app.use('/flat/booking', bookingRoute);
-app.use('/', userRoute);
-app.use('/singleFlat', singleFaltRoute);
-
-
+// app.use('/', userRoute);
+// app.use('/singleFlat', singleFaltRoute);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);
