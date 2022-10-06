@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { navigate } from '@reach/router';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const result = await (await fetch('http://localhost:4000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })).json();
+    const result = await (
+      await axios.post(
+        "http://localhost:3001/auth/signup",
+        { email, password },
+        { withCredentials: true }
+      )
+    ).json();
+    
     if (!result.error) {
       console.log(result.message);
       navigate('/');

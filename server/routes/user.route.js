@@ -4,16 +4,16 @@ const { hash, compare } = require('bcryptjs');
 // hash(password, 10)
 const cookieParser = require('cookie-parser');
 const { verify } = require('jsonwebtoken');
-const { isAuth } = require('../isAuth');
+const { isAuth } = require('../src/isAuth');
 
 const {
   createAccessToken,
   createRefreshToken,
   sendRefreshToken,
   sendAccessToken,
-} = require('../tokens');
+} = require('../src/tokens');
 
-const { User, Token } = require('../../db/models');
+const { User, Token } = require('../db/models');
 
 route.post('/auth/signup', async (req, res) => {
   // console.log(req.body);
@@ -26,7 +26,7 @@ route.post('/auth/signup', async (req, res) => {
     res.json({ name: user.username, id: user.id });
   }
 });
-route.post('/auth/signin', async (req, res) => {
+route.post('/auth/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email }, raw: true });
 

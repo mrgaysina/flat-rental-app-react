@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../App';
+import React, { useEffect, useState } from 'react';
 
-const Protected = () => {
+
+const Protected = ({user}) => {
   // Could have something here to check for the time when the accesstoken expires
   // and then call the refresh_token endpoint to get a new accesstoken automatically
-  const [user] = useContext(UserContext);
   const [content, setContent] = useState('You need to login');
 
   useEffect(() => {

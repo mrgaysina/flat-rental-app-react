@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { Redirect } from '@reach/router'
-import { UserContext } from '../App';
+import React from 'react';
+import { Navigate } from 'react-router-dom'
 
-const Content = () => {
+
+const Content = ({user}) => {
+
   // Could have something here to check for the time when the accesstoken expires
-  // and then call the refresh_token endpoint to get a new accesstoken automatically
-  const [user] = useContext(UserContext);
-  if (!user.accesstoken) return <Redirect from='' to='login' noThrow />
+
+  if (!user.accesstoken) return <Navigate to='/login'/>
   return <div>This is the content.</div>;
 }
 

@@ -1,42 +1,39 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { navigate } from '@reach/router';
-import { UserContext } from '../App';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Login = () => {
-  const [user, setUser] = useContext(UserContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ user, setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = async e => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await (await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      credentials: 'include', // Needed to include the cookie
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })).json();
-    
+    const result = await (
+      await axios.post(
+        "http://localhost:3001/auth/login",
+        { email, password },
+        { withCredentials: true }
+      )
+    ).json();
+
     if (result.accesstoken) {
       setUser({
         accesstoken: result.accesstoken,
       });
-      navigate('/');
+      navigate("/");
     } else {
       console.log(result.error);
     }
   };
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    console.log(user);
+  }, [user]);
 
-  const handleChange = e => {
-    if (e.currentTarget.name === 'email') {
+  const handleChange = (e) => {
+    if (e.currentTarget.name === "email") {
       setEmail(e.currentTarget.value);
     } else {
       setPassword(e.currentTarget.value);
