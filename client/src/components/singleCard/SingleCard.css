@@ -9,4 +9,11 @@
   border-radius: 15px;
 }
 
+.like:hover {
+  transition: 0.2s;
+  color: rgb(206, 71, 71);
+}
 
+.card__content {
+  cursor: pointer;
+}

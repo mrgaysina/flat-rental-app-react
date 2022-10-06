@@ -1,0 +1,21 @@
+.skel {
+  border-radius: 15px !important;
+}
+.skelDisc {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.title__skel {
+  border-radius: 15px !important;
+}
+
+.rate__skel {
+  border-radius: 15px !important;
+}
+
+.loader {
+  padding-left: 30px;
+  margin-bottom: 20px;
+}
