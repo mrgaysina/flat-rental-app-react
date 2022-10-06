@@ -20,8 +20,9 @@
   max-width: fit-content;
   padding: 10px;
   height: 23px;
-  border: 1px solid lightgray;
+  border: 1px solid rgb(226, 226, 226);
   border-radius: 999px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .header__center > input {
@@ -31,13 +32,15 @@
   width: 450px;
 }
 
+
 .header__right {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 12vw;
-  margin-right: 80px;
+  margin-right: 140px;
 }
+
 .profile__menu {
   cursor: pointer;
   display: flex;
@@ -47,6 +50,10 @@
   height: 40px;
   border: 1px solid lightgray;
   border-radius: 30px;
+}
+.profile__menu:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  transition: 200ms;
 }
 
 .search {
@@ -64,7 +71,7 @@
 .header__icon {
   object-fit: contain;
   height: 50px;
-  margin-left: 80px;
+  margin-left: 125px;
   cursor: pointer;
 }
 .search_icon {
