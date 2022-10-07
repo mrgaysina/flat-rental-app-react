@@ -11,6 +11,7 @@ import Protected from "./components/signUp/Protected";
 import Navigation from "./components/signUp/Navigation";
 import Content from "./components/signUp/Content";
 import axios from "axios";
+import { Results } from "./pages/Results";
 
 function App() {
   const [user, setUser] = useState({});
@@ -65,6 +66,7 @@ function App() {
           element={<Content user={user} setUser={setUser} />}
         />
         <Route path={`/`} element={<Home />}/>
+        <Route path={`/results`} element={<Results />}/>
         <Route path={`/flat/:id`} element={<Flat />} />
       </Routes>
       <Footer />
