@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-// import Home from './pages/Home';
+import Home from './pages/Home';
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import { Flat } from "./pages/Flat";
@@ -64,7 +64,7 @@ function App() {
           path="content"
           element={<Content user={user} setUser={setUser} />}
         />
-        {/* <Route path={`/`} element={<Home />}/> */}
+        <Route path={`/`} element={<Home />}/>
         <Route path={`/flat/:id`} element={<Flat />} />
       </Routes>
       <Footer />

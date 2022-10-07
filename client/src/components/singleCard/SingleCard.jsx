@@ -67,7 +67,7 @@ const SingleCard = ({ el, isFetching }) => {
                 );
               })}
             </Carousel>
-            <CardContent className='card__content' sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
+            <CardContent onClick={() => navigate(`/flat/${el.id}`)} className='card__content' sx={{ textAlign: 'left', padding: '10px 0 0 0' }}>
               <div className="container__rate">
                 <Typography
                   variant="h7"
