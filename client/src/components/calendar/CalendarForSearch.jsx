@@ -13,33 +13,54 @@ import {
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+import { DatePicker } from '@mui/x-date-pickers';
+import { DateRangePicker } from '@mui/lab';
+
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import { useEffect } from 'react';
 
-export function CalendarForSearch({ id }) {
+
+export function CalendarForSearch({id, guests, cost}) {
   const [checkin, setCheckin] = useState(dayjs(new Date()));
   const [checkout, setCheckOut] = useState(dayjs(new Date()));
-  const [age, setAge] = useState();
+  const [person, setPerson] = useState()
+  const [guestsLimit, setGuestsLimit] = useState([])
+  const [bookCost, setBookCost] = useState(1)
+  const [duration, setDuration] = useState(0)
+  const [value, setValue] = useState([null, null])
+
+  console.log(cost);
+
+  const disableDate = () => {
+    axios.get(`http://localhost:3001/flat/booking/${id}`, {withCredentials: true})
+    .then((res) => {
+      console.log(res.data)
+      for (let i = 0; i < res.data; i++) {
+        if (res.data[i].startDate)
+        return res.data === checkin
+      }
+    })
+    return false
+  }
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setPerson(event.target.value);
+    const dur = (checkout - checkin)/(60 * 60 * 24 * 1000);
+    console.log('dur',dur * cost);
+    setDuration(dur)
+    setBookCost(dur * cost)
   };
 
   const handleBooking = () => {
-    axios
-      .post(
-        `http://localhost:3001/flat/booking/${id}`,
-        { id, checkin, checkout },
-        { withCredentials: true }
-      )
-      .then((res) => {});
-  };
+    axios.post(`http://localhost:3001/flat/booking/${id}`, {id, checkin, checkout, bookCost, duration, person}, {withCredentials: true})
+  }
 
+
+  console.log(value);
   return (
     <Box
+
       marginTop="20px"
       display="flex"
       justifyContent="center"
@@ -81,11 +102,12 @@ export function CalendarForSearch({ id }) {
         </LocalizationProvider>
       </Box>
       <FormControl sx={{ m: 1, minWidth: 300 }}>
+
         <InputLabel id="demo-simple-select-helper-label">Гостей</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={age}
+          value={person}
           label="Гостей"
           onChange={handleChange}
         >

@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     flatId: DataTypes.INTEGER,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
-    days: DataTypes.INTEGER
+    days: DataTypes.INTEGER,
+    guests: DataTypes.INTEGER,
+    totalCost: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Booking',

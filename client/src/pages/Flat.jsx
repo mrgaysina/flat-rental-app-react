@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard } from '../RTKSlice/rtkslice';
+
 import { Calculator } from '../components/calculator/Calculator';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
@@ -19,6 +20,7 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
 import PetsIcon from '@mui/icons-material/Pets';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+
 
 export const Flat = () => {
   const { id } = useParams();
@@ -37,6 +39,7 @@ export const Flat = () => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
 
   return (
+
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box
         sx={{
@@ -314,6 +317,7 @@ export const Flat = () => {
           </Box>
         </Box>
       </Box>
+
     </Box>
   );
 };

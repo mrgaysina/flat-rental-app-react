@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addCard, addPhoto } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const SingleCard = ({ el, isFetching }) => {
   const navigate = useNavigate();
@@ -66,6 +67,7 @@ const SingleCard = ({ el, isFetching }) => {
                 );
               })}
             </Carousel>
+
             <CardContent
               className="card__content"
               sx={{ textAlign: 'left', padding: '10px 0 0 0' }}
