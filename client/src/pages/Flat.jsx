@@ -5,9 +5,6 @@ import { YaMap } from '../components/yaMap/YaMap';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard } from '../RTKSlice/rtkslice';
-
 import { Calculator } from '../components/calculator/Calculator';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
@@ -21,23 +18,30 @@ import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
 import PetsIcon from '@mui/icons-material/Pets';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 
-
 export const Flat = () => {
+
   const { id } = useParams();
   const [x, setX] = useState([]);
   const [y, setY] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [photos,setPhotos] = useState([]);
+  const [flat,setFlat] = useState([])
+  const [costPerNight,setCostPerNight] = useState([]);//! тут будет оплата
 
   useEffect(() => {
     axios
       .post('http://localhost:3001/yaMap', { id }, { withCredentials: true })
       .then((res) => {
+ 
+        setFlat(res.data.flat)
         setX(res.data.coordinats.split(',')[0]);
         setY(res.data.coordinats.split(',')[1]);
+        setPhotos(res.data.flat.photos);
+        setComments(res.data.comments);
       });
   }, []);
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
-
   return (
 
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -51,7 +55,7 @@ export const Flat = () => {
         <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>
             <StarIcon sx={{ fontSize: '16px' }} />
-            <span>4.89 · 14 отзывов · улица Волхонка 10 · Мосвка · Россия</span>
+            <span>{flat.rating} · {comments.length} отзывов · {flat.address} · {flat.city} · {flat.country}</span>
           </Box>
           <Box>
             <u>Сохранить</u>
@@ -67,32 +71,32 @@ export const Flat = () => {
             className="bigImg"
             sx={{ borderRadius: '5% 0 0 5%' }}
             component="img"
-            image="https://via.placeholder.com/560x520" //?главная фотка
+            image={photos[0]} //?главная фотка
           />
           <Box className="fourPic">
             <CardMedia
               className="smallImg1"
               sx={{ borderRadius: '0 0 0 0' }}
               component="img"
-              image="https://via.placeholder.com/270x270" //?маленькая фотка
+              image={photos[1]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg2"
               sx={{ borderRadius: '0 0 0 0' }}
               component="img"
-              image="https://via.placeholder.com/270x270" //?маленькая фотка
+              image={photos[2]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg3"
               sx={{ borderRadius: '0 10% 0 0' }}
               component="img"
-              image="https://via.placeholder.com/270x270" //?маленькая фотка
+              image={photos[3]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg4"
               sx={{ borderRadius: '0 0 10% 0' }}
               component="img"
-              image="https://via.placeholder.com/270x270" //?маленькая фотка
+              image={photos[4]} //?маленькая фотка
             />
           </Box>
         </Box>
@@ -117,7 +121,7 @@ export const Flat = () => {
                 color="text.secondary"
                 style={{ display: 'flex', justifyContent: 'space-between' }}
               >
-                8 гостей · 4 спальни · 5 кроватей · 1 ванная
+                {flat.guestsQty} гостей · 4 спальни · {flat.bedsQty} кроватей · {flat.bathroom} ванная
               </Typography>
               <hr style={{ margin: '30px 0 30px 0' }} />
             </Box>
@@ -156,13 +160,7 @@ export const Flat = () => {
                 flexDirection: 'column',
               }}
             >
-              Привет! мы пара, и один из нас работает удаленно, а другой - дома.
-              Будем рады разместить гостей. У нас есть отдельная комната с
-              балконом и прекрасным видом с 16 этажа. На балконе есть рабочее
-              место . Вы можете свободно пользоваться нашей кухней и ванной. Еще
-              у нас есть чудесный котик, которого можно потискать) Дом
-              расположен в тихом месте, но в 20 минутах ходьбы от центра города.
-              Рядом 2 станции метро
+            {flat.description}
             </Box>
             <hr style={{ margin: '30px 0 30px 0' }} />
             <Box
@@ -172,14 +170,15 @@ export const Flat = () => {
                 textAlign: 'start',
               }}
             >
-              <Box>Кондиционер</Box>
-              <Box>Обогреватель</Box>
-              <Box>Wi-fi</Box>
-              <Box>Телевизор</Box>
-              <Box>Фен</Box>
-              <Box>Стиральная машина</Box>
-              <Box>Холодильник</Box>
-              <Box>Плита</Box>
+              {flat.kitchen &&<Box>Плита</Box>}
+              {flat.aitConditioning &&<Box>Кондиционер</Box>}
+              {flat.stove &&<Box>Микроволновая печь</Box>}
+              {flat.heating &&<Box>Обогреватель</Box>}
+              {flat.wifi &&<Box>Wifi</Box>}
+              {flat.tv &&<Box>Tv</Box>}
+              {flat.hairdryer &&<Box>Фен</Box>}
+              {flat.washingMachine &&<Box>Стиральная машина</Box>}
+              {flat.refrigerator &&<Box>Холодильник</Box>}
             </Box>
             <hr style={{ margin: '30px 0 30px 0' }} />
             <Box
@@ -202,7 +201,11 @@ export const Flat = () => {
           </Box>
         </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />
-        <Box>Тут будут комментарии</Box>
+        <Box>
+          {
+            comments.map((el)=> <Typography variant="subtitle2">{el.description}</Typography>)
+          }
+        </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />
         <YaMap
           x={x}
@@ -256,10 +259,8 @@ export const Flat = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <PetsIcon />
-              <Typography variant="subtitle2">
-                 Прибывание с питомцем
-              </Typography>
+              
+              { flat.pets && <><PetsIcon /><Typography variant="subtitle2"> Прибывание с питомцем</Typography></> }
             </Box>
             <Box
               style={{
@@ -268,8 +269,8 @@ export const Flat = () => {
                 alignItems: 'flex-end',
               }}
             >
-              <SmokingRoomsIcon />
-              <Typography variant="subtitle2"> Курение</Typography>
+              
+              { flat.smoking && <><SmokingRoomsIcon /><Typography variant="subtitle2"> Курение</Typography></> }
             </Box>
             <Box
               style={{
@@ -279,7 +280,7 @@ export const Flat = () => {
               }}
             >
               <DirectionsCarIcon />
-              <Typography variant="subtitle2"> Парковка</Typography>
+              <Typography variant="subtitle2"> Парковка : {flat.parking} </Typography>
             </Box>
           </Box>
           <Box
