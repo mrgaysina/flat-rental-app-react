@@ -16,8 +16,8 @@ const Protected = ({ user }) => {
         }
       );
       if (result.data) 
-      console.log(result.data);
-      // setContent(result.data);
+      console.log('result.data', result.data.message);
+      setContent(result.data.message);
     }
     fetchProtected();
   }, [user]);

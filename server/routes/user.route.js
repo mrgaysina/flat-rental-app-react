@@ -78,7 +78,7 @@ route.post('/protected', async (req, res) => {
     // console.log('userId from protected', userId);
     if (userId !== null) {
       res.send({
-        data: 'This is protected data.',
+        message: 'This is protected data.',
       });
     }
   } catch (err) {
