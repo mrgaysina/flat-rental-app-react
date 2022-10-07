@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 // экспорт роутов
 
-const userRoute = require('./src/routes/user.route');
+// const userRoute = require('./routes/user.route');
 const cardRoute = require('./routes/card.route');
 
 const yaMapRoute = require('./routes/yaMap.route');
@@ -43,8 +43,8 @@ app.use('/allFlat', cardRoute);
 app.use('/yaMap', yaMapRoute);
 app.use('/flat', flatRoute);
 app.use('/flat/booking', bookingRoute);
-app.use('/', userRoute);
-app.use('/singleFlat', singleFaltRoute);
+// app.use('/', userRoute);
+// app.use('/singleFlat', singleFaltRoute);
 
 
 

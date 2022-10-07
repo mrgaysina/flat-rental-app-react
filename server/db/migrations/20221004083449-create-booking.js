@@ -32,6 +32,12 @@ module.exports = {
       days: {
         type: Sequelize.INTEGER
       },
+      guests: {
+        type: Sequelize.INTEGER
+      },
+      totalCost: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
