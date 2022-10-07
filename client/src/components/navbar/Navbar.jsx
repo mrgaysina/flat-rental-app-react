@@ -14,11 +14,15 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCard } from '../../RTKSlice/rtkslice';
 
 
 const Navbar = () => {
 
   const navigate = useNavigate();
+  const card = useSelector((store) => store.toolkit.card);
+  const dispatch = useDispatch();
 
 const [checkin, setCheckin] = useState(dayjs(new Date()));
 const [checkout, setCheckOut] = useState(dayjs(new Date()));
@@ -36,7 +40,7 @@ const handlerGuests = (event) => {
 const checkBooking = () => {
   axios.post(`http://localhost:3001/search`, {checkin, checkout, direction, guests}, {withCredentials: true})
   .then((res) => {
-    console.log(res.data);
+    dispatch(getAllCard([res.data]))
   })
 }
 
