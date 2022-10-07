@@ -69,7 +69,7 @@ export function CalendarForSearch({id, guests, cost}) {
     alignItems="center"
     flexDirection='row'
     width="300px">
-    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
         <DatePicker
         disablePast="true"
@@ -96,27 +96,7 @@ export function CalendarForSearch({id, guests, cost}) {
           }}
         />
       </Stack>
-    </LocalizationProvider> */}
-
-    <DateRangePicker
-    startText='Check-in'
-    endText='Check-out'
-    value={value}
-    onChange={ newValue => {
-      setValue(newValue)
-    }} 
-    renderInput={(startProps, endProps) => (
-      <>
-      <TextField {...startProps}/>
-      <Box sx={{ mx: 2}}> to </Box>
-      <TextField {...endProps}/>
-
-      </>
-    )}
-    >
-      
-    </DateRangePicker>
-
+    </LocalizationProvider>
     </Box>
     <FormControl sx={{ m: 1, minWidth: 300 }}>
         <InputLabel id="demo-simple-select-helper-label">Гостей</InputLabel>
