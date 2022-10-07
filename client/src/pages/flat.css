@@ -1,0 +1,38 @@
+.smallImg1 {
+  width: 270px !important;
+  height: 270px !important;
+  position: absolute;
+}
+.smallImg2 {
+  width: 270px !important;
+  height: 270px !important;
+  bottom: 0;
+  position: absolute;
+}
+.smallImg3 {
+  width: 270px !important;
+  height: 270px !important;
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+.smallImg4 {
+  width: 270px !important;
+  height: 270px !important;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+.bigImg {
+  height: 550px !important;
+  width: 560px !important;
+}
+
+.fourPic {
+  margin-left: 8px;
+}
+.box__photo {
+  display: flex;
+  position: relative;
+  width: 1116px;
+}

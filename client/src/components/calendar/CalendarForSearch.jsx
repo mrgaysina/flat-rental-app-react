@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import './Calendar.css';
 import dayjs from 'dayjs';
-import { TextField, 
-         Box, 
-         FormControl, 
-         InputLabel, 
-         Select, 
-         MenuItem, 
-         Button,
-         Typography } from '@mui/material';
+import {
+  TextField,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Typography,
+} from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -53,52 +56,53 @@ export function CalendarForSearch({id, guests, cost}) {
     axios.post(`http://localhost:3001/flat/booking/${id}`, {id, checkin, checkout, bookCost, duration, person}, {withCredentials: true})
   }
 
+
   console.log(value);
   return (
-    <Box     
-    marginTop="20px"
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    flexDirection='column'
-    >
-      
     <Box
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    flexDirection='row'
-    width="300px">
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
-        <DatePicker
-        disablePast="true"
-        shouldDisableDate={disableDate}
-          label="Прибытие"
-          renderInput={(params) => <TextField {...params} />}
-          value={checkin}
-          onChange={(value) => {
-            setCheckin(value);
-          }}
-        />
-      </Stack>
-    </LocalizationProvider>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
-        <DatePicker
-          disablePast="true"
-          shouldDisableDate={disableDate}
-          label="Выезд"
-          renderInput={(params) => <TextField {...params} />}
-          value={checkout}
-          onChange={(value) => {
-            setCheckOut(value);
-          }}
-        />
-      </Stack>
-    </LocalizationProvider>
-    </Box>
-    <FormControl sx={{ m: 1, minWidth: 300 }}>
+
+      marginTop="20px"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="row"
+        width="300px"
+      >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Stack spacing={3}>
+            <DatePicker
+              disablePast="true"
+              label="Прибытие"
+              renderInput={(params) => <TextField {...params} />}
+              value={checkin}
+              onChange={(value) => {
+                setCheckin(value);
+              }}
+            />
+          </Stack>
+        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Stack spacing={3}>
+            <DatePicker
+              disablePast="true"
+              label="Выезд"
+              renderInput={(params) => <TextField {...params} />}
+              value={checkout}
+              onChange={(value) => {
+                setCheckOut(value);
+              }}
+            />
+          </Stack>
+        </LocalizationProvider>
+      </Box>
+      <FormControl sx={{ m: 1, minWidth: 300 }}>
+
         <InputLabel id="demo-simple-select-helper-label">Гостей</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
@@ -112,9 +116,15 @@ export function CalendarForSearch({id, guests, cost}) {
           <MenuItem value={3}>3 гостя</MenuItem>
           <MenuItem value={4}>4 гостя</MenuItem>
         </Select>
-    </FormControl>
-    <Button onClick={handleBooking}>Забронировать</Button>
-    <Typography>Пока вы ничего не платите</Typography>
-  </Box>
+      </FormControl>
+      <Button
+        sx={{ width: '300px', height: '40px' }}
+        variant="contained"
+        onClick={handleBooking}
+      >
+        Забронировать
+      </Button>
+      <Typography>Пока вы ничего не платите</Typography>
+    </Box>
   );
 }
