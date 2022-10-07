@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard } from '../RTKSlice/rtkslice';
-// import Calculator from '../components/calculator/Calculator'
+
+import { Calculator } from '../components/calculator/Calculator'
+
 
 
 export const Flat = () => {
