@@ -5,7 +5,9 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard } from '../RTKSlice/rtkslice';
+
 import { Calculator } from '../components/calculator/Calculator'
+
 
 
 export const Flat = () => {
@@ -26,7 +28,7 @@ export const Flat = () => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center'}} >
       <YaMap x={x} y={y}/>
-      <Calculator id={id}/>
+      {/* <Calculator id={id}/> */}
     </Box>
     
   )
