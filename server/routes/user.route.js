@@ -35,9 +35,9 @@ route.post('/login', async (req, res) => {
     if (password === user.password) {
       // 3. Create Refresh- and Accesstoken
       const accesstoken = createAccessToken(user.id);
-      // console.log('accesstoken from login ==>', accesstoken);
+      console.log('accesstoken from login ==>', accesstoken);
       const refreshtoken = createRefreshToken(user.id);
-      // console.log('refreshtoken from login ==>', refreshtoken);
+      console.log('refreshtoken from login ==>', refreshtoken);
       // 4. Store Refreshtoken with user in "db"
       // Could also use different version numbers instead.
       // Then just increase the version number on the revoke endpoint
@@ -49,10 +49,6 @@ route.post('/login', async (req, res) => {
       }
       // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
       sendRefreshToken(res, refreshtoken);
-      /*       res.cookie('refreshtoken', refreshtoken, {
-        httpOnly: true,
-        path: '/auth/refresh_token',
-      }); */
       // console.log('from login: req.cookies.refreshtoken===>', req.cookies.refreshtoken);
       sendAccessToken(req, res, accesstoken);
       // res.json({ user: user.email, name: user.name, id: user.id });
@@ -65,7 +61,7 @@ route.post('/login', async (req, res) => {
 });
 
 route.post('/logout', async (req, res) => {
-  console.log('req.body from logout', req.body);
+  // console.log('req.body from logout', req.body);
   const { user } = req.body;
   // Logic here for also remove refreshtoken from db
   await Token.destroy({ where: { userId: user.id } });
@@ -76,28 +72,29 @@ route.post('/logout', async (req, res) => {
 });
 
 route.post('/protected', async (req, res) => {
+  console.log('req.headers from protected', req.headers);
   try {
     const userId = isAuth(req);
+    // console.log('userId from protected', userId);
     if (userId !== null) {
       res.send({
         data: 'This is protected data.',
       });
     }
   } catch (err) {
-    res.send({
-      error: `${err.message}`,
-    });
+    res.send(err);
   }
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  // console.log('token from refresh_token ==>', token);
+  console.log('token from refresh_token ==>', token);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+    console.log('payload from refresh', payload);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
     // console.log('user from refresh_token', user);
