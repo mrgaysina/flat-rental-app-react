@@ -30,9 +30,9 @@
   border: inherit;
   border-radius: 6px;
   box-sizing: border-box;
-  background: linear-gradient(90deg, #03a9f4, #fab9de, #9bb2c9, #03a9f4);
+  background: linear-gradient(90deg, #03a9f4, #a7effc, #9bb2c9, #03a9f4);
   background-size: 300%;
-  animation: animate 8s linear infinite;
+  animation: animate 20s linear infinite;
 }
 .btn__reg__form:active {
   transform: scale(1.01);
