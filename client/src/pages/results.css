@@ -3,7 +3,8 @@
     padding-left: 5%;
     padding-right: 5%;
     flex-direction: row;
-    justify-content:space-evenly
+    justify-content: space-evenly;
+    position: relative;
   }
 
 .cards {

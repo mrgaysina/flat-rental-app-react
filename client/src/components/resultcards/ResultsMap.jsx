@@ -7,19 +7,6 @@ import { YMaps, Map, Placemark, Clusterer } from "@pbe/react-yandex-maps";
 
 export const ResultsMap = ({point}) => {
 
-  // const [metka, setMetka] = useState([])
-
-    console.log('point[0]',point[0]);
-    // const placemarks = point.map((el) => {
-    //   return new YMaps.Placemark(el, {
-    //     iconContent: '1',
-    //     balloonContent: 'Балун',
-    //     hintContent: 'Стандартный значок метки'
-    //   })
-    // })
-    // setMetka(placemarks)
-
-
   return (
     <YMaps >
     <Map className='resultMap' defaultState={{
