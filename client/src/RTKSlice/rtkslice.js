@@ -4,27 +4,21 @@ const rtkSlice = createSlice({
     name: 'rtkSlice',
     initialState: {
         card:[],
-        cardsArray:[],
+        allCards:[],
         
     },
     reducers: {
         getAllCard(state,action){
             state.card = action.payload
-            state.cardsArray = state.card;
-            console.log('state.card getAllCard',state.card.filter(el => el.category === getFilterCard()));
+            state.allCards = action.payload
+            
+            // console.log('state.card getAllCard',state.card.filter(el => el.category === "Город"));
             console.log('action.payload getAllCard',action.payload); //!
-            console.log('state.cardsArray',state.cardsArray);
-           
+            
         },
         
         getFilterCard(state,action){
-
-            state.str = action.payload
-
-            console.log('state',state);
-            console.log('action.payload getFilterCard',action.payload);
-            console.log('state.str',state.str);
-
+        state.card = state.allCards.filter(el => el.category === action.payload)
         },
     }
 })
