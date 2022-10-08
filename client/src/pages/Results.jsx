@@ -6,7 +6,6 @@ export const Results = () => {
   return (
     <div className='cards__box'>
         <ResultCards />
-    {/* <Cards /> */} Results
   </div>
   )
 }

@@ -40,7 +40,7 @@ const handlerGuests = (event) => {
 const checkBooking = () => {
   axios.post(`http://localhost:3001/search`, {checkin, checkout, direction, guests}, {withCredentials: true})
   .then((res) => {
-    dispatch(getAllCard([res.data]))
+    dispatch(getAllCard(res.data))
   })
 }
 
