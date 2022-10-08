@@ -41,6 +41,8 @@ export const Flat = () => {
       });
   }, []);
 
+  console.log(typeof x);
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
   return (
 

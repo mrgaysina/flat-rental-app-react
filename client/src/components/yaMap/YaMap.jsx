@@ -7,6 +7,8 @@ import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 
 export const YaMap = ({x,y}) => {
 
+  console.log('x y YAMAP', x, y, typeof x, typeof y);
+
   return (
     <YMaps >
     <Map className='yaMap' defaultState={{

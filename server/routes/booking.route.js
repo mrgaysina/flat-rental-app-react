@@ -2,16 +2,15 @@ const route = require('express').Router();
 const { Booking } = require('../db/models');
 
 route.get('/:id', async (req, res) => {
-  console.log('req.params', req.params);
-  const bookDate = await Booking.findAll({raw: true, where: { flatId: req.params.id}})
-  console.log('bookDate', bookDate);
+  const bookDate = await Booking.findAll({ raw: true, where: { flatId: req.params.id } });
   res.json(bookDate);
 });
 
-
 route.post('/:id', async (req, res) => {
   try {
-    const { id, checkin, checkout, bookCost, duration, person } = req.body;
+    const {
+      id, checkin, checkout, bookCost, duration, person,
+    } = req.body;
     await Booking.create({
       flatId: id,
       startDate: checkin,
@@ -24,5 +23,6 @@ route.post('/:id', async (req, res) => {
     console.error('Error', error);
   }
 });
+
 
 module.exports = route;
