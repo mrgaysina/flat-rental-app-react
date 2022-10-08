@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SingleCard from '../../components/singleCard/SingleCard';
-import Box from '@mui/material/Box';
 import './Cards.css';
 import axios from 'axios';
 import './Category.css';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
-import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
-import CastleOutlinedIcon from '@mui/icons-material/CastleOutlined';
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
-import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
-
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard,getFelterCard } from '../../RTKSlice/rtkslice';
+import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
 
 
 import Loader from '../loader/Loader';
@@ -58,7 +49,7 @@ const Cards = () => {
           setIsFetching(true)
         )
         .then((res) => {
-          console.log('res.data', res.data);
+
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
           setCurrentPage((prevState) => prevState + 10);
         })
@@ -88,12 +79,12 @@ const Cards = () => {
   };
 
   return (
-    <><div className="categ">
+    <>
+    <div className="categ">
       <div className='categIcon'>
-        <LandscapeOutlinedIcon sx={{ fontSize: 35, color: 'gray' }} />
-        <AcUnitOutlinedIcon sx={{ fontSize: 35, color: 'gray' }} />
-        <AirlineSeatIndividualSuiteOutlinedIcon
-          sx={{ fontSize: 35, color: 'gray' }}
+        <LandscapeOutlinedIcon onClick={filterCityHandler} sx={{ fontSize: 35, color: 'gray' }} />
+        <AcUnitOutlinedIcon onClick={filterSeaHandler} sx={{ fontSize: 35, color: 'gray' }} />
+        <AirlineSeatIndividualSuiteOutlinedIcon onClick={filterMountHandler} sx={{ fontSize: 35, color: 'gray' }}
         />
       </div>
     </div>
