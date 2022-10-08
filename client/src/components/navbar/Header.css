@@ -32,8 +32,8 @@
   width: 450px;
 }
 
-
 .header__right {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,4 +78,34 @@
   object-fit: contain;
   height: 30px;
   cursor: pointer;
+}
+
+/* !-------------------------------------------------------------------модалка\/  */
+.myModal {
+  width: 300px;
+  background-color: inherit !important;
+}
+
+.reg__btn {
+  cursor: pointer;
+  padding: 10px 0 10px 0;
+}
+.reg__btn:hover {
+  background-color: rgba(211, 211, 211, 0.39);
+}
+.log__btn {
+  cursor: pointer;
+
+  display: flex;
+  padding: 10px 0 10px 0;
+}
+.log__btn:hover {
+  background-color: rgba(211, 211, 211, 0.39);
+}
+.help__btn {
+  cursor: pointer;
+  padding: 10px 0 10px 0;
+}
+.help__btn:hover {
+  background-color: rgba(211, 211, 211, 0.39);
 }

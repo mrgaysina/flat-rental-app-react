@@ -31,7 +31,7 @@ const SingleCard = ({ el, isFetching }) => {
               position: 'absolute',
               top: '15px',
               right: '20px',
-              zIndex: '100',
+              zIndex: '10',
             }}
           >
             <FavoriteTwoToneIcon
@@ -71,7 +71,6 @@ const SingleCard = ({ el, isFetching }) => {
               className="card__content"
               sx={{ textAlign: 'left', padding: '10px 0 0 0' }}
               onClick={() => navigate(`/flat/${el.id}`)}
-
             >
               <div className="container__rate">
                 <Typography

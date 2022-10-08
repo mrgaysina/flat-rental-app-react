@@ -15,7 +15,9 @@ const Protected = ({ user }) => {
           withCredentials: true,
         }
       );
-      if (result.data) setContent(result.data);
+      if (result.data) 
+      console.log('result.data', result.data.message);
+      setContent(result.data.message);
     }
     fetchProtected();
   }, [user]);

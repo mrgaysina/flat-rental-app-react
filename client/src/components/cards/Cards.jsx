@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import SingleCard from '../../components/singleCard/SingleCard';
-import Box from '@mui/material/Box';
 import './Cards.css';
+import Box from '@mui/material/Box';
 import axios from 'axios';
+import './Category.css';
+import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
+import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
+import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard } from '../../RTKSlice/rtkslice';
+import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
+
+
 import Loader from '../loader/Loader';
 import { YaMap } from '../yaMap/YaMap';
 
@@ -14,8 +20,37 @@ const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
+  const [catFilter, setCatFilter] = useState('All'); 
+
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
+
+  const handlFilter = (catagory) => {
+    setIsFetching(true)
+    setCatFilter(catagory)
+
+    axios.get(`http://localhost:3001/allFlat/${catagory}`)
+    .then((res)=>{
+      console.log('res.data!!!!!!!!',res.data);
+      dispatch(getFilterCard(res.data))
+    })
+    setIsFetching(false)
+
+  }
+
+  const filterCityHandler = () => {
+    setCatFilter('Город')
+    dispatch(getFilterCard('Город'));
+    console.log('click on button');
+  }
+  const filterSeaHandler = () => {
+    setCatFilter('Море')
+    dispatch(getFilterCard('Море'));
+  }
+  const filterMountHandler = () => {
+    setCatFilter('Горы')
+    dispatch(getFilterCard('Горы'));
+  }
 
   useEffect(() => {
     if (fetching) {
@@ -27,7 +62,7 @@ const Cards = () => {
           setIsFetching(true)
         )
         .then((res) => {
-          console.log('res.data', res.data);
+
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
           setCurrentPage((prevState) => prevState + 10);
         })
@@ -39,34 +74,46 @@ const Cards = () => {
     }
   }, [fetching]);
 
+
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
     return function () {
       document.removeEventListener('scroll', scrollHandler);
     };
-  }, []);
+  }, [catFilter]);
 
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      100
+      100 && catFilter === 'All'
     ) {
       setFetching(true);
     }
   };
 
   return (
-
-    <div className="wrapper">
-      {card.map((el) => (
-        <SingleCard
-          key={el.id}
-          el={el}
+    <div >
+    <div className="categ">
+      <div className='categIcon'>
+        <LandscapeOutlinedIcon onClick={()=> handlFilter('Город')} sx={{ fontSize: 35, color: 'gray' }} />
+        <AcUnitOutlinedIcon onClick={()=> handlFilter('Море')} sx={{ fontSize: 35, color: 'gray' }} />
+        <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}
         />
-      ))}
-      {isFetching && card.map((el) => <Loader />)}
+      </div>
     </div>
+
+    <Box
+      className="wrapper"
+      marginTop="20px"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+        {isFetching ? <><Loader/> <Loader/> <Loader/> <Loader/> </> : card?.map((el) => <SingleCard key={el.id} el={el} />)}
+      </Box>
+      </div>
+  
   );
 };
 
