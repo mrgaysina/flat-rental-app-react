@@ -20,23 +20,35 @@ const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
-  // const [catFilter, setCatFilter] = useState('All'); 
+  const [catFilter, setCatFilter] = useState('All'); 
 
   const card = useSelector((store) => store.toolkit.card);
-  // const cardsArray = useSelector((store) => store.toolkit.cardsArray)
   const dispatch = useDispatch();
 
+  const handlFilter = (catagory) => {
+    setIsFetching(true)
+    setCatFilter(catagory)
+
+    axios.get(`http://localhost:3001/allFlat/${catagory}`)
+    .then((res)=>{
+      console.log('res.data!!!!!!!!',res.data);
+      dispatch(getFilterCard(res.data))
+    })
+    setIsFetching(false)
+
+  }
+
   const filterCityHandler = () => {
-    // setCatFilter('Город')
+    setCatFilter('Город')
     dispatch(getFilterCard('Город'));
     console.log('click on button');
   }
   const filterSeaHandler = () => {
-    // setCatFilter('Море')
+    setCatFilter('Море')
     dispatch(getFilterCard('Море'));
   }
   const filterMountHandler = () => {
-    // setCatFilter('Горы')
+    setCatFilter('Горы')
     dispatch(getFilterCard('Горы'));
   }
 
@@ -62,18 +74,19 @@ const Cards = () => {
     }
   }, [fetching]);
 
+
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
     return function () {
       document.removeEventListener('scroll', scrollHandler);
     };
-  }, []);
+  }, [catFilter]);
 
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      100
+      100 && catFilter === 'All'
     ) {
       setFetching(true);
     }
@@ -83,9 +96,9 @@ const Cards = () => {
     <div >
     <div className="categ">
       <div className='categIcon'>
-        <LandscapeOutlinedIcon onClick={filterCityHandler} sx={{ fontSize: 35, color: 'gray' }} />
-        <AcUnitOutlinedIcon onClick={filterSeaHandler} sx={{ fontSize: 35, color: 'gray' }} />
-        <AirlineSeatIndividualSuiteOutlinedIcon onClick={filterMountHandler} sx={{ fontSize: 35, color: 'gray' }}
+        <LandscapeOutlinedIcon onClick={()=> handlFilter('Город')} sx={{ fontSize: 35, color: 'gray' }} />
+        <AcUnitOutlinedIcon onClick={()=> handlFilter('Море')} sx={{ fontSize: 35, color: 'gray' }} />
+        <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}
         />
       </div>
     </div>
@@ -97,7 +110,7 @@ const Cards = () => {
       justifyContent="center"
       alignItems="center"
     >
-        {card?.map((el) => <SingleCard key={el.id} el={el} />)}
+        {isFetching ? <><Loader/> <Loader/> <Loader/> <Loader/> </> : card?.map((el) => <SingleCard key={el.id} el={el} />)}
       </Box>
       </div>
   
