@@ -15,7 +15,7 @@ import MyModalLog from '../modalLog/MyModalLog';
 import {Divider,
         Paper,
         Stack,
-        TextField, Box } from '@mui/material';
+        TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
