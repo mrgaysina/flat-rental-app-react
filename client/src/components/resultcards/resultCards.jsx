@@ -1,37 +1,20 @@
 import React, {useEffect, useState} from 'react'
+import '../../pages/results.css'
 import { useSelector } from 'react-redux'
-import SingleCard from '../singleCard/SingleCard'
-import { ResultsMap } from '../yaMap/ResultsMap'
+import ResultSingleCard from './ResultSingleCard'
+import { ResultsMap } from './ResultsMap'
 
 export const ResultCards = () => {
   const card = useSelector((store) => store.toolkit.card)
 
-  const [point, setPoint] = useState([]);
-
-  const arrPoint = [];
-  useEffect(() => {
-    card.map((el) => {
-      console.log(el.coordinates);
-      arrPoint.push(el.coordinates.split(','))
-      setPoint(arrPoint);
-    })
-  }, [])
-  
-  console.log('arrPoints',point);
-  console.log('cards toolkit',card);
-
-
   return (
-    <div className="wrapper">
+    <div className="wrapper_results">
       {card.map((el) => (
-        <SingleCard
+        <ResultSingleCard
           key={el.id}
           el={el}
         />
       ))}
-      <ResultsMap
-          point={point}
-        />
       {/* {isFetching && card.map((el) => <Loader />)} */}
     </div>
   )

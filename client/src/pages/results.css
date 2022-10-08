@@ -1,5 +1,25 @@
-.cards__box {
+.result__page {
     display: flex;
     padding-left: 5%;
     padding-right: 5%;
+    flex-direction: row;
+    justify-content:space-evenly
   }
+
+.cards {
+  display: flex;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.wrapper_results{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vh;
+}
+
+/* .carousel-root{
+  height: 305px;
+  height: 220px;
+} */

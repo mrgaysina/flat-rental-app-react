@@ -18,6 +18,8 @@ route.post('/', async (req, res) => {
       required: false,
     }],
     where: { city: direction, guestsQty: { [Op.gte]: guests } },
+    // limit: 10,
+    // offset: req.body.currentPage,
   });
   console.log(findHome);
   res.json(findHome)
