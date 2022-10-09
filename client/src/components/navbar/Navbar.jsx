@@ -12,24 +12,50 @@ import { Typography } from '@mui/material';
 import MyModalProf from '../modalProf/MyModalProf';
 import Box from '@mui/material/Box';
 import MyModalLog from '../modalLog/MyModalLog';
-import {Divider,
-        Paper,
-        Stack,
-        TextField } from '@mui/material';
+import { Divider, Paper, Stack, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
-import axios from 'axios'
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard } from '../../RTKSlice/rtkslice';
-
+import PublicIcon from '@mui/icons-material/Public';
+import FaceIcon from '@mui/icons-material/Face';
+import Chip from '@mui/material/Chip';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const Navbar = () => {
-
-const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+  const [change, setChange] = useState('header__center');
+  const [change2, setChange2] = useState('header');
+  const [sizeCh1, setSizeCh1] = useState('7ch');
+  const [sizeCh2, setSizeCh2] = useState('17ch');
+  const [titleNav, setTitleNav] = useState('title__modal');
+  const [textF, setTextF] = useState('standard');
+  const [sizeCh4, setSizeCh4] = useState();
+
+  const changeCl = () => {
+    setChange('header__center__on');
+    setChange2('header__on');
+    // setTextF('outlined');
+    setSizeCh1('21ch');
+    setSizeCh2('21ch');
+    setTextF('outlined');
+    setTitleNav('title__modal_on');
+  };
+
+  const changeOff = () => {
+    setChange('header__center__off');
+    setChange2('header__off');
+    // setTextF('outlined');
+    setSizeCh1('7ch');
+    setSizeCh2('17ch');
+    setTextF('standard');
+    setTitleNav('title__modal_off');
+  };
 
   const handleModal = () => {
     setModal(true);
@@ -49,69 +75,117 @@ const [modal, setModal] = useState(false);
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
 
-const [checkin, setCheckin] = useState(dayjs(new Date()));
-const [checkout, setCheckOut] = useState(dayjs(new Date()));
-const [direction, setDirection] = useState('');
-const [guests, setGuests] = useState();
+  const [checkin, setCheckin] = useState(dayjs(new Date()));
+  const [checkout, setCheckOut] = useState(dayjs(new Date()));
+  const [direction, setDirection] = useState('');
+  const [guests, setGuests] = useState();
 
-const handlerDirection = (event) => {
-  setDirection(event.target.value)
-}
+  const handlerDirection = (event) => {
+    setDirection(event.target.value);
+  };
 
-const handlerGuests = (event) => {
-  setGuests(event.target.value)
-}
+  const handlerGuests = (event) => {
+    setGuests(event.target.value);
+  };
 
-const checkBooking = () => {
-  axios.post(`http://localhost:3001/search`, {checkin, checkout, direction, guests}, {withCredentials: true})
-  .then((res) => {
-    dispatch(getAllCard(res.data))
-  })
-}
+  const checkBooking = () => {
+    axios
+      .post(
+        `http://localhost:3001/search`,
+        { checkin, checkout, direction, guests },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        dispatch(getAllCard(res.data));
+      });
+  };
 
-const onClickFunc = () => {
-  checkBooking();
-  navigate('/results')
-}
+  const onClickFunc = () => {
+    checkBooking();
+    navigate('/results');
+  };
 
   return (
-    <div className="header">
+    <div className={change2}>
+      <Box className={titleNav}>
+        <Typography
+          sx={{ fontSize: '18px', color: '#616262' }}
+          variant="body1"
+        >
+          <b>Выберите даты аренды и мы найдем для вас варианты</b>
+        </Typography>
+        <Chip
+          sx={{ marginLeft: '10px' }}
+          label="Поиск"
+          onClick={(event) => {
+            onClickFunc(event);
+            changeOff();
+          }}
+        />
+        <Chip
+          sx={{ marginLeft: '10px' }}
+          label={<CancelIcon sx={{ color: 'gray' }} />}
+          onClick={changeOff}
+        />
+      </Box>
       <img
         className="header__icon"
         src="https://psv4.userapi.com/c237331/u13359694/docs/d24/dd4654f39ad0/no.png?extra=2kNgMHzgaakKeNNs-eAhfnT_wXY51uCdB1Ogxj-JlGL9O85AlA3NCIowGAQ_dGZJrGzqeCGdByxUgiE3Q_HsUBi6I-dZuJSr8_EgmQkDLrpPml7iE9MUhj1_GTT50N7RrpaulhzRxIpVlPXFs4Ks"
         alt="header__icon"
-        onClick={()=>navigate('/')}
+        onClick={() => navigate('/')}
       />
-      <Paper 
-        className="header__center"
-        square={true}
-        >
+      <Box
+        onClick={changeCl}
+        sx={{ margin: '150px' }}
+        className={change}
+      >
         <Stack
           direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={2}
+          divider={
+            <Divider
+              orientation="vertical"
+              flexItem
+            />
+          }
+          spacing={1}
           justifyContent="space-evenly"
-          >
+        >
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
+              '& > :not(style)': { m: 0, width: [sizeCh1], transition: '0.4s' },
             }}
             noValidate
             autoComplete="off"
           >
-            <TextField id="outlined-basic" label="Где" variant="outlined" placeholder="Поиск направлений" value={direction} onChange={handlerDirection}/>
+            <TextField
+              size="small"
+              id="outlined-basic"
+              label={<PublicIcon sx={{ paddingLeft: '16px' }} />}
+              variant={textF}
+              placeholder="Поиск направлений"
+              value={direction}
+              onChange={handlerDirection}
+            />
           </Box>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack spacing={3}>
               <DatePicker
-              disablePast="true"
-              label="Прибытие"
-              renderInput={(params) => <TextField {...params} />}
-              value={checkin}
-              onChange={(value) => {
-                setCheckin(value);
-              }}
+                size="small"
+                disablePast="true"
+                label="Прибытие"
+                renderInput={(params) => (
+                  <TextField
+                    variant={textF}
+                    sx={{ width: [sizeCh2], transition: '0.4s' }}
+                    size="small"
+                    {...params}
+                  />
+                )}
+                value={checkin}
+                onChange={(value) => {
+                  setCheckin(value);
+                }}
               />
             </Stack>
           </LocalizationProvider>
@@ -120,39 +194,61 @@ const onClickFunc = () => {
               <DatePicker
                 disablePast="true"
                 label="Выезд"
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => (
+                  <TextField
+                    variant={textF}
+                    sx={{ width: [sizeCh2], transition: '0.4s' }}
+                    size="small"
+                    {...params}
+                  />
+                )}
                 value={checkout}
                 onChange={(value) => {
-                setCheckOut(value);
+                  setCheckOut(value);
                 }}
               />
             </Stack>
-          </LocalizationProvider >
+          </LocalizationProvider>
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
+              '& > :not(style)': { m: 0, width: [sizeCh1], transition: '0.4s' },
             }}
             noValidate
             autoComplete="off"
           >
-            <TextField id="outlined-basic" label="Кто" variant="outlined" placeholder="Кто едет?" value={guests} onChange={handlerGuests}/>
+            <TextField
+              size="small"
+              id="outlined-basic"
+              label={<FaceIcon sx={{ paddingLeft: '16px' }} />}
+              variant={textF}
+              placeholder="Кто едет?"
+              value={guests}
+              onChange={handlerGuests}
+            />
           </Box>
-          <button className="search" onClick={onClickFunc}>
+          {/* <button
+            className="search"
+            onClick={onClickFunc}
+          >
             <SearchIcon style={{ color: 'white' }} />
-          </button>
+          </button> */}
         </Stack>
-      </Paper>
+      </Box>
 
       <div className="header__right">
-        <p style={{ fontSize: '14px' }}>Сдайте жилье</p>
-        <LanguageIcon />
+        <Typography
+          variant="body"
+          style={{ fontSize: '14px' }}
+        >
+          Сдайте жилье
+        </Typography>
         <div
           className="profile__menu"
           onClick={handleModal}
         >
-          <MenuIcon style={{ color: 'grey' }} />
-          <AccountCircleIcon style={{ fontSize: '35px', color: 'grey' }} />
+          <MenuIcon style={{ color: 'gray' }} />
+          <AccountCircleIcon style={{ fontSize: '35px', color: '#cdcccc' }} />
         </div>
       </div>
       <MyModalProf
@@ -177,10 +273,10 @@ const onClickFunc = () => {
             onClick={handleModal2}
           >
             <Typography
-              variant="subtitle"
-              style={{ paddingLeft: '15px' }}
+              variant="body2"
+              style={{ paddingLeft: '15px', fontSize: '15px' }}
             >
-              Зарегистрироваться
+              <b>Зарегистрироваться</b>
             </Typography>
           </Box>
           <Box
@@ -195,7 +291,7 @@ const onClickFunc = () => {
           >
             <Typography
               variant="subtitle"
-              style={{ paddingLeft: '15px' }}
+              style={{ paddingLeft: '15px', fontSize: '15px' }}
             >
               Войти
             </Typography>
@@ -221,7 +317,7 @@ const onClickFunc = () => {
           >
             <Typography
               variant="subtitle"
-              style={{ paddingLeft: '15px' }}
+              style={{ paddingLeft: '15px', fontSize: '15px' }}
             >
               Помощь
             </Typography>

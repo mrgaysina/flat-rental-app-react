@@ -17,3 +17,15 @@
 .card__content {
   cursor: pointer;
 }
+
+.caruselMain{
+  display: flex;
+  width: 305px;
+  height: 290px;
+}
+
+.eben{
+  display:block !important;
+  height: 100% !important;
+  width: 100% !important;
+}
