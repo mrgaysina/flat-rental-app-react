@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux';
 
 export const ResultsMap = () => {
 
-  // const coor = useSelector((store) => store.toolkit.coordinates)
+  const coor = useSelector((store) => store.toolkit.coordinates)
 
   const points = useSelector((store) => store.toolkit.points)
 
-  console.log('points', points);
+  console.log('points', points, coor);
 
   return (
     <YMaps>
@@ -26,7 +26,9 @@ export const ResultsMap = () => {
         >
           {
         points.map((point) => (
-              <Placemark geometry={point.coordinates.split(', ')} properties={{iconContent: point.costPerNight}} />
+              <Placemark geometry={point.coordinates.split(', ')}
+               properties={{iconContent: point.costPerNight}} 
+               />
           ))}
         </Map>
     </YMaps>

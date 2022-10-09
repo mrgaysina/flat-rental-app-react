@@ -40,7 +40,7 @@ const rtkSlice = createSlice({
 
         getCost(state,action) {
             state.costs = action.payload
-            console.log('action.payload coordinates',action.payload);
+            console.log('action.payload costs',action.payload);
         }
     }
 })
