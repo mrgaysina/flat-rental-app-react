@@ -4,20 +4,29 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
+import { useSelector } from 'react-redux';
 
 
-export const ResultsMap = ({ point }) => {
+export const ResultsMap = () => {
+
+  // const coor = useSelector((store) => store.toolkit.coordinates)
+
+  const points = useSelector((store) => store.toolkit.points)
+
+  console.log('points', points);
+
   return (
     <YMaps>
         <Map
           className="resultMap"
           defaultState={{
-            center: point[0],
+            center: points[0].coordinates.split(', '),
             zoom: 12,
           }}
         >
-          {point.map((el) => (
-            <Placemark geometry={el} />
+          {
+        points.map((point) => (
+              <Placemark geometry={point.coordinates.split(', ')} properties={{iconContent: point.costPerNight}} />
           ))}
         </Map>
     </YMaps>

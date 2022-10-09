@@ -21,8 +21,8 @@ route.post('/', async (req, res) => {
     // limit: 10,
     // offset: req.body.currentPage,
   });
-  console.log(findHome);
-  res.json(findHome)
+
+  res.json({ findHome });
 });
 
 module.exports = route;

@@ -6,7 +6,7 @@ import { ResultsMap } from './ResultsMap'
 
 
 export const ResultCards = () => {
-  const card = useSelector((store) => store.toolkit.card)
+  const card = useSelector((store) => store.toolkit.points)
 
   return (
     <div className={styles.wrapper_results}>
