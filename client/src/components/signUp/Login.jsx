@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../RTKSlice/rtkslice";
 
-const Login = ({ user, setUser }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+const user = useSelector((store) => store.toolkit.user)
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -18,11 +23,16 @@ const Login = ({ user, setUser }) => {
     console.log('result data from login', result.data);
 
     if (result.data.accesstoken) {
-      setUser({
+      dispatch(getUser({
         id:result.data.id,
         email: result.data.email,
         accesstoken: result.data.accesstoken,
-      });
+      }))
+      /* setUser({
+        id:result.data.id,
+        email: result.data.email,
+        accesstoken: result.data.accesstoken,
+      }); */
       navigate("/");
     } else {
       console.log('error');

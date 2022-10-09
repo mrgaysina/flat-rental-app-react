@@ -15,7 +15,7 @@ const {
 const { User, Token } = require('../db/models');
 
 route.post('/signup', async (req, res) => {
-  // console.log('req.body from signup ==>', req.body);
+  console.log('req.body from signup ==>', req.body);
   const { name, email, password } = req.body;
   const userCheck = await User.findOne({ where: { email }, raw: true });
   if (userCheck) {
@@ -72,7 +72,7 @@ route.post('/logout', async (req, res) => {
 });
 
 route.post('/protected', async (req, res) => {
-  console.log('req.headers from protected', req.headers);
+  // console.log('req.headers from protected', req.headers);
   try {
     const userId = isAuth(req);
     // console.log('userId from protected', userId);
@@ -87,14 +87,14 @@ route.post('/protected', async (req, res) => {
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  console.log('token from refresh_token ==>', token);
+  // console.log('token from refresh_token ==>', token);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
-    console.log('payload from refresh', payload);
+    // console.log('payload from refresh', payload);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
     // console.log('user from refresh_token', user);
