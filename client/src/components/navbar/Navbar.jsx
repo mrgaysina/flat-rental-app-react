@@ -19,7 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard } from '../../RTKSlice/rtkslice';
+import { getPoints, getCoordinates, getCost } from '../../RTKSlice/rtkslice';
 import PublicIcon from '@mui/icons-material/Public';
 import FaceIcon from '@mui/icons-material/Face';
 import Chip from '@mui/material/Chip';
@@ -96,7 +96,7 @@ const Navbar = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        dispatch(getAllCard(res.data));
+        dispatch(getPoints(res.data.findHome));
       });
   };
 
