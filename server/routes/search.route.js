@@ -21,8 +21,13 @@ route.post('/', async (req, res) => {
     // limit: 10,
     // offset: req.body.currentPage,
   });
-
-  res.json({ findHome });
+  const coor = findHome.map((el) => (
+    el.coordinates.split(', ')
+  ));
+  const costs = findHome.map((el) => (
+    el.costPerNight
+  ));
+  res.json({ findHome, coor, costs });
 });
 
 module.exports = route;

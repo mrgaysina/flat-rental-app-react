@@ -96,13 +96,18 @@ const Navbar = () => {
         { withCredentials: true }
       )
       .then((res) => {
+        console.log(res.data);
         dispatch(getPoints(res.data.findHome));
+        dispatch(getCoordinates(res.data.coor));
+        dispatch(getCost(res.data.costs));
       });
   };
 
   const onClickFunc = () => {
     checkBooking();
-    navigate('/results');
+    setTimeout(() => {
+      navigate('/results');
+    }, 500);
   };
 
   return (
