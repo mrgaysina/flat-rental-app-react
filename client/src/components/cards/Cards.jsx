@@ -12,15 +12,12 @@ import PublicIcon from '@mui/icons-material/Public';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
 
-
 import Loader from '../loader/Loader';
-import { YaMap } from '../yaMap/YaMap';
-
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false); //!!!!
   const [catFilter, setCatFilter] = useState('All'); 
 
   const card = useSelector((store) => store.toolkit.card);
@@ -36,8 +33,11 @@ const Cards = () => {
       dispatch(getFilterCard(res.data))
     })
     setIsFetching(false)
-
   }
+
+  useEffect(()=>{
+    return setIsFetching(true) //???????
+  },[])
 
   useEffect(() => {
     if (fetching) {
@@ -46,10 +46,9 @@ const Cards = () => {
           'http://localhost:3001/allFlat',
           { currentPage },
           { withCredentials: true },
-          setIsFetching(true)
+          // setIsFetching(true) //???????
         )
         .then((res) => {
-
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
           setCurrentPage((prevState) => prevState + 10);
         })
@@ -58,6 +57,7 @@ const Cards = () => {
           setIsFetching(false);
         });
     }
+  
   }, [fetching]);
 
 
@@ -96,7 +96,7 @@ const Cards = () => {
       justifyContent="center"
       alignItems="center"
     >
-        {isFetching ? <><Loader/><Loader/><Loader/><Loader/></> : card?.map((el) => <SingleCard key={el.id} el={el}/>)}
+        {isFetching ? <><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/></> : card?.map((el) => <SingleCard key={el.id} el={el}/>)}
       </Box>
       </div>
   
