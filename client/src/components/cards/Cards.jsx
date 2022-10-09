@@ -7,6 +7,13 @@ import './Category.css';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
+
+import PublicIcon from '@mui/icons-material/Public'; 
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
+
+import Loader from '../loader/Loader';
 import Chip from '@mui/material/Chip';
 import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
@@ -25,33 +32,30 @@ const Cards = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [catFilter, setCatFilter] = useState('All');
 
+
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
 
+  const removeFilter = () => {
+    window.location.reload();
+  }
+
   const handlFilter = (catagory) => {
-    setIsFetching(true);
-    setCatFilter(catagory);
+    setIsFetching(true)
+    setCatFilter(catagory)
 
-    axios.get(`http://localhost:3001/allFlat/${catagory}`).then((res) => {
-      console.log('res.data!!!!!!!!', res.data);
-      dispatch(getFilterCard(res.data));
-    });
-    setIsFetching(false);
-  };
+    axios.get(`http://localhost:3001/allFlat/${catagory}`)
+    .then((res)=>{
+      console.log('res.data!!!!!!!!',res.data);
+      dispatch(getFilterCard(res.data))
+    })
+    setIsFetching(false)
+  }
 
-  const filterCityHandler = () => {
-    setCatFilter('Город');
-    dispatch(getFilterCard('Город'));
-    console.log('click on button');
-  };
-  const filterSeaHandler = () => {
-    setCatFilter('Море');
-    dispatch(getFilterCard('Море'));
-  };
-  const filterMountHandler = () => {
-    setCatFilter('Горы');
-    dispatch(getFilterCard('Горы'));
-  };
+  useEffect(()=>{
+    return setIsFetching(true) //???????
+  },[])
+
 
   useEffect(() => {
     if (fetching) {
@@ -60,7 +64,7 @@ const Cards = () => {
           'http://localhost:3001/allFlat',
           { currentPage },
           { withCredentials: true },
-          setIsFetching(true)
+          // setIsFetching(true) //???????
         )
         .then((res) => {
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
@@ -71,6 +75,7 @@ const Cards = () => {
           setIsFetching(false);
         });
     }
+  
   }, [fetching]);
 
   useEffect(() => {
@@ -116,7 +121,7 @@ const Cards = () => {
             variant="filled"
           />
           <Chip
-            onClick={() => handlFilter('Горы')}
+            onClick={()=> removeFilter()}
             icon={
               <PublicIcon
                 sx={{
