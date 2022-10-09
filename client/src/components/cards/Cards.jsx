@@ -7,6 +7,7 @@ import './Category.css';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
+import PublicIcon from '@mui/icons-material/Public'; 
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
@@ -38,20 +39,6 @@ const Cards = () => {
 
   }
 
-  const filterCityHandler = () => {
-    setCatFilter('Город')
-    dispatch(getFilterCard('Город'));
-    console.log('click on button');
-  }
-  const filterSeaHandler = () => {
-    setCatFilter('Море')
-    dispatch(getFilterCard('Море'));
-  }
-  const filterMountHandler = () => {
-    setCatFilter('Горы')
-    dispatch(getFilterCard('Горы'));
-  }
-
   useEffect(() => {
     if (fetching) {
       axios
@@ -70,7 +57,6 @@ const Cards = () => {
           setFetching(false);
           setIsFetching(false);
         });
-
     }
   }, [fetching]);
 
@@ -98,8 +84,8 @@ const Cards = () => {
       <div className='categIcon'>
         <LandscapeOutlinedIcon onClick={()=> handlFilter('Город')} sx={{ fontSize: 35, color: 'gray' }} />
         <AcUnitOutlinedIcon onClick={()=> handlFilter('Море')} sx={{ fontSize: 35, color: 'gray' }} />
-        <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}
-        />
+        <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}/>
+        <PublicIcon onClick={()=> handlFilter('All')} sx={{ fontSize: 35, color: 'gray' }}/>
       </div>
     </div>
 
@@ -110,7 +96,7 @@ const Cards = () => {
       justifyContent="center"
       alignItems="center"
     >
-        {isFetching ? <><Loader/> <Loader/> <Loader/> <Loader/> </> : card?.map((el) => <SingleCard key={el.id} el={el} />)}
+        {isFetching ? <><Loader/><Loader/><Loader/><Loader/></> : card?.map((el) => <SingleCard key={el.id} el={el}/>)}
       </Box>
       </div>
   
