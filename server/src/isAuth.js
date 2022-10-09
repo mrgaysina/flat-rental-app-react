@@ -2,7 +2,7 @@ const { verify } = require('jsonwebtoken');
 
 const isAuth = (req) => {
   const auth = req.headers.cookie;
-  console.log('auth  ', auth);
+  // console.log('auth  ', auth);
   if (!auth) throw new Error('You need to login.');
   // Based on 'refreshtoken=ksfljrewori384328289398432'
   const token = auth.split('=')[1];

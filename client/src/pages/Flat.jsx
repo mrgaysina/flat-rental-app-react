@@ -17,23 +17,31 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
 import PetsIcon from '@mui/icons-material/Pets';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
+import CookieIcon from '@mui/icons-material/Cookie';
+import MicrowaveIcon from '@mui/icons-material/Microwave';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import WifiIcon from '@mui/icons-material/Wifi';
+import TvIcon from '@mui/icons-material/Tv';
+import AirIcon from '@mui/icons-material/Air';
+import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 
 export const Flat = () => {
-
   const { id } = useParams();
   const [x, setX] = useState([]);
   const [y, setY] = useState([]);
   const [comments, setComments] = useState([]);
-  const [photos,setPhotos] = useState([]);
-  const [flat,setFlat] = useState([])
-  const [costPerNight,setCostPerNight] = useState([]);//! тут будет оплата
+  const [photos, setPhotos] = useState([]);
+  const [flat, setFlat] = useState([]);
+  const [costPerNight, setCostPerNight] = useState([]); //! тут будет оплата
 
   useEffect(() => {
     axios
       .post('http://localhost:3001/yaMap', { id }, { withCredentials: true })
       .then((res) => {
- 
-        setFlat(res.data.flat)
+        setFlat(res.data.flat);
         setX(res.data.coordinats.split(',')[0]);
         setY(res.data.coordinats.split(',')[1]);
         setPhotos(res.data.flat.photos);
@@ -43,10 +51,19 @@ export const Flat = () => {
 
   console.log(typeof x);
 
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
-  return (
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
       <Box
         sx={{
           display: 'flex',
@@ -54,10 +71,25 @@ export const Flat = () => {
           flexDirection: 'column',
         }}
       >
+        <Typography
+          variant="subtitle2"
+          sx={{ textAlign: 'left', fontSize: '20px' }}
+        >
+          {flat.category} · {flat.type}
+        </Typography>
         <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <StarIcon sx={{ fontSize: '16px' }} />
-            <span>{flat.rating} · {comments.length} отзывов · {flat.address} · {flat.city} · {flat.country}</span>
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <StarIcon sx={{ fontSize: '12px' }} />
+            <span>
+              {flat.rating} · {comments.length} отзывов · {flat.address} ·{' '}
+              {flat.city} · {flat.country}
+            </span>
           </Box>
           <Box>
             <u>Сохранить</u>
@@ -123,7 +155,8 @@ export const Flat = () => {
                 color="text.secondary"
                 style={{ display: 'flex', justifyContent: 'space-between' }}
               >
-                {flat.guestsQty} гостей · 4 спальни · {flat.bedsQty} кроватей · {flat.bathroom} ванная
+                {flat.guestsQty} гостей · {flat.bedsQty} кроватей ·{' '}
+                {flat.bathroom} ванная
               </Typography>
               <hr style={{ margin: '30px 0 30px 0' }} />
             </Box>
@@ -143,9 +176,18 @@ export const Flat = () => {
                 component="img"
                 image="https://psv4.userapi.com/c237131/u13359694/docs/d1/f314a2849df4/nolimit.png?extra=JXxR2MUQyBJqiFrzzqqjYpae9rqHsVyfrf-Fcz9ygBeaD7GOC-nwHeXwG979uPAnCi13KKp7Z4WkDzpINXccH4fiv_m4nOoRBrszRdMBN5uZswGHq9U_SlDvDbyExf0CyUy7RrxFn1h2QR_tUQ"
               />
-              Каждое бронирование включает в себя бесплатную защиту от отмены со
-              стороны хозяина, защиту от несоответствия реальности и других
-              проблем (например, с заселением).
+              <Typography
+                sx={{ lineHeight: '1.2', color: '#323232', fontSize: '17px' }}
+              >
+                Каждое бронирование включает в себя бесплатную защиту от отмены
+                со стороны хозяина, защиту от несоответствия реальности и других
+                проблем (например, с заселением).
+              </Typography>
+              <u>
+                <Typography sx={{ marginTop: '15px', color: '#121212' }}>
+                  <b>Подробнее</b>
+                </Typography>
+              </u>
             </Box>
             <hr style={{ margin: '30px 0 30px 0' }} />
             <Box
@@ -162,27 +204,202 @@ export const Flat = () => {
                 flexDirection: 'column',
               }}
             >
-            {flat.description}
+              <Typography
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'left',
+                  paddingBottom: '15px',
+                  color: '#6c6c6c',
+                }}
+              >
+                <GTranslateIcon
+                  sx={{
+                    display: 'flex',
+                    padding: '0px 10px 0 0px',
+                    height: '18px',
+                    color: '#3e3d3d',
+                  }}
+                />
+                Часть информации переведена автоматически.
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: '17px', color: '#4e4e4e' }}
+              >
+                {flat.description}
+              </Typography>
             </Box>
             <hr style={{ margin: '30px 0 30px 0' }} />
+            <Typography
+              variant="subtitle2"
+              sx={{
+                display: 'flex',
+                justifyContent: 'left',
+                fontSize: '20px',
+                color: 'black',
+                paddingBottom: '10px',
+              }}
+            >
+              <b>Какие удобства вас ждут</b>
+            </Typography>
             <Box
               style={{
                 display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'start',
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
-              {flat.kitchen &&<Box>Плита</Box>}
-              {flat.aitConditioning &&<Box>Кондиционер</Box>}
-              {flat.stove &&<Box>Микроволновая печь</Box>}
-              {flat.heating &&<Box>Обогреватель</Box>}
-              {flat.wifi &&<Box>Wifi</Box>}
-              {flat.tv &&<Box>Tv</Box>}
-              {flat.hairdryer &&<Box>Фен</Box>}
-              {flat.washingMachine &&<Box>Стиральная машина</Box>}
-              {flat.refrigerator &&<Box>Холодильник</Box>}
+              {flat.kitchen && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <CookieIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Плита
+                </Box>
+              )}
+              {flat.aitConditioning && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <AcUnitIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Кондиционер
+                </Box>
+              )}
+              {flat.stove && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <MicrowaveIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Микроволновая печь
+                </Box>
+              )}
+              {flat.heating && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <LocalFireDepartmentIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Обогреватель
+                </Box>
+              )}
+              {flat.wifi && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <WifiIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  Wifi
+                </Box>
+              )}
+              {flat.tv && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <TvIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  Tv
+                </Box>
+              )}
+              {flat.hairdryer && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '19px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <AirIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  Фен
+                </Box>
+              )}
+              {flat.washingMachine && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <LocalLaundryServiceIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Стиральная машина
+                </Box>
+              )}
+              {flat.refrigerator && (
+                <Box
+                  style={{
+                    paddingTop: '10px',
+                    width: '300px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontSize: '18px',
+                    color: '#7a7a7a',
+                  }}
+                >
+                  <KitchenIcon
+                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                  />
+                  Холодильник
+                </Box>
+              )}
             </Box>
-            <hr style={{ margin: '30px 0 30px 0' }} />
+            <hr style={{ margin: '40px 0 30px 0' }} />
             <Box
               style={{
                 display: 'flex',
@@ -203,10 +420,31 @@ export const Flat = () => {
           </Box>
         </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />
-        <Box>
-          {
-            comments.map((el)=> <Typography variant="subtitle2">{el.description}</Typography>)
-          }
+        <Box className="box__comment">
+          {comments.map((el) => (
+            <Box className="single__comment">
+              <Avatar
+                style={{
+                  background: `${getRandomColor()}`,
+                  marginRight: '10px',
+                }}
+              >
+                UN
+              </Avatar>
+              <Typography
+                variant="subtitle2"
+                style={{ margin: '0px 10px 0 0px ' }}
+              >
+                Имя пользователя
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                style={{ color: 'grey' }}
+              >
+                {el.description}
+              </Typography>
+            </Box>
+          ))}
         </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />
         <YaMap
@@ -223,7 +461,13 @@ export const Flat = () => {
         >
           Важная информация
         </Typography>
-        <Box style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "20px" }}>
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '20px',
+          }}
+        >
           <Box
             style={{
               display: 'flex',
@@ -261,8 +505,14 @@ export const Flat = () => {
                 alignItems: 'flex-end',
               }}
             >
-              
-              { flat.pets && <><PetsIcon /><Typography variant="subtitle2"> Прибывание с питомцем</Typography></> }
+              {flat.pets && (
+                <>
+                  <PetsIcon />
+                  <Typography variant="subtitle2">
+                     Прибывание с питомцем
+                  </Typography>
+                </>
+              )}
             </Box>
             <Box
               style={{
@@ -271,8 +521,12 @@ export const Flat = () => {
                 alignItems: 'flex-end',
               }}
             >
-              
-              { flat.smoking && <><SmokingRoomsIcon /><Typography variant="subtitle2"> Курение</Typography></> }
+              {flat.smoking && (
+                <>
+                  <SmokingRoomsIcon />
+                  <Typography variant="subtitle2"> Курение</Typography>
+                </>
+              )}
             </Box>
             <Box
               style={{
@@ -282,7 +536,9 @@ export const Flat = () => {
               }}
             >
               <DirectionsCarIcon />
-              <Typography variant="subtitle2"> Парковка : {flat.parking} </Typography>
+              <Typography variant="subtitle2">
+                 Парковка : {flat.parking}{' '}
+              </Typography>
             </Box>
           </Box>
           <Box
@@ -297,7 +553,7 @@ export const Flat = () => {
             <br />
             <Typography variant="subtitle2">
               В соответствии с местными или национальными требованиями и
-              рекомендациями в отелях Hyatt по всему миру может действовать
+              рекомендациями в отелях по всему миру может действовать
               требование носить защитные маски для лица как в общественных
               помещениях отеля, так и при передвижении под открытым небом.
             </Typography>
@@ -320,7 +576,6 @@ export const Flat = () => {
           </Box>
         </Box>
       </Box>
-
     </Box>
   );
 };

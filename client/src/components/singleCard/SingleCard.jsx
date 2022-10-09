@@ -2,19 +2,16 @@ import React from 'react';
 import './SingleCard.css';
 import './myNewGalleryStyles.css';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import StarIcon from '@mui/icons-material/Star';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addCard, addPhoto } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
+import Box from '@mui/material/Box';
 
 const SingleCard = ({ el, isFetching }) => {
   const navigate = useNavigate();
@@ -49,24 +46,26 @@ const SingleCard = ({ el, isFetching }) => {
               boxShadow: 0,
             }}
           >
-            <Carousel
-              showStatus={false}
-              showArrows={true}
-            >
-              {el.photos.map((p) => {
-                return (
-                  <CardMedia
-                    sx={{ borderRadius: '5%' }}
-                    component="img"
-                    height="290"
-                    width="305"
-                    image={p}
-                    alt="green iguana"
-                  />
-                );
-              })}
-            </Carousel>
-
+            <Box className="caruselMain">
+              <Carousel
+                className="eben"
+                showStatus={false}
+                showArrows={true}
+              >
+                {el.photos.map((p) => {
+                  return (
+                    <CardMedia
+                      sx={{ borderRadius: '5%' }}
+                      component="img"
+                      height="290"
+                      width="305"
+                      image={p}
+                      alt="green iguana"
+                    />
+                  );
+                })}
+              </Carousel>
+            </Box>
             <CardContent
               className="card__content"
               sx={{ textAlign: 'left', padding: '10px 0 0 0' }}

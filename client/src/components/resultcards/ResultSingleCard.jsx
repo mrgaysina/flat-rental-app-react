@@ -42,7 +42,6 @@ const ResultSingleCard = ({ el, isFetching }) => {
               maxWidth: 200,
               maxHeight: 390,
               paddingLeft: '30px',
-              marginBottom: '20px',
               border: 0,
               boxShadow: 0,
             }}

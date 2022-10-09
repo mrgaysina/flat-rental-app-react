@@ -1,13 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MyModalLog.module.css';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../RTKSlice/rtkslice";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MyModalLog = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((store) => store.toolkit.user)
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await axios.post(
+      "http://localhost:3001/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
+    console.log('result data from login', result.data);
+
+    if (result.data.accesstoken) {
+      dispatch(getUser({
+        id:result.data.id,
+        email: result.data.email,
+        accesstoken: result.data.accesstoken,
+      }))
+      /* setUser({
+        id:result.data.id,
+        email: result.data.email,
+        accesstoken: result.data.accesstoken,
+      }); */
+      navigate("/");
+    } else {
+      console.log('error');
+    }
+  };
+
+  useEffect(() => {
+    console.log('user from login useEffect', user);
+  }, [user]);
+
+  const handleChange = (e) => {
+    if (e.currentTarget.name === "email") {
+      setEmail(e.currentTarget.value);
+    } else {
+      setPassword(e.currentTarget.value);
+    }
+  };
 
   const handleX = () => {
     setVisible(false);
@@ -80,6 +128,8 @@ const MyModalLog = ({ children, visible, setVisible }) => {
             id="outlined-email-input"
             label="Email"
             type="email"
+            name='email'
+            onChange={handleChange}
           />
           <TextField
             style={{
@@ -89,6 +139,8 @@ const MyModalLog = ({ children, visible, setVisible }) => {
             id="outlined-password-input"
             label="Password"
             type="password"
+            name='password'
+            onChange={handleChange}
           />
           <Typography
             variant="body2"
@@ -105,7 +157,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
             Политика конфиденциальности) действует в отношении всей информации,
             которую пользователь передает компании ООО «Nolimit.».
           </Typography>
-          <button className={styles.btn__reg__form}>
+          <button onClick={handleSubmit} className={styles.btn__reg__form}>
             <Typography
               variant="subtitle1"
               style={{

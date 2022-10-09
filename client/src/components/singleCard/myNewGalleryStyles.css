@@ -16,6 +16,10 @@
 }
 
 .carousel-root{
-    height: 305px;
-    height: 290px;
+   display: block;
+
+}
+
+.thumbs-wrapper{
+display: none;
 }

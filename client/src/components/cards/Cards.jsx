@@ -7,18 +7,31 @@ import './Category.css';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
+
 import PublicIcon from '@mui/icons-material/Public'; 
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
 
 import Loader from '../loader/Loader';
+import Chip from '@mui/material/Chip';
+import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
+import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
+import SkateboardingOutlinedIcon from '@mui/icons-material/SkateboardingOutlined';
+import PublicIcon from '@mui/icons-material/Public';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCard, getFilterCard } from '../../RTKSlice/rtkslice';
+
+import Loader from '../loader/Loader';
+import { YaMap } from '../yaMap/YaMap';
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true);
-  const [isFetching, setIsFetching] = useState(false); //!!!!
-  const [catFilter, setCatFilter] = useState('All'); 
+  const [isFetching, setIsFetching] = useState(false);
+  const [catFilter, setCatFilter] = useState('All');
+
 
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
@@ -43,6 +56,7 @@ const Cards = () => {
     return setIsFetching(true) //???????
   },[])
 
+
   useEffect(() => {
     if (fetching) {
       axios
@@ -64,7 +78,6 @@ const Cards = () => {
   
   }, [fetching]);
 
-
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
     return function () {
@@ -76,34 +89,76 @@ const Cards = () => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      100 && catFilter === 'All'
+        100 &&
+      catFilter === 'All'
     ) {
       setFetching(true);
     }
   };
 
   return (
-    <div >
-    <div className="categ">
-      <div className='categIcon'>
-        <LandscapeOutlinedIcon onClick={()=> handlFilter('Город')} sx={{ fontSize: 35, color: 'gray' }} />
-        <AcUnitOutlinedIcon onClick={()=> handlFilter('Море')} sx={{ fontSize: 35, color: 'gray' }} />
-        <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}/>
-        <PublicIcon onClick={()=> removeFilter()} sx={{ fontSize: 35, color: 'gray' }}/>
+    <div>
+      <div className="categ">
+        <div className="categIcon">
+          <Chip
+            onClick={() => handlFilter('Город')}
+            icon={
+              <SkateboardingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />
+            }
+            label="Город"
+            variant="filled"
+          />
+          <Chip
+            onClick={() => handlFilter('Море')}
+            icon={<SurfingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />}
+            label="Море"
+            variant="filled"
+          />
+          <Chip
+            onClick={() => handlFilter('Горы')}
+            icon={<HikingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />}
+            label="Горы"
+            variant="filled"
+          />
+          <Chip
+            onClick={()=> removeFilter()}
+            icon={
+              <PublicIcon
+                sx={{
+                  paddingLeft: '12px',
+                  fontSize: 22,
+                  color: 'gray',
+                }}
+              />
+            }
+            variant="filled"
+          />
+        </div>
       </div>
-    </div>
-
-    <Box
-      className="wrapper"
-      marginTop="20px"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-        {isFetching ? <><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/><Loader/></> : card?.map((el) => <SingleCard key={el.id} el={el}/>)}
+      <Box
+        className="wrapper"
+        marginTop="20px"
+        display="flex"
+        justifyContent="start"
+        alignItems="center"
+      >
+        {isFetching ? (
+          <>
+            <Loader /> <Loader /> <Loader /> <Loader /> <Loader /> <Loader />{' '}
+            <Loader /> <Loader /> <Loader /> <Loader /> <Loader /> <Loader />{' '}
+            <Loader /> <Loader /> <Loader /> <Loader /> <Loader /> <Loader />{' '}
+            <Loader /> <Loader />
+          </>
+        ) : (
+          card?.map((el) => (
+            <SingleCard
+              key={el.id}
+              el={el}
+            />
+          ))
+        )}
       </Box>
-      </div>
-  
+    </div>
   );
 };
 
