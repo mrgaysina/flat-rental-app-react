@@ -33,7 +33,7 @@ export const Calculator = ({ id }) => {
 
   return (
     <Box className="calc">
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', justifyContent:"space-between" }}>
         <Typography variant="h5">
           {cost.costPerNight}
           <CurrencyRubleIcon />{' '}

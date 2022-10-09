@@ -53,7 +53,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Navigation logOutCallback={logOutCallback} />
+      {/* <Navigation logOutCallback={logOutCallback} /> */}
       <Routes>
         <Route path="login" element={<Login user={user} setUser={setUser} />} />
         <Route path="register" element={<Register />} />

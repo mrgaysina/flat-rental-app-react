@@ -1,16 +1,17 @@
 .categ{
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: start;
         background-color: white;
         z-index: 100;
         width: 100%;
-        height: 80px;
-        border-bottom: 1px solid rgb(228, 228, 228);
+        height: 60px;
+        padding-left: 30px;
 }
 
 .categIcon{
-    width: 600px;
     display: flex;
+    align-items: center;
+    width: 310px;
     justify-content: space-between;
 }
