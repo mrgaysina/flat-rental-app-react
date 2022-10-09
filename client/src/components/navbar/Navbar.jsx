@@ -107,7 +107,7 @@ const Navbar = () => {
     checkBooking();
     setTimeout(() => {
       navigate('/results');
-    }, 500);
+    }, 100);
   };
 
   return (
