@@ -23,6 +23,10 @@ const Cards = () => {
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
 
+  const removeFilter = () => {
+    window.location.reload();
+  }
+
   const handlFilter = (catagory) => {
     setIsFetching(true)
     setCatFilter(catagory)
@@ -85,7 +89,7 @@ const Cards = () => {
         <LandscapeOutlinedIcon onClick={()=> handlFilter('Город')} sx={{ fontSize: 35, color: 'gray' }} />
         <AcUnitOutlinedIcon onClick={()=> handlFilter('Море')} sx={{ fontSize: 35, color: 'gray' }} />
         <AirlineSeatIndividualSuiteOutlinedIcon onClick={()=> handlFilter('Горы')} sx={{ fontSize: 35, color: 'gray' }}/>
-        <PublicIcon onClick={()=> handlFilter('All')} sx={{ fontSize: 35, color: 'gray' }}/>
+        <PublicIcon onClick={()=> removeFilter()} sx={{ fontSize: 35, color: 'gray' }}/>
       </div>
     </div>
 
