@@ -5,9 +5,42 @@ import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const MyModal = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('executing submit');
+    const result = await axios.post(
+      "http://localhost:3001/auth/signup",
+      { name, email, password },
+      { withCredentials: true }
+    );
+
+    if (!result.error) {
+      console.log(result.data);
+      navigate("/login");
+    } else {
+      console.log(result.error);
+    }
+  };
+
+  const handleChange = (e) => {
+  if (e.currentTarget.name === "name") {
+    setName(e.currentTarget.value)
+  } else if (e.currentTarget.name === "email") {
+      setEmail(e.currentTarget.value);
+    } else {
+      setPassword(e.currentTarget.value);
+    }
+  };
 
   const handleX = () => {
     setVisible(false);
@@ -80,6 +113,8 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-login-input"
             label="Ваше имя"
             type="text"
+            name='name'
+            onChange={handleChange}
           />
           <TextField
             style={{
@@ -89,6 +124,8 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-email-input"
             label="Email"
             type="email"
+            name='email'
+            onChange={handleChange}
           />
           <TextField
             style={{
@@ -98,6 +135,8 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-password-input"
             label="Пароль"
             type="password"
+            name='password'
+            onChange={handleChange}
           />
           <Typography
             variant="body2"
@@ -114,8 +153,9 @@ const MyModal = ({ children, visible, setVisible }) => {
             Политика конфиденциальности) действует в отношении всей информации,
             которую пользователь передает компании ООО «Nolimit.».
           </Typography>
-          <button className={styles.btn__reg__form}>
+          <button onClick={handleSubmit} className={styles.btn__reg__form}>
             <Typography
+            
               variant="subtitle1"
               style={{
                 color: 'white',
