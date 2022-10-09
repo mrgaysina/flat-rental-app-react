@@ -22,7 +22,7 @@ app.use(
   cors({
     credentials: true,
     origin: ['http://localhost:3000', 'http://localhost:3001'],
-  })
+  }),
 );
 
 app.use(logger('dev'));
@@ -43,7 +43,7 @@ app.use('/allFlat', cardRoute);
 app.use('/yaMap', yaMapRoute);
 app.use('/flat', flatRoute);
 app.use('/flat/booking', bookingRoute);
-app.use('/search', searchRoute)
+app.use('/search', searchRoute);
 app.use('/auth', userRoute);
 
 app.listen(PORT, () => {

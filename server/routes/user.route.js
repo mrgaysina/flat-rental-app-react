@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 const route = require('express').Router();
+const { sign } = require('jsonwebtoken');
 const { hash, compare } = require('bcryptjs');
 // hash(password, 10)
 const { verify } = require('jsonwebtoken');
@@ -35,8 +36,9 @@ route.post('/login', async (req, res) => {
     if (password === user.password) {
       // 3. Create Refresh- and Accesstoken
       const accesstoken = createAccessToken(user.id);
-      console.log('accesstoken from login ==>', accesstoken);
+      // console.log('accesstoken from login ==>', accesstoken);
       const refreshtoken = createRefreshToken(user.id);
+
       console.log('refreshtoken from login ==>', refreshtoken);
       // 4. Store Refreshtoken with user in "db"
       // Could also use different version numbers instead.
@@ -49,9 +51,11 @@ route.post('/login', async (req, res) => {
       }
       // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
       sendRefreshToken(res, refreshtoken);
-      // console.log('from login: req.cookies.refreshtoken===>', req.cookies.refreshtoken);
-      sendAccessToken(req, res, accesstoken);
-      // res.json({ user: user.email, name: user.name, id: user.id });
+      console.log('from login: req.cookies ===>', req.cookies);
+      res.json({
+        email: user.email, name: user.username, id: user.id, accesstoken,
+      });
+      // res.end();
     } else {
       return res.send('wrong password');
     }
@@ -65,7 +69,7 @@ route.post('/logout', async (req, res) => {
   const { user } = req.body;
   // Logic here for also remove refreshtoken from db
   await Token.destroy({ where: { userId: user.id } });
-  res.clearCookie('refreshtoken', { path: '/auth/refresh_token' });
+  res.clearCookie('refreshtoken', { path: '/refresh_token' });
   return res.send({
     message: 'Logged out',
   });
@@ -87,7 +91,7 @@ route.post('/protected', async (req, res) => {
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  // console.log('token from refresh_token ==>', token);
+  console.log('token from refresh_token ==>', token);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
@@ -97,10 +101,16 @@ route.post('/refresh_token', async (req, res) => {
     // console.log('payload from refresh', payload);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
-    // console.log('user from refresh_token', user);
-    if (!user) return res.send({ accesstoken: '' });
+    console.log('user from refresh_token', user);
+    if (!user) {
+      console.log('если не юзер');
+      return res.send({ accesstoken: '' });
+    }
     // user exist, check if refreshtoken exist on user
-    if (user['Token.refreshToken'] !== token) { return res.send({ accesstoken: '' }); } // найти токен в связанной модели
+    if (user['Token.refreshToken'] !== token) {
+      console.log('если не совпадает токен');
+      return res.send({ accesstoken: '' });
+    } // найти токен в связанной модели
     // token exist, create new Refresh- and accesstoken
     const accesstoken = createAccessToken(user.id);
     const refreshtoken = createRefreshToken(user.id);
@@ -108,9 +118,12 @@ route.post('/refresh_token', async (req, res) => {
     // Could have different versions instead!
     await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
     // All good to go, send new refreshtoken and accesstoken
+    console.log('113 строка ', {
+      accesstoken, email: user.email, name: user.username, id: user.id,
+    });
     sendRefreshToken(res, refreshtoken);
     return res.send({
-      accesstoken, email: user.email, name: user.userName, id: user.id,
+      accesstoken, email: user.email, name: user.username, id: user.id,
     });
   } catch (err) {
     return res.send({ accesstoken: '' });
