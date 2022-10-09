@@ -416,7 +416,7 @@ export const Flat = () => {
             </Box>
           </Box>
           <Box className="calcul">
-            <Calculator />
+            <Calculator id={id}/>
           </Box>
         </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />

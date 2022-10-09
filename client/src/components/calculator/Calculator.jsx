@@ -26,7 +26,7 @@ export const Calculator = ({ id }) => {
       .then((res) => {
         setCost(res.data.jsonFlat);
         const avgRate = res.data.review.reduce((acc, el) => acc + el.rate, 0);
-        setRate(avgRate / res.data.review.length);
+        setRate(Math.floor(avgRate / res.data.review.length*10)/10);
         setGuests(res.data.jsonFlat.guestsQty)
       });
   };
