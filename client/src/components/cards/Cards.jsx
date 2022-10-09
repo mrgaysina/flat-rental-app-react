@@ -4,10 +4,6 @@ import './Cards.css';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import './Category.css';
-import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
-import AirlineSeatIndividualSuiteOutlinedIcon from '@mui/icons-material/AirlineSeatIndividualSuiteOutlined';
-
 import PublicIcon from '@mui/icons-material/Public'; 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,13 +14,7 @@ import Chip from '@mui/material/Chip';
 import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
 import SkateboardingOutlinedIcon from '@mui/icons-material/SkateboardingOutlined';
-import PublicIcon from '@mui/icons-material/Public';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard, getFilterCard } from '../../RTKSlice/rtkslice';
-
-import Loader from '../loader/Loader';
-import { YaMap } from '../yaMap/YaMap';
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -53,7 +43,7 @@ const Cards = () => {
   }
 
   useEffect(()=>{
-    return setIsFetching(true) //???????
+    return setIsFetching(true)
   },[])
 
 
@@ -64,7 +54,6 @@ const Cards = () => {
           'http://localhost:3001/allFlat',
           { currentPage },
           { withCredentials: true },
-          // setIsFetching(true) //???????
         )
         .then((res) => {
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
