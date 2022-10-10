@@ -38,10 +38,13 @@ export const Flat = () => {
   const [flat, setFlat] = useState([]);
   const [costPerNight, setCostPerNight] = useState([]); //! тут будет оплата
 
+  console.log();
+
   useEffect(() => {
     axios
       .post('http://localhost:3001/yaMap', { id }, { withCredentials: true })
       .then((res) => {
+        console.log('reeeeeeesdata flat',res.data.flat.photos[0]);
         setFlat(res.data.flat);
         setX(res.data.coordinats.split(',')[0]);
         setY(res.data.coordinats.split(',')[1]);
