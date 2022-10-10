@@ -8,7 +8,8 @@ const rtkSlice = createSlice({
         user:{},
         points:[],
         coordinates:[],
-        costs:[]
+        costs:[],
+        disableDates:[]
         
     },
     reducers: {
@@ -41,9 +42,14 @@ const rtkSlice = createSlice({
         getCost(state,action) {
             state.costs = action.payload
             console.log('action.payload costs',action.payload);
+        },
+
+        getDisableDates(state,action){
+            state.disableDates = action.payload
+            console.log('action.payload disableDates',action.payload);
         }
     }
 })
 
 export default rtkSlice.reducer
-export const {getAllCard,getFilterCard, getUser, getPoints, getCoordinates, getCost} = rtkSlice.actions
+export const {getAllCard,getFilterCard, getUser, getPoints, getCoordinates, getCost, getDisableDates} = rtkSlice.actions

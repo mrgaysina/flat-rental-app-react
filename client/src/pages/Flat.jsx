@@ -27,6 +27,7 @@ import TvIcon from '@mui/icons-material/Tv';
 import AirIcon from '@mui/icons-material/Air';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import KitchenIcon from '@mui/icons-material/Kitchen';
+import { CalendarForFlat } from '../components/calendar/CalendarForFlat';
 
 export const Flat = () => {
   const { id } = useParams();
@@ -407,12 +408,14 @@ export const Flat = () => {
                 textAlign: 'start',
               }}
             >
-              Тут календарь бронирования
-              <CardMedia
+              {/* Тут календарь бронирования */}
+              {/* <CardMedia
                 sx={{ borderRadius: '15px', width: '600px', height: '230px' }}
                 component="img"
                 image="https://via.placeholder.com/600x230"
-              />
+              >
+              </CardMedia> */}
+                <CalendarForFlat sx={{ borderRadius: '15px', width: '600px', height: '230px' }}/>
             </Box>
           </Box>
           <Box className="calcul">

@@ -19,8 +19,12 @@ import { DateRangePicker } from '@mui/lab';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDisableDates } from '../../RTKSlice/rtkslice';
 
-export function CalendarForSearch({ id, guests, cost }) {
+export function CalendarForSearch({ guests, cost }) {
+  const { id } = useParams();
   const [checkin, setCheckin] = useState(dayjs(new Date()));
   const [checkout, setCheckOut] = useState(dayjs(new Date()));
   const [person, setPerson] = useState();
@@ -28,8 +32,13 @@ export function CalendarForSearch({ id, guests, cost }) {
   const [bookCost, setBookCost] = useState(1);
   const [duration, setDuration] = useState(0);
   const [value, setValue] = useState([null, null]);
+  const dispatch = useDispatch();
 
-  console.log(cost);
+  useEffect(() => {
+    disableDate();
+  }, [])
+
+  const disable = useSelector((store) => store.toolkit.disableDates)
 
   const disableDate = () => {
     axios
@@ -37,10 +46,8 @@ export function CalendarForSearch({ id, guests, cost }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
-        for (let i = 0; i < res.data; i++) {
-          if (res.data[i].startDate) return res.data === checkin;
-        }
+        console.log('calendar res.data',res.data);
+        dispatch(getDisableDates(res.data))
       });
     return false;
   };
@@ -48,7 +55,6 @@ export function CalendarForSearch({ id, guests, cost }) {
   const handleChange = (event) => {
     setPerson(event.target.value);
     const dur = (checkout - checkin) / (60 * 60 * 24 * 1000);
-    console.log('dur', dur * cost);
     setDuration(dur);
     setBookCost(dur * cost);
   };
@@ -61,7 +67,20 @@ export function CalendarForSearch({ id, guests, cost }) {
     );
   };
 
-  console.log(value);
+  const customRenderDate = (date) => {
+    const dateToCompare = `${date.$y}-${date.$M + 1}-${date.$D}`
+    const stopDates = disable.map((el) => (
+      [el.startDate.slice(0,10), el.endDate.slice(0,10)]
+    ))
+    for (let i = 0; i < stopDates.length; i++) {
+      console.log('stopDates[i]', stopDates[i]);
+      if (dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]){
+        return dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]
+      }
+      //   return false
+    }
+  }
+
   return (
     <Box
       marginTop="20px"
@@ -87,12 +106,14 @@ export function CalendarForSearch({ id, guests, cost }) {
               onChange={(value) => {
                 setCheckin(value);
               }}
+              shouldDisableDate={customRenderDate}
             />
           </Stack>
         </LocalizationProvider>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Stack spacing={3}>
             <DatePicker
+            minDate={checkin}
               disablePast="true"
               label="Выезд"
               renderInput={(params) => <TextField {...params} />}
@@ -100,6 +121,7 @@ export function CalendarForSearch({ id, guests, cost }) {
               onChange={(value) => {
                 setCheckOut(value);
               }}
+              shouldDisableDate={customRenderDate}
             />
           </Stack>
         </LocalizationProvider>
