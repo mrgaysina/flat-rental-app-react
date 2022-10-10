@@ -74,7 +74,7 @@ const ResultSingleCard = ({ el, isFetching }) => {
                 <Typography
                   variant="h7"
                   component="div"
-                  align="center"
+                  align="left"
                 >
                   {el.country}, {el.city}
                 </Typography>

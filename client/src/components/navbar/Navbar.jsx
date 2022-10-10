@@ -1,13 +1,9 @@
 import React, { Children, useState } from 'react';
 import './Header.css';
 import dayjs from 'dayjs';
-import LanguageIcon from '@mui/icons-material/Language';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MyModal from '../modal/MyModal';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { Typography } from '@mui/material';
 import MyModalProf from '../modalProf/MyModalProf';
 import Box from '@mui/material/Box';
@@ -243,6 +239,7 @@ const Navbar = () => {
 
       <div className="header__right">
         <Typography
+          onClick={() => navigate('/addFlats')}
           variant="body"
           style={{ fontSize: '14px' }}
         >

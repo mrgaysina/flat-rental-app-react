@@ -14,6 +14,7 @@ import axios from "axios";
 import { Results } from "./pages/Results";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./RTKSlice/rtkslice";
+import AddPages from "./pages/AddPages";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -79,10 +80,10 @@ function App() {
           element={<Content/>}
         />
         <Route path={`/`} element={<Home />} />
+        <Route path={`/addFlats`} element={<AddPages/>} />
         <Route path={`/results`} element={<Results />} />
         <Route path={`/flat/:id`} element={<Flat />} />
       </Routes>
-      <Footer />
     </div>
   );
 }
