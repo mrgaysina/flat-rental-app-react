@@ -16,8 +16,6 @@ const sendAccessToken = (req, res, accesstoken) => {
   res.send({
     accesstoken,
     email: req.body.email,
-    name: req.body.name,
-    id: req.body.id,
   });
 };
 
@@ -25,7 +23,7 @@ const sendRefreshToken = (res, refreshtoken) => {
   res.cookie('refreshtoken', refreshtoken, {
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    // path: '/refresh_token',
+    path: '/auth/refresh_token',
   });
 };
 

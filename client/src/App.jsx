@@ -18,7 +18,6 @@ import AddPages from './pages/AddPages';
 import MyTrips from './pages/MyTrips';
 
 function App() {
-  // const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,9 +31,7 @@ function App() {
         withCredentials: true,
       }
     );
-    // Clear user from context
     dispatch(getUser({}));
-    // setUser({});
     // Navigate back to startpage
     navigate('/');
   };
@@ -55,11 +52,7 @@ function App() {
           accesstoken: result.data.accesstoken,
         })
       );
-      /* setUser({
-        id: result.data.id,
-        email: result.data.email,
-        accesstoken: result.data.accesstoken,
-      }); */
+    
       setLoading(false);
     }
     checkRefreshToken();
@@ -70,7 +63,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {/* <Navigation logOutCallback={logOutCallback} /> */}
+      <Navigation logOutCallback={logOutCallback} />
       <Routes>
         {/*  <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} /> */}
