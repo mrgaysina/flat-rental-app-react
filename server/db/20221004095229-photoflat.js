@@ -1810,7 +1810,7 @@ module.exports = {
       },
       {
         flatId: 61,
-        photoLink: 'https://a0.muscache.com/im/pictures/b81d9f15-cb33-46b4-8ce5-6e562207a914.jpg?im_w=1200 ',
+        photoLink: 'https://a0.muscache.com/im/pictures/b81d9f15-cb33-46b4-8ce5-6e562207a914.jpg?im_w=1200',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -2812,7 +2812,7 @@ module.exports = {
       },
       {
         flatId: 94,
-        photoLink: 'https://a0.muscache.com/im/pictures/5ad3426e-f500-486c-9ab2-abad9b8656b6.jpg?im_w=720 ',
+        photoLink: 'https://a0.muscache.com/im/pictures/5ad3426e-f500-486c-9ab2-abad9b8656b6.jpg?im_w=720',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
