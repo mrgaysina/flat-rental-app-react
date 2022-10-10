@@ -9,8 +9,8 @@ import {
   InputLabel,
   FormControlLabel,
   Switch,
+  Box,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 
 const AddPages = () => {
   return (

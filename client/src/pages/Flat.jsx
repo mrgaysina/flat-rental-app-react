@@ -408,18 +408,13 @@ export const Flat = () => {
                 textAlign: 'start',
               }}
             >
-              {/* Тут календарь бронирования */}
-              {/* <CardMedia
+              <CalendarForFlat
                 sx={{ borderRadius: '15px', width: '600px', height: '230px' }}
-                component="img"
-                image="https://via.placeholder.com/600x230"
-              >
-              </CardMedia> */}
-                <CalendarForFlat sx={{ borderRadius: '15px', width: '600px', height: '230px' }}/>
+              />
             </Box>
           </Box>
           <Box className="calcul">
-            <Calculator id={id}/>
+            <Calculator id={id} />
           </Box>
         </Box>
         <hr style={{ margin: '30px 0 30px 0' }} />
@@ -556,9 +551,9 @@ export const Flat = () => {
             <br />
             <Typography variant="subtitle2">
               В соответствии с местными или национальными требованиями и
-              рекомендациями в отелях по всему миру может действовать
-              требование носить защитные маски для лица как в общественных
-              помещениях отеля, так и при передвижении под открытым небом.
+              рекомендациями в отелях по всему миру может действовать требование
+              носить защитные маски для лица как в общественных помещениях
+              отеля, так и при передвижении под открытым небом.
             </Typography>
           </Box>
           <Box

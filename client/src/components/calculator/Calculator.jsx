@@ -10,7 +10,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 export const Calculator = ({ id }) => {
   const [cost, setCost] = useState('');
   const [rate, setRate] = useState(0);
-  const [guests, setGuests] = useState(0)
+  const [guests, setGuests] = useState(0);
 
   useEffect(() => {
     flatHandler();
@@ -26,24 +26,48 @@ export const Calculator = ({ id }) => {
       .then((res) => {
         setCost(res.data.jsonFlat);
         const avgRate = res.data.review.reduce((acc, el) => acc + el.rate, 0);
-        setRate(Math.floor(avgRate / res.data.review.length*10)/10);
-        setGuests(res.data.jsonFlat.guestsQty)
+        setRate(Math.floor((avgRate / res.data.review.length) * 10) / 10);
+        setGuests(res.data.jsonFlat.guestsQty);
       });
   };
 
   return (
     <Box className="calc">
-      <Box sx={{ display: 'flex', justifyContent:"space-between" }}>
-        <Typography variant="h5">
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          variant="h5"
+        >
           {cost.costPerNight}
           <CurrencyRubleIcon />{' '}
         </Typography>
-        <Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <StarRateIcon />
           {rate}
         </Typography>
       </Box>
-      <CalendarForSearch id={id} guests={guests} cost={cost.costPerNight}/>
+      <CalendarForSearch
+        id={id}
+        guests={guests}
+        cost={cost.costPerNight}
+      />
     </Box>
   );
 };
