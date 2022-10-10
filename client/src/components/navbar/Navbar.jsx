@@ -143,7 +143,7 @@ const Navbar = () => {
       </Box>
       <img
         className="header__icon"
-        src="https://psv4.userapi.com/c237331/u13359694/docs/d24/dd4654f39ad0/no.png?extra=2kNgMHzgaakKeNNs-eAhfnT_wXY51uCdB1Ogxj-JlGL9O85AlA3NCIowGAQ_dGZJrGzqeCGdByxUgiE3Q_HsUBi6I-dZuJSr8_EgmQkDLrpPml7iE9MUhj1_GTT50N7RrpaulhzRxIpVlPXFs4Ks"
+        src="https://i.postimg.cc/VNVPptW3/no.png"
         alt="header__icon"
         onClick={(event) => {
           navigate('/');

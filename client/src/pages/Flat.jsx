@@ -178,7 +178,7 @@ export const Flat = () => {
                   marginBottom: '20px',
                 }}
                 component="img"
-                image="https://psv4.userapi.com/c237131/u13359694/docs/d1/f314a2849df4/nolimit.png?extra=JXxR2MUQyBJqiFrzzqqjYpae9rqHsVyfrf-Fcz9ygBeaD7GOC-nwHeXwG979uPAnCi13KKp7Z4WkDzpINXccH4fiv_m4nOoRBrszRdMBN5uZswGHq9U_SlDvDbyExf0CyUy7RrxFn1h2QR_tUQ"
+                image="https://i.postimg.cc/0jfstBWC/nolimit.png"
               />
               <Typography
                 sx={{ lineHeight: '1.2', color: '#323232', fontSize: '17px' }}
