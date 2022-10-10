@@ -3,18 +3,18 @@ import './yaMap.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Placemark, Balloon } from '@pbe/react-yandex-maps';
 import { useSelector } from 'react-redux';
 
 
 export const ResultsMap = () => {
-
+   
   const coor = useSelector((store) => store.toolkit.coordinates)
 
   const points = useSelector((store) => store.toolkit.points)
 
   console.log('points', points, coor);
-
+ 
   return (
     <YMaps>
         <Map
@@ -26,9 +26,11 @@ export const ResultsMap = () => {
         >
           {
         points.map((point) => (
-              <Placemark geometry={point.coordinates.split(', ')}
-               properties={{iconContent: point.costPerNight}} 
-               />
+          <Placemark
+            geometry={point.coordinates.split(', ')}
+            properties={{iconContent: point.costPerNight}}
+            options={{preset:'islands#blackStretchyIcon'}}
+           />
           ))}
         </Map>
     </YMaps>

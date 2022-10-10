@@ -1,13 +1,8 @@
 import React from 'react'
 import "./yaMap.css"
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 
 export const YaMap = ({x,y}) => {
-
-  console.log('x y YAMAP', x, y, typeof x, typeof y);
 
   return (
     <YMaps >
