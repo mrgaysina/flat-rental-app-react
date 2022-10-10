@@ -31,7 +31,6 @@ const Navbar = () => {
   const [sizeCh2, setSizeCh2] = useState('17ch');
   const [titleNav, setTitleNav] = useState('title__modal');
   const [textF, setTextF] = useState('standard');
-  const [sizeCh4, setSizeCh4] = useState();
 
   const changeCl = () => {
     setChange('header__center__on');
@@ -45,7 +44,7 @@ const Navbar = () => {
 
   const changeOff = () => {
     setChange('header__center__off');
-    setChange2('header__off');
+    setChange2('header');
     // setTextF('outlined');
     setSizeCh1('7ch');
     setSizeCh2('17ch');
@@ -53,6 +52,19 @@ const Navbar = () => {
     setTitleNav('title__modal_off');
   };
 
+  const changeTop = () => {
+    setChange('header__center__off__top');
+  };
+
+  const changeDown = () => {
+    setChange('header__center__off__down');
+  };
+
+  const handlnav = () => {
+    changeTop();
+    setModal(false);
+    navigate('/mytrips');
+  };
   const handleModal = () => {
     setModal(true);
   };
@@ -133,9 +145,14 @@ const Navbar = () => {
         className="header__icon"
         src="https://psv4.userapi.com/c237331/u13359694/docs/d24/dd4654f39ad0/no.png?extra=2kNgMHzgaakKeNNs-eAhfnT_wXY51uCdB1Ogxj-JlGL9O85AlA3NCIowGAQ_dGZJrGzqeCGdByxUgiE3Q_HsUBi6I-dZuJSr8_EgmQkDLrpPml7iE9MUhj1_GTT50N7RrpaulhzRxIpVlPXFs4Ks"
         alt="header__icon"
-        onClick={() => navigate('/')}
+        onClick={(event) => {
+          navigate('/');
+          changeDown();
+          changeOff();
+        }}
       />
       <Box
+        visibility="display"
         onClick={changeCl}
         sx={{ margin: '150px' }}
         className={change}
@@ -154,7 +171,11 @@ const Navbar = () => {
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { m: 0, width: [sizeCh1], transition: '0.4s' },
+              '& > :not(style)': {
+                m: 0,
+                width: [sizeCh1],
+                transition: '0.4s',
+              },
             }}
             noValidate
             autoComplete="off"
@@ -213,7 +234,11 @@ const Navbar = () => {
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { m: 0, width: [sizeCh1], transition: '0.4s' },
+              '& > :not(style)': {
+                m: 0,
+                width: [sizeCh1],
+                transition: '0.4s',
+              },
             }}
             noValidate
             autoComplete="off"
@@ -239,7 +264,10 @@ const Navbar = () => {
 
       <div className="header__right">
         <Typography
-          onClick={() => navigate('/addFlats')}
+          onClick={(event) => {
+            navigate('/addFlats');
+            changeTop();
+          }}
           variant="body"
           style={{ fontSize: '14px' }}
         >
@@ -296,6 +324,23 @@ const Navbar = () => {
               style={{ paddingLeft: '15px', fontSize: '15px' }}
             >
               Войти
+            </Typography>
+          </Box>
+          <Box
+            className="log__btn"
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'start',
+            }}
+            onClick={handlnav}
+          >
+            <Typography
+              variant="subtitle"
+              style={{ paddingLeft: '15px', fontSize: '15px' }}
+            >
+              Мои поездки
             </Typography>
           </Box>
           <hr
