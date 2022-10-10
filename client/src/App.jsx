@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './RTKSlice/rtkslice';
 import AddPages from './pages/AddPages';
 import MyTrips from './pages/MyTrips';
+import Loader from './components/loader/Loader';
+import MainLoader from './components/mainLoader/MainLoader';
 
 function App() {
   // const [user, setUser] = useState({});
@@ -65,7 +67,7 @@ function App() {
     checkRefreshToken();
   }, []);
 
-  if (loading) return <div>Loading ...</div>; //какой-то лоудер можно приделать
+  if (loading) return <MainLoader/>; //какой-то лоудер можно приделать
 
   return (
     <div className="App">
