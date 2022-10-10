@@ -1,5 +1,6 @@
 import React from 'react';
 import './AddPages.css';
+import videoBG from '../assets/video.mp4';
 import {
   Typography,
   TextField,
@@ -10,449 +11,781 @@ import {
   FormControlLabel,
   Switch,
   Button,
+  CardMedia,
+  Card,
+  CardContent,
+  Fab,
 } from '@mui/material';
+
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { fontWeight } from '@mui/system';
+import PlaceIcon from '@mui/icons-material/Place';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import FlatwareIcon from '@mui/icons-material/Flatware';
 
 const AddPages = () => {
+  const [category, setCategory] = useState('');
+  const [type, setType] = useState('');
+  const [bed, setBed] = useState(0);
+  const [guests, setGuests] = useState(0);
+  const [bathroom, setBathroom] = useState(0);
+  const [parking, setParking] = useState('');
+  const [pets, setPets] = useState('');
+  const [smoking, setSmoking] = useState(false);
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [costPerNight, setCostPerNight] = useState('');
+  const [description, setDescription] = useState('');
+  const [kitchen, setKitchen] = useState(false);
+  const [airCondition, setAirCondition] = useState(false);
+  const [heating, setHeating] = useState(false);
+  const [wifi, setWifi] = useState(false);
+  const [TV, setTV] = useState(false);
+  const [hairdryer, setHairdryer] = useState(false);
+  const [washingMachine, setWashingMachine] = useState(false);
+  const [refrigerator, setRefrigerator] = useState(false);
+  const [stove, setStove] = useState(false);
+  const [photos, setPhotos] = useState([]);
 
-  const [category, setCategory] = useState('')
-  const [type, setType] = useState('')
-  const [bed, setBed] = useState(0)
-  const [guests, setGuests] = useState(0)
-  const [bathroom, setBathroom] = useState(0)
-  const [parking, setParking] = useState('')
-  const [pets, setPets] = useState('')
-  const [smoking, setSmoking] = useState(false)
-  const [country, setCountry] = useState('')
-  const [city, setCity] = useState('')
-  const [address, setAddress] = useState('')
-  const [costPerNight, setCostPerNight] = useState('')
-  const [description, setDescription] = useState('')
-  const [kitchen, setKitchen] = useState(false)
-  const [airCondition, setAirCondition] = useState(false)
-  const [heating, setHeating] = useState(false)
-  const [wifi, setWifi] = useState(false)
-  const [TV, setTV] = useState(false)
-  const [hairdryer, setHairdryer] = useState(false)
-  const [washingMachine, setWashingMachine] = useState(false)
-  const [refrigerator, setRefrigerator] = useState(false)
-  const [stove, setStove] = useState(false)
-  const [photos, setPhotos] = useState([])
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleCategory = (event) => {
-    setCategory(event.target.value)
-  }
+    setCategory(event.target.value);
+  };
 
   const handleCity = (event) => {
-    setCity(event.target.value)
-  }
+    setCity(event.target.value);
+  };
 
   const handleCountry = (event) => {
-    setCountry(event.target.value)
-  }
+    setCountry(event.target.value);
+  };
 
   const handleAddress = (event) => {
-    setAddress(event.target.value)
-  }
+    setAddress(event.target.value);
+  };
 
   const handleDescription = (event) => {
-    setDescription(event.target.value)
-  }
+    setDescription(event.target.value);
+  };
 
   const handleCost = (event) => {
-    setCostPerNight(event.target.value)
-  }
+    setCostPerNight(event.target.value);
+  };
 
   const handleType = (event) => {
-    setType(event.target.value)
-  }
+    setType(event.target.value);
+  };
 
   const handleBed = (event) => {
-    setBed(event.target.value)
-  }
+    setBed(event.target.value);
+  };
 
   const handleGuests = (event) => {
-    setGuests(event.target.value)
+    setGuests(event.target.value);
     console.log('event.target.value guests', event.target.value);
-  }
+  };
 
   const handleParking = (event) => {
-    setParking(event.target.value)
-  }
+    setParking(event.target.value);
+  };
 
   const handlePets = (event) => {
-    setPets(event.target.value)
-  }
+    setPets(event.target.value);
+  };
 
   const handleSmoking = (event) => {
-    setSmoking(event.target.value)
-  }
+    setSmoking(event.target.value);
+  };
 
   const handleKitchen = () => {
     const yesno = !kitchen;
-    setKitchen(yesno)
-  }
+    setKitchen(yesno);
+  };
 
   const handleCondition = () => {
     const yesno = !airCondition;
-    setAirCondition(yesno)
-  }
+    setAirCondition(yesno);
+  };
 
   const handleHeating = () => {
     const yesno = !heating;
-    setHeating(yesno)
-  }
+    setHeating(yesno);
+  };
 
   const handleWifi = () => {
     const yesno = !wifi;
-    setWifi(yesno)
-  }
+    setWifi(yesno);
+  };
 
   const handleTV = () => {
     const yesno = !TV;
-    setTV(yesno)
-  }
+    setTV(yesno);
+  };
 
   const handleHairdryer = () => {
     const yesno = !hairdryer;
-    setHairdryer(yesno)
-  }
+    setHairdryer(yesno);
+  };
 
   const handleWashingMachine = () => {
     const yesno = !washingMachine;
-    setWashingMachine(yesno)
-  }
+    setWashingMachine(yesno);
+  };
 
   const handleRefregirator = () => {
     const yesno = !refrigerator;
-    setRefrigerator(yesno)
-  }
+    setRefrigerator(yesno);
+  };
 
   const handleStove = () => {
     const yesno = !stove;
-    setStove(yesno)
-  }
+    setStove(yesno);
+  };
 
   const handlePhoto = (event) => {
-    setPhotos([...photos, event.target.value])
-  }
+    setPhotos([...photos, event.target.value]);
+  };
 
   const handleBathroom = (event) => {
-    setBathroom(event.target.value)
-  }
+    setBathroom(event.target.value);
+  };
 
   const createAdd = () => {
     console.log('aaaaaaaaaaaaaaaaa');
-    axios.post('http://localhost:3001/addFlat', {category, bed, bathroom, type, guests, parking, pets, smoking, country, city, address, costPerNight, description, kitchen, airCondition, wifi, TV, heating, hairdryer, washingMachine, refrigerator, stove, photos}, {withCredentials: true})
-    .then((res) => {
-      console.log(res);
-      if (res.statusText === "OK") {
-        navigate(`/flat/${res.data.newId}`)
-      }
-    })
-  }
-
-  
+    axios
+      .post(
+        'http://localhost:3001/addFlat',
+        {
+          category,
+          bed,
+          bathroom,
+          type,
+          guests,
+          parking,
+          pets,
+          smoking,
+          country,
+          city,
+          address,
+          costPerNight,
+          description,
+          kitchen,
+          airCondition,
+          wifi,
+          TV,
+          heating,
+          hairdryer,
+          washingMachine,
+          refrigerator,
+          stove,
+          photos,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.statusText === 'OK') {
+          navigate(`/flat/${res.data.newId}`);
+        }
+      });
+  };
 
   return (
-    <Box
-      style={{
-        margin: '20px 0 20px 0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <FormControl
-        size="small"
-        style={{ width: '400px' }}
-      >
-        <InputLabel id="demo-simple-select-label">Категория</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Категория"
-          onChange={handleCategory}
-        >
-          <MenuItem value={"Город"}>Город</MenuItem>
-          <MenuItem value={"Море"}>Море</MenuItem>
-          <MenuItem value={"Горы"}>Горы</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">Тип</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Тип"
-          onChange={handleType}
-        >
-          <MenuItem value={"Квартира"}>Квартира</MenuItem>
-          <MenuItem value={"Комната"}>Комната</MenuItem>
-        </Select>
-      </FormControl>
-      <Box>
-        <TextField
-          style={{ width: '400px', marginTop: '10px' }}
-          size="small"
-          label="Страна"
-          onChange={handleCountry}
+    <Box>
+      <Box className="header__mytrips">
+        <Box className="inside_mytrips">
+          <Typography
+            variant="bod1"
+            style={{ color: 'white', fontSize: '45px', fontWeight: '500' }}
+          >
+            Откройте двери
+          </Typography>
+          <Typography
+            variant="bod1"
+            style={{ color: 'white', fontSize: '45px', fontWeight: '500' }}
+          >
+            гостям
+          </Typography>
+          <button
+            onClick={createAdd}
+            className="btn_add_flats"
+          >
+            <p style={{ color: 'white', fontWeight: '600' }}>Принять гостей</p>
+          </button>
+        </Box>
+        <video
+          style={{ display: 'flex', height: '100%' }}
+          src={videoBG}
+          autoPlay
+          loop
+          muted
         />
       </Box>
-      <Box>
-        <TextField
-          style={{ width: '400px', marginTop: '10px' }}
-          size="small"
-          label="Город"
-          onChange={handleCity}
-        />
+      <Box className="allField">
+        <Box className="one">
+          <Typography
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            variant="subtitle1"
+            color="#7a7a7a"
+          >
+            <PlaceIcon />
+            Местоположение
+          </Typography>
+          <hr
+            style={{
+              margin: '5px 0 5px 0',
+              width: '100%',
+              height: '0.5px',
+              color: 'lightgray',
+              backgroundColor: 'lightgray',
+              border: 'none',
+            }}
+          />
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '10px 15px 0 15px',
+            }}
+          >
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px' }}
+            >
+              <InputLabel id="demo-simple-select-label">Категория</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Категория"
+                onChange={handleCategory}
+              >
+                <MenuItem value={'Город'}>Город</MenuItem>
+                <MenuItem value={'Море'}>Море</MenuItem>
+                <MenuItem value={'Горы'}>Горы</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">Тип</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Тип"
+                onChange={handleType}
+              >
+                <MenuItem value={'Квартира'}>Квартира</MenuItem>
+                <MenuItem value={'Комната'}>Комната</MenuItem>
+              </Select>
+            </FormControl>
+            <Box>
+              <TextField
+                variant="standard"
+                style={{ width: '400px', marginTop: '10px' }}
+                size="small"
+                label="Страна"
+                onChange={handleCountry}
+              />
+            </Box>
+            <Box>
+              <TextField
+                variant="standard"
+                style={{ width: '400px', marginTop: '10px' }}
+                size="small"
+                label="Город"
+                onChange={handleCity}
+              />
+            </Box>
+            <Box>
+              <TextField
+                variant="standard"
+                style={{ width: '400px', marginTop: '10px' }}
+                size="small"
+                label="Адрес"
+                onChange={handleAddress}
+              />
+            </Box>
+            <Box
+              component="form"
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                variant="standard"
+                multiline
+                maxRows={4}
+                style={{
+                  width: '400px',
+                  marginTop: '10px',
+                  marginBottom: '20px',
+                }}
+                size="small"
+                label="Описание"
+                onChange={handleDescription}
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box className="two">
+          <Typography
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            variant="subtitle1"
+            color="#7a7a7a"
+          >
+            <AccountBoxIcon />
+            Основное
+          </Typography>
+          <hr
+            style={{
+              margin: '5px 0 5px 0',
+              width: '100%',
+              height: '0.5px',
+              color: 'lightgray',
+              backgroundColor: 'lightgray',
+              border: 'none',
+            }}
+          />
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '0px 15px 0 15px',
+            }}
+          >
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Количество спальных мест
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Количество спальных мест"
+                onChange={handleBed}
+              >
+                <MenuItem value="1">1</MenuItem>
+                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="3">3</MenuItem>
+                <MenuItem value="4">4</MenuItem>
+                <MenuItem value="5">5</MenuItem>
+                <MenuItem value="6">6</MenuItem>
+                <MenuItem value="7">7</MenuItem>
+                <MenuItem value="8">8</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Количество гостей
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Количество гостей"
+                onChange={handleGuests}
+              >
+                <MenuItem value="1">1</MenuItem>
+                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="3">3</MenuItem>
+                <MenuItem value="4">4</MenuItem>
+                <MenuItem value="5">5</MenuItem>
+                <MenuItem value="6">6</MenuItem>
+                <MenuItem value="7">7</MenuItem>
+                <MenuItem value="8">8</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Ванная комната
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Ванная комната"
+                onChange={handleBathroom}
+              >
+                <MenuItem value="1">1</MenuItem>
+                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="3">3</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">Парковка</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Парковка"
+                onChange={handleParking}
+              >
+                <MenuItem value="Нет">Нет</MenuItem>
+                <MenuItem value="Бесплатно">Бесплатно</MenuItem>
+                <MenuItem value="Платно">Платно</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Пребывание с питомцами
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Пребывание с питомцами"
+                onChange={handlePets}
+              >
+                <MenuItem value={true}>Да</MenuItem>
+                <MenuItem value={false}>Нет</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl
+              variant="filled"
+              size="small"
+              style={{ width: '400px', marginTop: '10px' }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Курение в помещении
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Курение в помещении"
+                onChange={handleSmoking}
+              >
+                <MenuItem value={true}>Да</MenuItem>
+                <MenuItem value={false}>Нет</MenuItem>
+              </Select>
+            </FormControl>
+            <Box>
+              <TextField
+                variant="standard"
+                style={{
+                  width: '400px',
+                  marginTop: '10px',
+                  marginBottom: '20px',
+                }}
+                size="small"
+                label="Стоимость за ночь"
+                onChange={handleCost}
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          className="itembox"
+          style={{ marginTop: '20px', marginBottom: '20px' }}
+        >
+          <Typography
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            variant="subtitle1"
+            color="#7a7a7a"
+          >
+            <FlatwareIcon />
+            Удобства
+          </Typography>
+          <hr
+            style={{
+              margin: '5px 0 5px 0',
+              width: '100%',
+              height: '0.5px',
+              color: 'lightgray',
+              backgroundColor: 'lightgray',
+              border: 'none',
+            }}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Кухня"
+            labelPlacement="start"
+            onChange={handleKitchen}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Кондиционер"
+            labelPlacement="start"
+            onChange={handleCondition}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Обогреватель"
+            labelPlacement="start"
+            onChange={handleHeating}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Wi-fi"
+            labelPlacement="start"
+            onChange={handleWifi}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Телевизор"
+            labelPlacement="start"
+            onChange={handleTV}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Фен"
+            labelPlacement="start"
+            onChange={handleHairdryer}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Стиральная машина"
+            labelPlacement="start"
+            onChange={handleWashingMachine}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Холодильник"
+            labelPlacement="start"
+            onChange={handleRefregirator}
+          />
+          <FormControlLabel
+            control={<Switch default />}
+            label="Плита"
+            labelPlacement="start"
+            onChange={handleStove}
+          />
+        </Box>
+        <Box className="three">
+          <Typography
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+            variant="subtitle1"
+            color="#7a7a7a"
+          >
+            <AddPhotoAlternateIcon />
+            Добавьте фотографии
+          </Typography>
+          <hr
+            style={{
+              margin: '5px 0 5px 0',
+              width: '100%',
+              height: '0.5px',
+              color: 'lightgray',
+              backgroundColor: 'lightgray',
+              border: 'none',
+            }}
+          />
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '0 15px 20px 15px',
+            }}
+          >
+            <TextField
+              variant="standard"
+              style={{ width: '400px', marginTop: '5px' }}
+              size="small"
+              label="Главное фото"
+              onChange={handlePhoto}
+            />
+            <TextField
+              variant="standard"
+              style={{ width: '400px', marginTop: '10px' }}
+              size="small"
+              label="Доп. фото 1"
+              onChange={handlePhoto}
+            />
+            <TextField
+              variant="standard"
+              style={{ width: '400px', marginTop: '10px' }}
+              size="small"
+              label="Доп. фото 2"
+              onChange={handlePhoto}
+            />
+            <TextField
+              variant="standard"
+              style={{ width: '400px', marginTop: '10px' }}
+              size="small"
+              label="Доп. фото 3"
+              onChange={handlePhoto}
+            />
+            <TextField
+              variant="standard"
+              style={{ width: '400px', marginTop: '10px' }}
+              size="small"
+              label="Доп. фото 4"
+              onChange={handlePhoto}
+            />
+          </Box>
+        </Box>
+        <Fab
+          onClick={createAdd}
+          style={{ marginTop: '20px' }}
+          variant="extended"
+        >
+          <LocalFloristIcon sx={{ mr: 1, color: 'gray' }} />
+          <Typography
+            variant="button"
+            style={{ color: 'black' }}
+          >
+            Добавить жилье
+          </Typography>
+        </Fab>
       </Box>
-      <Box>
-        <TextField
-          style={{ width: '400px', marginTop: '10px' }}
-          size="small"
-          label="Адрес"
-          onChange={handleAddress}
-        />
+      <Box style={{ background: 'black', paddingBottom: '20px' }}>
+        <Typography
+          style={{ color: 'white', fontSize: '30px', paddingTop: '40px' }}
+        >
+          Новости и советы по приему гостей
+        </Typography>
+        <Box className="news">
+          <a href="https://www.airbnb.ru/resources/hosting-homes/a/how-to-make-your-listing-stand-out-321">
+            <Card
+              className="helpBox"
+              sx={{
+                maxWidth: 345,
+                borderRadius: '10px',
+                background: '#3c3b3b',
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="220"
+                image="https://a0.muscache.com/im/pictures/3c930824-3462-40c4-afc2-19d5ef019594.jpg?im_w=480"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography
+                  style={{ color: 'white', fontSize: '16px' }}
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Привлеките внимание к объявлению
+                </Typography>
+              </CardContent>
+            </Card>
+          </a>
+          <a href="https://www.airbnb.ru/resources/hosting-homes/a/how-to-take-great-listing-photos-307">
+            <Card
+              className="helpBox"
+              sx={{
+                maxWidth: 345,
+                borderRadius: '10px',
+                background: '#3c3b3b',
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="220"
+                image="https://a0.muscache.com/im/pictures/451f156e-cc93-41be-ad1f-569c3bb350ca.jpg?im_w=480"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography
+                  style={{ color: 'white', fontSize: '16px' }}
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Как сделать хорошие фото жилья
+                </Typography>
+              </CardContent>
+            </Card>
+          </a>
+          <a href="https://www.airbnb.ru/resources/hosting-homes/a/how-to-set-a-pricing-strategy-15">
+            <Card
+              className="helpBox"
+              sx={{
+                maxWidth: 345,
+                borderRadius: '10px',
+                background: '#3c3b3b',
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="220"
+                image="https://a0.muscache.com/im/pictures/57d04174-24ab-4a42-a1d7-989d5b1dda47.jpg?im_w=480"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography
+                  style={{ color: 'white', fontSize: '16px' }}
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Выбор стратегии ценообразования
+                </Typography>
+              </CardContent>
+            </Card>
+          </a>
+          <a href="https://www.airbnb.ru/resources/hosting-homes/a/create-a-guidebook-to-share-your-local-tips-23">
+            <Card
+              className="helpBox"
+              sx={{
+                maxWidth: 345,
+                borderRadius: '10px',
+                background: '#3c3b3b',
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="220"
+                image="https://a0.muscache.com/im/pictures/c8c24577-9079-4af8-b64b-200feb855d33.jpg?im_w=480"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography
+                  style={{ color: 'white', fontSize: '16px' }}
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Читайте советы местных в путеводителе
+                </Typography>
+              </CardContent>
+            </Card>
+          </a>
+        </Box>
       </Box>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">
-          Количество спальных мест
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Количество спальных мест"
-          onChange={handleBed}
-        >
-          <MenuItem value="1">1</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3</MenuItem>
-          <MenuItem value="4">4</MenuItem>
-          <MenuItem value="5">5</MenuItem>
-          <MenuItem value="6">6</MenuItem>
-          <MenuItem value="7">7</MenuItem>
-          <MenuItem value="8">8</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">Количество гостей</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Количество гостей"
-          onChange={handleGuests}
-        >
-          <MenuItem value="1">1</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3</MenuItem>
-          <MenuItem value="4">4</MenuItem>
-          <MenuItem value="5">5</MenuItem>
-          <MenuItem value="6">6</MenuItem>
-          <MenuItem value="7">7</MenuItem>
-          <MenuItem value="8">8</MenuItem>
-        </Select>
-      </FormControl>
-      <Box>
-        <TextField
-          style={{ width: '400px', marginTop: '10px' }}
-          size="small"
-          label="Стоимость за ночь"
-          onChange={handleCost}
-        />
-      </Box>
-      <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          multiline
-          maxRows={4}
-          style={{ width: '400px', marginTop: '10px' }}
-          size="small"
-          label="Описание"
-          onChange={handleDescription}
-        />
-      </Box>
-      <Box
-        className="itembox"
-        style={{ marginTop: '10px' }}
-      >
-        <FormControlLabel
-          control={<Switch default />}
-          label="Кухня"
-          labelPlacement="start"
-          onChange={handleKitchen}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Кондиционер"
-          labelPlacement="start"
-          onChange={handleCondition}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Обогреватель"
-          labelPlacement="start"
-          onChange={handleHeating}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Wi-fi"
-          labelPlacement="start"
-          onChange={handleWifi}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Телевизор"
-          labelPlacement="start"
-          onChange={handleTV}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Фен"
-          labelPlacement="start"
-          onChange={handleHairdryer}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Стиральная машина"
-          labelPlacement="start"
-          onChange={handleWashingMachine}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Холодильник"
-          labelPlacement="start"
-          onChange={handleRefregirator}
-        />
-        <FormControlLabel
-          control={<Switch default />}
-          label="Плита"
-          labelPlacement="start"
-          onChange={handleStove}
-        />
-      </Box>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">Ванная комната</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Ванная комната"
-          onChange={handleBathroom}
-        >
-          <MenuItem value="1">1</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">Парковка</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Парковка"
-          onChange={handleParking}
-        >
-          <MenuItem value="Нет">Нет</MenuItem>
-          <MenuItem value="Бесплатно">Бесплатно</MenuItem>
-          <MenuItem value="Платно">Платно</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">
-          Пребывание с питомцами
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Пребывание с питомцами"
-          onChange={handlePets}
-        >
-          <MenuItem value={true}>Да</MenuItem>
-          <MenuItem value={false}>Нет</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        size="small"
-        style={{ width: '400px', marginTop: '10px' }}
-      >
-        <InputLabel id="demo-simple-select-label">
-          Курение в помещении
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Курение в помещении"
-          onChange={handleSmoking}
-        >
-          <MenuItem value={true}>Да</MenuItem>
-          <MenuItem value={false}>Нет</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField
-        style={{ width: '400px', marginTop: '10px' }}
-        size="small"
-        label="Главное фото"
-        onChange={handlePhoto}
-      />
-      <TextField
-        style={{ width: '400px', marginTop: '10px' }}
-        size="small"
-        label="Доп. фото 1"
-        onChange={handlePhoto}
-      />
-      <TextField
-        style={{ width: '400px', marginTop: '10px' }}
-        size="small"
-        label="Доп. фото 2"
-        onChange={handlePhoto}
-      />
-      <TextField
-        style={{ width: '400px', marginTop: '10px' }}
-        size="small"
-        label="Доп. фото 3"
-        onChange={handlePhoto}
-      />
-      <TextField
-        style={{ width: '400px', marginTop: '10px' }}
-        size="small"
-        label="Доп. фото 4"
-        onChange={handlePhoto}
-      />
-      <Button
-        sx={{ width: '300px', height: '40px', marginTop: '10px' }}
-        variant="contained"
-        onClick={createAdd}
-      >
-        Создать
-      </Button>
+      <div className="footerAdd">
+        <div className="footer__content_add">
+          <span>© 2022 Nolimit, Inc.</span>
+          <span>Support you everywhere.</span>
+        </div>
+        <div></div>
+      </div>
     </Box>
   );
 };

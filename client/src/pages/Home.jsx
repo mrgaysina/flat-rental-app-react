@@ -5,6 +5,7 @@ import Cards from '../components/cards/Cards';
 import Category from '../components/category/Category';
 import Footer from '../components/footer/Footer';
 
+
 const Home = () => {
   return (
     <div>
