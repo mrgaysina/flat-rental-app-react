@@ -17,7 +17,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
   const user = useSelector((store) => store.toolkit.user)
   const dispatch = useDispatch();
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

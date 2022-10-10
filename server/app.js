@@ -31,14 +31,6 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-/* app.use(session({
-  store: new FileStore(),
-  httpOnly: true,
-  secret: process.env.SECRET || 'kshfiugkkshsnfl',
-  resave: true,
-  saveUninitialized: false,
-  cookie: { secure: false },
-})); */
 
 // app.use роуты
 app.use('/allFlat', cardRoute);
