@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     washingMachine: DataTypes.BOOLEAN,
     refrigerator: DataTypes.BOOLEAN,
     stove: DataTypes.BOOLEAN,
-    rating: DataTypes.INTEGER,
+    rating: DataTypes.REAL,
     photos: DataTypes.JSON,
   }, {
     sequelize,

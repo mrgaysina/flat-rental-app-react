@@ -78,7 +78,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.REAL,
       },
       photos: {
         type: Sequelize.JSON,
