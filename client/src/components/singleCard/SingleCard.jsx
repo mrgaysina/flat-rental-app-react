@@ -60,7 +60,7 @@ const SingleCard = ({ el, isFetching }) => {
             sx={{
               maxWidth: 305,
               maxHeight: 390,
-              paddingLeft: '30px',
+              paddingLeft: '20px',
               marginBottom: '20px',
               border: 0,
               boxShadow: 0,

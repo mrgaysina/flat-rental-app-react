@@ -131,7 +131,7 @@ const Navbar = ({logOutCallback}) => {
           sx={{ fontSize: '18px', color: '#616262' }}
           variant="body1"
         >
-          <b>Выберите даты аренды и мы найдем для вас варианты</b>
+          Выберите даты аренды и мы найдем для вас варианты
         </Typography>
         <Chip
           sx={{ marginLeft: '10px' }}
@@ -254,7 +254,7 @@ const Navbar = ({logOutCallback}) => {
               id="outlined-basic"
               label={<FaceIcon sx={{ paddingLeft: '16px' }} />}
               variant={textF}
-              placeholder="Кто едет?"
+              placeholder="Количество"
               value={guests}
               onChange={handlerGuests}
             />
@@ -275,7 +275,7 @@ const Navbar = ({logOutCallback}) => {
             changeTop();
           }}
           variant="body"
-          style={{ fontSize: '14px' }}
+          style={{ fontSize: '14px', cursor: 'pointer' }}
         >
           Сдайте жилье
         </Typography>

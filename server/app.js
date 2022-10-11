@@ -3,8 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-/* const session = require('express-session');
-const FileStore = require('session-file-store')(session); */
 const cookieParser = require('cookie-parser');
 
 // экспорт роутов
@@ -16,6 +14,7 @@ const bookingRoute = require('./routes/booking.route');
 const searchRoute = require('./routes/search.route');
 const addflatRoute = require('./routes/addflat.route');
 const favoriteRoute = require('./routes/favorite.route');
+
 
 const app = express();
 
