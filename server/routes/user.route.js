@@ -67,7 +67,7 @@ route.post('/logout', async (req, res) => {
   // Logic here for also remove refreshtoken from db
   if (user.id) {
     await Token.destroy({ where: { userId: user.id } });
-    res.clearCookie('refreshtoken', { path: '/auth/refresh_token' });
+    res.clearCookie('refreshtoken');
     return res.send({
       message: 'Logged out',
     });
