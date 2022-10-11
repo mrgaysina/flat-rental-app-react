@@ -66,6 +66,11 @@ const Navbar = ({logOutCallback}) => {
     setModal(false);
     navigate('/mytrips');
   };
+  const handlFavorite = () => {
+    changeTop();
+    setModal(false);
+    navigate('/myfavorite');
+  };
   const handleModal = () => {
     setModal(true);
   };
@@ -367,7 +372,25 @@ const Navbar = ({logOutCallback}) => {
                 >
                   Мои поездки
                 </Typography>
-              </Box><hr
+              </Box>
+              <Box
+                className="log__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+                onClick={handlFavorite}
+              >
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  Мое избранное
+                </Typography>
+              </Box>
+              <hr
                   style={{
                     margin: '10px 0 10px 0',
                     width: '100%',
