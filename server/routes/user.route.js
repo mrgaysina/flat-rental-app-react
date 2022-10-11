@@ -35,9 +35,9 @@ route.post('/login', async (req, res) => {
     if (password === user.password) {
       // 3. Create Refresh- and Accesstoken
       const accesstoken = createAccessToken(user.id);
-      console.log('accesstoken from login ==>', accesstoken);
+      // console.log('accesstoken from login ==>', accesstoken);
       const refreshtoken = createRefreshToken(user.id);
-      console.log('refreshtoken from login ==>', refreshtoken);
+      // console.log('refreshtoken from login ==>', refreshtoken);
       // 4. Store Refreshtoken with user in "db"
       // Could also use different version numbers instead.
       // Then just increase the version number on the revoke endpoint
@@ -49,7 +49,7 @@ route.post('/login', async (req, res) => {
       }
       // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
       sendRefreshToken(res, refreshtoken);
-      console.log('req.cookies from login', req.cookies);
+      // console.log('req.cookies from login', req.cookies);
       // sendAccessToken(req, res, accesstoken);
       res.json({
         email: user.email, name: user.username, id: user.id, accesstoken,
@@ -79,7 +79,7 @@ route.post('/logout', async (req, res) => {
 });
 
 route.post('/protected', async (req, res) => {
-  console.log('req.headers from protected', req.headers);
+  // console.log('req.headers from protected', req.headers);
   try {
     const userId = isAuth(req);
     // console.log('userId from protected', userId);
@@ -94,17 +94,17 @@ route.post('/protected', async (req, res) => {
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  console.log('req.cookies from refresh_token ==>', req.cookies);
+  // console.log('req.cookies from refresh_token ==>', req.cookies);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
-    console.log('payload from refresh', payload);
+    // console.log('payload from refresh', payload);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
-    console.log('user from refresh_token', user);
+    // console.log('user from refresh_token', user);
     if (!user) {
       console.log('no user');
       return res.send({ accesstoken: '' });

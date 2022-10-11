@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import './flat.css';
-import { BrowserRouter, useParams } from 'react-router-dom';
-import { YaMap } from '../components/yaMap/YaMap';
-import Box from '@mui/material/Box';
-import CardMedia from '@mui/material/CardMedia';
-import axios from 'axios';
-import { Calculator } from '../components/calculator/Calculator';
-import Typography from '@mui/material/Typography';
-import StarIcon from '@mui/icons-material/Star';
-import Checkbox from '@mui/material/Checkbox';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import Avatar from '@mui/material/Avatar';
-import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
-import PetsIcon from '@mui/icons-material/Pets';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import GTranslateIcon from '@mui/icons-material/GTranslate';
-import CookieIcon from '@mui/icons-material/Cookie';
-import MicrowaveIcon from '@mui/icons-material/Microwave';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import WifiIcon from '@mui/icons-material/Wifi';
-import TvIcon from '@mui/icons-material/Tv';
-import AirIcon from '@mui/icons-material/Air';
-import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
-import KitchenIcon from '@mui/icons-material/Kitchen';
-import { CalendarForFlat } from '../components/calendar/CalendarForFlat';
+import React, { useState, useEffect } from "react";
+import "./flat.css";
+import { BrowserRouter, useParams } from "react-router-dom";
+import { YaMap } from "../components/yaMap/YaMap";
+import Box from "@mui/material/Box";
+import CardMedia from "@mui/material/CardMedia";
+import axios from "axios";
+import { Calculator } from "../components/calculator/Calculator";
+import Typography from "@mui/material/Typography";
+import StarIcon from "@mui/icons-material/Star";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import Avatar from "@mui/material/Avatar";
+import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
+import RestoreIcon from "@mui/icons-material/Restore";
+import SmokingRoomsIcon from "@mui/icons-material/SmokingRooms";
+import PetsIcon from "@mui/icons-material/Pets";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import GTranslateIcon from "@mui/icons-material/GTranslate";
+import CookieIcon from "@mui/icons-material/Cookie";
+import MicrowaveIcon from "@mui/icons-material/Microwave";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import WifiIcon from "@mui/icons-material/Wifi";
+import TvIcon from "@mui/icons-material/Tv";
+import AirIcon from "@mui/icons-material/Air";
+import LocalLaundryServiceIcon from "@mui/icons-material/LocalLaundryService";
+import KitchenIcon from "@mui/icons-material/Kitchen";
+import { CalendarForFlat } from "../components/calendar/CalendarForFlat";
+import { useSelector } from "react-redux";
 
 export const Flat = () => {
   const { id } = useParams();
@@ -37,17 +38,17 @@ export const Flat = () => {
   const [photos, setPhotos] = useState([]);
   const [flat, setFlat] = useState([]);
   const [costPerNight, setCostPerNight] = useState([]); //! тут будет оплата
-
-  console.log();
+  const user = useSelector((store) => store.toolkit.user);
+  const userId = user.id;
 
   useEffect(() => {
     axios
-      .post('http://localhost:3001/yaMap', { id }, { withCredentials: true })
+      .post("http://localhost:3001/yaMap", { id }, { withCredentials: true })
       .then((res) => {
-        console.log('reeeeeeesdata flat',res.data.flat.photos[0]);
+        console.log("reeeeeeesdata flat", res.data.flat.photos[0]);
         setFlat(res.data.flat);
-        setX(res.data.coordinats.split(',')[0]);
-        setY(res.data.coordinats.split(',')[1]);
+        setX(res.data.coordinats.split(",")[0]);
+        setY(res.data.coordinats.split(",")[1]);
         setPhotos(res.data.flat.photos);
         setComments(res.data.comments);
       });
@@ -56,42 +57,51 @@ export const Flat = () => {
   console.log(typeof x);
 
   function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
+    var letters = "0123456789ABCDEF";
+    var color = "#";
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
   }
 
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
+  const label = { inputProps: { "aria-label": "Checkbox demo" } }; //? Смена стилей на сердечке после клика
+
+  const handleAddToFav = async () => {
+    console.log("add to fav");
+    await axios.post(
+      "http://localhost:3001/favorite",
+      { userId, id },
+      { withCredentials: true }
+    );
+  };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
+    <Box sx={{ display: "flex", justifyContent: "center", marginTop: "15px" }}>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
         }}
       >
         <Typography
           variant="subtitle2"
-          sx={{ textAlign: 'left', fontSize: '20px' }}
+          sx={{ textAlign: "left", fontSize: "20px" }}
         >
           {flat.category} · {flat.type}
         </Typography>
-        <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box style={{ display: "flex", justifyContent: "space-between" }}>
           <Box
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <StarIcon sx={{ fontSize: '12px' }} />
+            <StarIcon sx={{ fontSize: "12px" }} />
             <span>
-              {flat.rating} · {comments.length} отзывов · {flat.address} ·{' '}
+              {flat.rating} · {comments.length} отзывов · {flat.address} ·{" "}
               {flat.city} · {flat.country}
             </span>
           </Box>
@@ -100,39 +110,40 @@ export const Flat = () => {
             <Checkbox
               {...label}
               icon={<FavoriteBorder />}
-              checkedIcon={<Favorite />}
+              checkedIcon={<Favorite style={{ color: "red" }} />}
+              onChange={handleAddToFav}
             />
           </Box>
         </Box>
         <Box className="box__photo">
           <CardMedia
             className="bigImg"
-            sx={{ borderRadius: '5% 0 0 5%' }}
+            sx={{ borderRadius: "5% 0 0 5%" }}
             component="img"
             image={photos[0]} //?главная фотка
           />
           <Box className="fourPic">
             <CardMedia
               className="smallImg1"
-              sx={{ borderRadius: '0 0 0 0' }}
+              sx={{ borderRadius: "0 0 0 0" }}
               component="img"
               image={photos[1]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg2"
-              sx={{ borderRadius: '0 0 0 0' }}
+              sx={{ borderRadius: "0 0 0 0" }}
               component="img"
               image={photos[2]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg3"
-              sx={{ borderRadius: '0 10% 0 0' }}
+              sx={{ borderRadius: "0 10% 0 0" }}
               component="img"
               image={photos[3]} //?маленькая фотка
             />
             <CardMedia
               className="smallImg4"
-              sx={{ borderRadius: '0 0 10% 0' }}
+              sx={{ borderRadius: "0 0 10% 0" }}
               component="img"
               image={photos[4]} //?маленькая фотка
             />
@@ -140,134 +151,134 @@ export const Flat = () => {
         </Box>
         <Box
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: '40px',
-            position: 'relative',
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "40px",
+            position: "relative",
           }}
         >
           <Box
-            style={{ display: 'flex', flexDirection: 'column', width: '660px' }}
+            style={{ display: "flex", flexDirection: "column", width: "660px" }}
           >
             <Box>
-              <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="h5">Хозяин: Четкий Кекс</Typography>
                 <Avatar sx={{ width: 40, height: 40 }}>ЧК</Avatar>
               </Box>
               <Typography
                 variant="body2"
                 color="text.secondary"
-                style={{ display: 'flex', justifyContent: 'space-between' }}
+                style={{ display: "flex", justifyContent: "space-between" }}
               >
-                {flat.guestsQty} гостей · {flat.bedsQty} кроватей ·{' '}
+                {flat.guestsQty} гостей · {flat.bedsQty} кроватей ·{" "}
                 {flat.bathroom} ванная
               </Typography>
-              <hr style={{ margin: '30px 0 30px 0' }} />
+              <hr style={{ margin: "30px 0 30px 0" }} />
             </Box>
             <Box
               style={{
-                display: 'flex',
-                textAlign: 'start',
-                flexDirection: 'column',
+                display: "flex",
+                textAlign: "start",
+                flexDirection: "column",
               }}
             >
               <CardMedia
                 sx={{
-                  borderRadius: '5%',
-                  width: '180px',
-                  marginBottom: '20px',
+                  borderRadius: "5%",
+                  width: "180px",
+                  marginBottom: "20px",
                 }}
                 component="img"
                 image="https://i.postimg.cc/0jfstBWC/nolimit.png"
               />
               <Typography
-                sx={{ lineHeight: '1.2', color: '#323232', fontSize: '17px' }}
+                sx={{ lineHeight: "1.2", color: "#323232", fontSize: "17px" }}
               >
                 Каждое бронирование включает в себя бесплатную защиту от отмены
                 со стороны хозяина, защиту от несоответствия реальности и других
                 проблем (например, с заселением).
               </Typography>
               <u>
-                <Typography sx={{ marginTop: '15px', color: '#121212' }}>
+                <Typography sx={{ marginTop: "15px", color: "#121212" }}>
                   <b>Подробнее</b>
                 </Typography>
               </u>
             </Box>
-            <hr style={{ margin: '30px 0 30px 0' }} />
+            <hr style={{ margin: "30px 0 30px 0" }} />
             <Box
               style={{
-                display: 'flex',
-                textAlign: 'start',
-                flexDirection: 'column',
+                display: "flex",
+                textAlign: "start",
+                flexDirection: "column",
               }}
             ></Box>
             <Box
               style={{
-                display: 'flex',
-                textAlign: 'start',
-                flexDirection: 'column',
+                display: "flex",
+                textAlign: "start",
+                flexDirection: "column",
               }}
             >
               <Typography
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'left',
-                  paddingBottom: '15px',
-                  color: '#6c6c6c',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "left",
+                  paddingBottom: "15px",
+                  color: "#6c6c6c",
                 }}
               >
                 <GTranslateIcon
                   sx={{
-                    display: 'flex',
-                    padding: '0px 10px 0 0px',
-                    height: '18px',
-                    color: '#3e3d3d',
+                    display: "flex",
+                    padding: "0px 10px 0 0px",
+                    height: "18px",
+                    color: "#3e3d3d",
                   }}
                 />
                 Часть информации переведена автоматически.
               </Typography>
               <Typography
                 variant="body2"
-                sx={{ fontSize: '17px', color: '#4e4e4e' }}
+                sx={{ fontSize: "17px", color: "#4e4e4e" }}
               >
                 {flat.description}
               </Typography>
             </Box>
-            <hr style={{ margin: '30px 0 30px 0' }} />
+            <hr style={{ margin: "30px 0 30px 0" }} />
             <Typography
               variant="subtitle2"
               sx={{
-                display: 'flex',
-                justifyContent: 'left',
-                fontSize: '20px',
-                color: 'black',
-                paddingBottom: '10px',
+                display: "flex",
+                justifyContent: "left",
+                fontSize: "20px",
+                color: "black",
+                paddingBottom: "10px",
               }}
             >
               <b>Какие удобства вас ждут</b>
             </Typography>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                flexWrap: 'wrap',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
               {flat.kitchen && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <CookieIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Плита
                 </Box>
@@ -275,16 +286,16 @@ export const Flat = () => {
               {flat.aitConditioning && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <AcUnitIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Кондиционер
                 </Box>
@@ -292,16 +303,16 @@ export const Flat = () => {
               {flat.stove && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <MicrowaveIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Микроволновая печь
                 </Box>
@@ -309,16 +320,16 @@ export const Flat = () => {
               {flat.heating && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <LocalFireDepartmentIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Обогреватель
                 </Box>
@@ -326,61 +337,61 @@ export const Flat = () => {
               {flat.wifi && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
-                  <WifiIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  <WifiIcon style={{ marginRight: "10px", color: "#b7b6b6" }} />
                   Wifi
                 </Box>
               )}
               {flat.tv && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
-                  <TvIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  <TvIcon style={{ marginRight: "10px", color: "#b7b6b6" }} />
                   Tv
                 </Box>
               )}
               {flat.hairdryer && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '19px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "19px",
+                    color: "#7a7a7a",
                   }}
                 >
-                  <AirIcon style={{ marginRight: '10px', color: '#b7b6b6' }} />
+                  <AirIcon style={{ marginRight: "10px", color: "#b7b6b6" }} />
                   Фен
                 </Box>
               )}
               {flat.washingMachine && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <LocalLaundryServiceIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Стиральная машина
                 </Box>
@@ -388,31 +399,31 @@ export const Flat = () => {
               {flat.refrigerator && (
                 <Box
                   style={{
-                    paddingTop: '10px',
-                    width: '300px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    fontSize: '18px',
-                    color: '#7a7a7a',
+                    paddingTop: "10px",
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "row",
+                    fontSize: "18px",
+                    color: "#7a7a7a",
                   }}
                 >
                   <KitchenIcon
-                    style={{ marginRight: '10px', color: '#b7b6b6' }}
+                    style={{ marginRight: "10px", color: "#b7b6b6" }}
                   />
                   Холодильник
                 </Box>
               )}
             </Box>
-            <hr style={{ margin: '40px 0 30px 0' }} />
+            <hr style={{ margin: "40px 0 30px 0" }} />
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'start',
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "start",
               }}
             >
               <CalendarForFlat
-                sx={{ borderRadius: '15px', width: '600px', height: '230px' }}
+                sx={{ borderRadius: "15px", width: "600px", height: "230px" }}
               />
             </Box>
           </Box>
@@ -420,70 +431,64 @@ export const Flat = () => {
             <Calculator id={id} />
           </Box>
         </Box>
-        <hr style={{ margin: '30px 0 30px 0' }} />
+        <hr style={{ margin: "30px 0 30px 0" }} />
         <Box className="box__comment">
           {comments.map((el) => (
             <Box className="single__comment">
               <Avatar
                 style={{
                   background: `${getRandomColor()}`,
-                  marginRight: '10px',
+                  marginRight: "10px",
                 }}
               >
                 UN
               </Avatar>
               <Typography
                 variant="subtitle2"
-                style={{ margin: '0px 10px 0 0px ' }}
+                style={{ margin: "0px 10px 0 0px " }}
               >
                 Имя пользователя
               </Typography>
-              <Typography
-                variant="subtitle2"
-                style={{ color: 'grey' }}
-              >
+              <Typography variant="subtitle2" style={{ color: "grey" }}>
                 {el.description}
               </Typography>
             </Box>
           ))}
         </Box>
-        <hr style={{ margin: '30px 0 30px 0' }} />
-        <YaMap
-          x={x}
-          y={y}
-        />
-        <hr style={{ margin: '30px 0 25px 0' }} />
+        <hr style={{ margin: "30px 0 30px 0" }} />
+        <YaMap x={x} y={y} />
+        <hr style={{ margin: "30px 0 25px 0" }} />
         <Typography
           variant="h5"
           style={{
-            textAlign: 'start',
-            marginBottom: '20px',
+            textAlign: "start",
+            marginBottom: "20px",
           }}
         >
           Важная информация
         </Typography>
         <Box
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '20px',
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "20px",
           }}
         >
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              width: '300px',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              width: "300px",
             }}
           >
             <Typography variant="button">Правила дома</Typography>
             <br />
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
               }}
             >
               <QueryBuilderIcon />
@@ -491,9 +496,9 @@ export const Flat = () => {
             </Box>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
               }}
             >
               <RestoreIcon />
@@ -501,9 +506,9 @@ export const Flat = () => {
             </Box>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
               }}
             >
               {flat.pets && (
@@ -517,9 +522,9 @@ export const Flat = () => {
             </Box>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
               }}
             >
               {flat.smoking && (
@@ -531,23 +536,23 @@ export const Flat = () => {
             </Box>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
               }}
             >
               <DirectionsCarIcon />
               <Typography variant="subtitle2">
-                 Парковка : {flat.parking}{' '}
+                 Парковка : {flat.parking}{" "}
               </Typography>
             </Box>
           </Box>
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              width: '300px',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              width: "300px",
             }}
           >
             <Typography variant="button">Здоровье и безопасность</Typography>
@@ -561,10 +566,10 @@ export const Flat = () => {
           </Box>
           <Box
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'start',
-              width: '300px',
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              width: "300px",
             }}
           >
             <Typography variant="button">Правила отмены</Typography>

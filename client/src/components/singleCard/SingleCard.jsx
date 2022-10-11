@@ -12,9 +12,27 @@ import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/Loader';
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import axios from 'axios';
+import { useSelector } from "react-redux";
 
 const SingleCard = ({ el, isFetching }) => {
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
   const navigate = useNavigate();
+  const user = useSelector((store) => store.toolkit.user);
+  const userId = user.id;
+  const id = el.id;
+
+  const handleAddToFav = async () => {
+    console.log("add to fav");
+    await axios.post(
+      "http://localhost:3001/favorite",
+      { userId, id },
+      { withCredentials: true }
+    );
+  };
   return (
     <div>
       {isFetching ? (
@@ -31,16 +49,18 @@ const SingleCard = ({ el, isFetching }) => {
               zIndex: '10',
             }}
           >
-            <FavoriteTwoToneIcon
-              className="like"
-              sx={{ color: 'white' }}
+            <Checkbox className='like'
+              {...label}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite style={{color:'red'}}/>}
+              onChange={handleAddToFav}
             />
           </div>
           <Card
             sx={{
               maxWidth: 305,
               maxHeight: 390,
-              paddingLeft: '30px',
+              paddingLeft: '20px',
               marginBottom: '20px',
               border: 0,
               boxShadow: 0,
