@@ -40,6 +40,7 @@ export const Flat = () => {
   const [costPerNight, setCostPerNight] = useState([]); //! тут будет оплата
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
+  const [color, setColor] = useState('')
 
   useEffect(() => {
     axios
@@ -52,6 +53,19 @@ export const Flat = () => {
         setPhotos(res.data.flat.photos);
         setComments(res.data.comments);
       });
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      axios
+        .post('http://localhost:3001/favorite/one', { userId, id }, { withCredentials: true })
+        .then((res) => {
+          console.log('res.data from single card useeffect',res.data);
+          if (res.data === 'yes') {
+            setColor('red')
+          }
+        });
+    }
   }, []);
 
   console.log(typeof x);
@@ -68,12 +82,15 @@ export const Flat = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } }; //? Смена стилей на сердечке после клика
 
   const handleAddToFav = async () => {
-    console.log("add to fav");
-    await axios.post(
-      "http://localhost:3001/favorite",
-      { userId, id },
-      { withCredentials: true }
-    );
+    if (userId) {
+      console.log("add to fav");
+      const result = await axios.post(
+        "http://localhost:3001/favorite",
+        { userId, id },
+        { withCredentials: true }
+      );
+      console.log("result", result.data.fav);
+    }
   };
 
   return (
@@ -107,12 +124,24 @@ export const Flat = () => {
           </Box>
           <Box>
             <u>Сохранить</u>
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite style={{ color: "red" }} />}
-              onChange={handleAddToFav}
-            />
+            {
+              color === 'red' ? 
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<Favorite style={{ color: "red" }} />}
+                checkedIcon={<Favorite style={{ color: "red" }} />}
+                onChange={handleAddToFav}
+              />
+              :
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<FavoriteBorder/>}
+                checkedIcon={<Favorite style={{ color: "red" }} />}
+                onChange={handleAddToFav}
+              />
+            }
           </Box>
         </Box>
         <Box className="box__photo">

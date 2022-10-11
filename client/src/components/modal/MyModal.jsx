@@ -28,6 +28,8 @@ const MyModal = ({ children, visible, setVisible }) => {
       console.log(result.data);
       setVisible(false)
       navigate("/");
+
+
     } else {
       console.log(result.error);
     }

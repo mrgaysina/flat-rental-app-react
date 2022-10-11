@@ -35,6 +35,7 @@ function App() {
     dispatch(getUser({}));
     // Navigate back to startpage
     navigate('/');
+    window.location.reload();
   };
 
   // First thing, check if a refreshtoken exist
