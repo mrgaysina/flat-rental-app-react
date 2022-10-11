@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar logOutCallback={logOutCallback} />
       <Navigation logOutCallback={logOutCallback} />
       <Routes>
         {/*  <Route path="login" element={<Login />} />
