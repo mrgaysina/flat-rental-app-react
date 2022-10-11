@@ -17,19 +17,18 @@ route.post('/', async (req, res) => {
 
 route.get('/:category', async (req, res) => {
   const { category } = req.params;
+  console.log('category on back', category);
   try {
     if (category === 'All') {
       const flat = await Flat.findAll({
         raw: true,
       });
-      res.json({ flat });
+      res.json(flat);
     } else {
       const flat = await Flat.findAll({
         where: { category },
         raw: true,
       });
-      console.log('flat on back', flat);
-      console.log('category on back', category);
       res.json(flat);
     }
   } catch (error) {
