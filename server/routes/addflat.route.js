@@ -1,5 +1,4 @@
 const route = require('express').Router();
-// const sequelize = require('sequelize');
 const axios = require('axios');
 const { Flat } = require('../db/models');
 
@@ -12,7 +11,6 @@ route.post('/', async (req, res) => {
   } = req.body;
 
   const coord = await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=9e68dad6-a5b6-4237-bfa0-02b4a68d8290&format=json&geocode=${city}+${address}`, { withCredentials: true });
-  // console.log('cooooooord', coord.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' '));
   const coordinates = coord.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').reverse().join(', ');
   console.log('coordinates', coordinates);
   const findmaxid = await Flat.max('id');
