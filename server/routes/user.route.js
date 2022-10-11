@@ -49,6 +49,7 @@ route.post('/login', async (req, res) => {
       }
       // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
       sendRefreshToken(res, refreshtoken);
+      console.log('req.cookies from login', req.cookies);
       // sendAccessToken(req, res, accesstoken);
       res.json({
         email: user.email, name: user.username, id: user.id, accesstoken,
@@ -63,11 +64,13 @@ route.post('/login', async (req, res) => {
 
 route.post('/logout', async (req, res) => {
   // console.log('req.body from logout', req.body);
+
   const { user } = req.body;
   // Logic here for also remove refreshtoken from db
   if (user.id) {
     await Token.destroy({ where: { userId: user.id } });
-    res.clearCookie('refreshtoken', { path: '/auth/refresh_token' });
+    res.clearCookie('refreshtoken');
+
     return res.send({
       message: 'Logged out',
     });

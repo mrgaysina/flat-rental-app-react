@@ -26,7 +26,8 @@ const MyModal = ({ children, visible, setVisible }) => {
 
     if (!result.error) {
       console.log(result.data);
-      navigate("/login");
+      setVisible(false)
+      navigate("/");
     } else {
       console.log(result.error);
     }

@@ -34,11 +34,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
         email: result.data.email,
         accesstoken: result.data.accesstoken,
       }))
-      /* setUser({
-        id:result.data.id,
-        email: result.data.email,
-        accesstoken: result.data.accesstoken,
-      }); */
+      setVisible(false)
       navigate("/");
     } else {
       console.log('error');

@@ -60,7 +60,7 @@ function App() {
     checkRefreshToken();
   }, []);
 
-  if (loading) return <MainLoader/>; //какой-то лоудер можно приделать
+  if (loading) return <MainLoader/>; 
 
   return (
     <div className="App">
