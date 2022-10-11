@@ -21,7 +21,7 @@ import FaceIcon from '@mui/icons-material/Face';
 import Chip from '@mui/material/Chip';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-const Navbar = () => {
+const Navbar = ({logOutCallback}) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
@@ -31,6 +31,7 @@ const Navbar = () => {
   const [sizeCh2, setSizeCh2] = useState('17ch');
   const [titleNav, setTitleNav] = useState('title__modal');
   const [textF, setTextF] = useState('standard');
+  const user = useSelector((store) => store.toolkit.user)
 
   const changeCl = () => {
     setChange('header__center__on');
@@ -291,84 +292,123 @@ const Navbar = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >
-          <Box
-            className="reg__btn"
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-            }}
-            onClick={handleModal2}
-          >
-            <Typography
-              variant="body2"
-              style={{ paddingLeft: '15px', fontSize: '15px' }}
-            >
-              <b>Зарегистрироваться</b>
-            </Typography>
-          </Box>
-          <Box
-            className="log__btn"
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-            }}
-            onClick={handleModal3}
-          >
-            <Typography
-              variant="subtitle"
-              style={{ paddingLeft: '15px', fontSize: '15px' }}
-            >
-              Войти
-            </Typography>
-          </Box>
-          <Box
-            className="log__btn"
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-            }}
-            onClick={handlnav}
-          >
-            <Typography
-              variant="subtitle"
-              style={{ paddingLeft: '15px', fontSize: '15px' }}
-            >
-              Мои поездки
-            </Typography>
-          </Box>
-          <hr
-            style={{
-              margin: '10px 0 10px 0',
-              width: '100%',
-              height: '0.5px',
-              color: 'lightgray',
-              backgroundColor: 'lightgray',
-              border: 'none',
-            }}
-          />
-          <Box
-            className="help__btn"
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-            }}
-          >
-            <Typography
-              variant="subtitle"
-              style={{ paddingLeft: '15px', fontSize: '15px' }}
-            >
-              Помощь
-            </Typography>
-          </Box>
+        > {
+          !user.id ? 
+          <><Box
+                className="reg__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+                onClick={handleModal2}
+              >
+                <Typography
+                  variant="body2"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  <b>Зарегистрироваться</b>
+                </Typography>
+              </Box><Box
+                className="log__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+                onClick={handleModal3}
+              >
+                  <Typography
+                    variant="subtitle"
+                    style={{ paddingLeft: '15px', fontSize: '15px' }}
+                  >
+                    Войти
+                  </Typography>
+                </Box><hr
+                  style={{
+                    margin: '10px 0 10px 0',
+                    width: '100%',
+                    height: '0.5px',
+                    color: 'lightgray',
+                    backgroundColor: 'lightgray',
+                    border: 'none',
+                  }} /><Box
+                    className="help__btn"
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'start',
+                    }}
+                  >
+                  <Typography
+                    variant="subtitle"
+                    style={{ paddingLeft: '15px', fontSize: '15px' }}
+                  >
+                    Помощь
+                  </Typography>
+                </Box></> 
+        :
+        <><Box
+                className="log__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+                onClick={handlnav}
+              >
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  Мои поездки
+                </Typography>
+              </Box><hr
+                  style={{
+                    margin: '10px 0 10px 0',
+                    width: '100%',
+                    height: '0.5px',
+                    color: 'lightgray',
+                    backgroundColor: 'lightgray',
+                    border: 'none',
+                  }} /><Box
+                    className="help__btn"
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'start',
+                    }}
+                  >
+                  <Typography
+                    variant="subtitle"
+                    style={{ paddingLeft: '15px', fontSize: '15px' }}
+                  >
+                    Помощь
+                  </Typography>
+                </Box><Box onClick={logOutCallback}
+                  className="help__btn"
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                  }}
+                >
+                  <Typography
+                    variant="subtitle"
+                    style={{ paddingLeft: '15px', fontSize: '15px' }}
+                  >
+                    Выйти
+                  </Typography>
+                </Box></>
+       
+        }
+         
         </Box>
       </MyModalProf>
       <MyModal

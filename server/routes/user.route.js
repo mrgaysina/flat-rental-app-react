@@ -64,7 +64,6 @@ route.post('/login', async (req, res) => {
 
 route.post('/logout', async (req, res) => {
   // console.log('req.body from logout', req.body);
-
   const { user } = req.body;
   // Logic here for also remove refreshtoken from db
   if (user.id) {
