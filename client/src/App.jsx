@@ -20,7 +20,6 @@ import Loader from './components/loader/Loader';
 import MainLoader from './components/mainLoader/MainLoader';
 
 function App() {
-  // const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,9 +33,7 @@ function App() {
         withCredentials: true,
       }
     );
-    // Clear user from context
     dispatch(getUser({}));
-    // setUser({});
     // Navigate back to startpage
     navigate('/');
   };
@@ -57,21 +54,17 @@ function App() {
           accesstoken: result.data.accesstoken,
         })
       );
-      /* setUser({
-        id: result.data.id,
-        email: result.data.email,
-        accesstoken: result.data.accesstoken,
-      }); */
+    
       setLoading(false);
     }
     checkRefreshToken();
   }, []);
 
-  if (loading) return <MainLoader/>; //какой-то лоудер можно приделать
+  if (loading) return <MainLoader/>; 
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar logOutCallback={logOutCallback} />
       {/* <Navigation logOutCallback={logOutCallback} /> */}
       <Routes>
         {/*  <Route path="login" element={<Login />} />

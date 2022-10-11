@@ -16,8 +16,6 @@ const sendAccessToken = (req, res, accesstoken) => {
   res.send({
     accesstoken,
     email: req.body.email,
-    name: req.body.name,
-    id: req.body.id,
   });
 };
 

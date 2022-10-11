@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 const route = require('express').Router();
-const { sign } = require('jsonwebtoken');
 const { hash, compare } = require('bcryptjs');
 // hash(password, 10)
 const { verify } = require('jsonwebtoken');
@@ -16,7 +15,7 @@ const {
 const { User, Token } = require('../db/models');
 
 route.post('/signup', async (req, res) => {
-  console.log('req.body from signup ==>', req.body);
+  // console.log('req.body from signup ==>', req.body);
   const { name, email, password } = req.body;
   const userCheck = await User.findOne({ where: { email }, raw: true });
   if (userCheck) {
@@ -36,9 +35,8 @@ route.post('/login', async (req, res) => {
     if (password === user.password) {
       // 3. Create Refresh- and Accesstoken
       const accesstoken = createAccessToken(user.id);
-      // console.log('accesstoken from login ==>', accesstoken);
+      console.log('accesstoken from login ==>', accesstoken);
       const refreshtoken = createRefreshToken(user.id);
-
       console.log('refreshtoken from login ==>', refreshtoken);
       // 4. Store Refreshtoken with user in "db"
       // Could also use different version numbers instead.
@@ -51,11 +49,11 @@ route.post('/login', async (req, res) => {
       }
       // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
       sendRefreshToken(res, refreshtoken);
-      console.log('from login: req.cookies ===>', req.cookies);
+      console.log('req.cookies from login', req.cookies);
+      // sendAccessToken(req, res, accesstoken);
       res.json({
         email: user.email, name: user.username, id: user.id, accesstoken,
       });
-      // res.end();
     } else {
       return res.send('wrong password');
     }
@@ -68,21 +66,26 @@ route.post('/logout', async (req, res) => {
   // console.log('req.body from logout', req.body);
   const { user } = req.body;
   // Logic here for also remove refreshtoken from db
-  await Token.destroy({ where: { userId: user.id } });
-  res.clearCookie('refreshtoken');
+  if (user.id) {
+    await Token.destroy({ where: { userId: user.id } });
+    res.clearCookie('refreshtoken');
+    return res.send({
+      message: 'Logged out',
+    });
+  }
   return res.send({
-    message: 'Logged out',
+    message: 'Already logged out',
   });
 });
 
 route.post('/protected', async (req, res) => {
-  // console.log('req.headers from protected', req.headers);
+  console.log('req.headers from protected', req.headers);
   try {
     const userId = isAuth(req);
     // console.log('userId from protected', userId);
     if (userId !== null) {
       res.send({
-        message: 'This is protected data.',
+        data: 'This is protected data.',
       });
     }
   } catch (err) {
@@ -91,24 +94,24 @@ route.post('/protected', async (req, res) => {
 });
 route.post('/refresh_token', async (req, res) => {
   const token = req.cookies.refreshtoken;
-  console.log('token from refresh_token ==>', token);
+  console.log('req.cookies from refresh_token ==>', req.cookies);
   // If we don't have a token in our request
   if (!token) return res.send({ accesstoken: '' });
   // We have a token, let's verify it!
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
-    // console.log('payload from refresh', payload);
+    console.log('payload from refresh', payload);
     // token is valid, check if user exist
     const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
     console.log('user from refresh_token', user);
     if (!user) {
-      console.log('если не юзер');
+      console.log('no user');
       return res.send({ accesstoken: '' });
     }
     // user exist, check if refreshtoken exist on user
     if (user['Token.refreshToken'] !== token) {
-      console.log('если не совпадает токен');
+      console.log('token is not the same');
       return res.send({ accesstoken: '' });
     } // найти токен в связанной модели
     // token exist, create new Refresh- and accesstoken
@@ -118,9 +121,6 @@ route.post('/refresh_token', async (req, res) => {
     // Could have different versions instead!
     await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
     // All good to go, send new refreshtoken and accesstoken
-    console.log('113 строка ', {
-      accesstoken, email: user.email, name: user.username, id: user.id,
-    });
     sendRefreshToken(res, refreshtoken);
     return res.send({
       accesstoken, email: user.email, name: user.username, id: user.id,

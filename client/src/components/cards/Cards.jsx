@@ -18,17 +18,12 @@ import SkateboardingOutlinedIcon from '@mui/icons-material/SkateboardingOutlined
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [fetching, setFetching] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
+  const [fetching, setFetching] = useState(true); //! Подгрузка порционалная
+  const [isFetching, setIsFetching] = useState(false);//! скелетоны
   const [catFilter, setCatFilter] = useState('All');
-
 
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
-
-  const removeFilter = () => {
-    window.location.reload();
-  }
 
   const handlFilter = (catagory) => {
     setIsFetching(true)
@@ -36,7 +31,6 @@ const Cards = () => {
 
     axios.get(`http://localhost:3001/allFlat/${catagory}`)
     .then((res)=>{
-      console.log('res.data!!!!!!!!',res.data);
       dispatch(getFilterCard(res.data))
     })
     setIsFetching(false)
@@ -110,7 +104,7 @@ const Cards = () => {
             variant="filled"
           />
           <Chip
-            onClick={()=> removeFilter()}
+            onClick={()=> handlFilter('All')}
             icon={
               <PublicIcon
                 sx={{

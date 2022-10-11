@@ -9,7 +9,7 @@ const user = useSelector((store) => store.toolkit.user)
 
   // Could have something here to check for the time when the accesstoken expires
 
-  if (!user.accesstoken) return <Navigate to='/login'/>
+  if (!user.accesstoken) return <div>You need to log in</div>
   return <div>This is the content.</div>;
 }
 
