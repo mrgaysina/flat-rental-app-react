@@ -36,6 +36,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
       }))
       setVisible(false)
       navigate("/");
+      window.location.reload();
     } else {
       console.log('error');
     }

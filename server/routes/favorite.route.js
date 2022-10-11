@@ -12,13 +12,30 @@ route.post('/', async (req, res) => {
     console.log('flat', flat);
     console.log('id', id);
     if (flat) {
-      await Favorite.create({ userId, flatId: Number(id) });
-      res.json({ flat });
+      const fav = await Favorite.create({ userId, flatId: Number(id) });
+      res.json({ fav });
     } else {
       res.json({});
     }
   } catch (error) {
     console.error('error in favorite in user', error);
+  }
+});
+route.post('/one', async (req, res) => {
+  console.log('req.body', req.body);
+  const { userId, id } = req.body;
+  try {
+    if (userId) {
+      const favorite = await Favorite.findOne({ where: { userId, flatId: id }, raw: true });
+      console.log(favorite);
+      if (favorite) {
+        res.send('yes');
+      } else {
+        res.send('no');
+      }
+    }
+  } catch (error) {
+    console.error('error in profile router ', error);
   }
 });
 route.post('/:id', async (req, res) => {

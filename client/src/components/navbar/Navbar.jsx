@@ -13,7 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPoints, getCoordinates, getCost } from '../../RTKSlice/rtkslice';
 import PublicIcon from '@mui/icons-material/Public';
@@ -147,16 +147,19 @@ const Navbar = ({logOutCallback}) => {
           onClick={changeOff}
         />
       </Box>
+      
       <img
         className="header__icon"
         src="https://i.postimg.cc/VNVPptW3/no.png"
         alt="header__icon"
         onClick={(event) => {
-          navigate('/');
+        navigate('/')
+        window.location.reload();
           changeDown();
           changeOff();
         }}
-      />
+        />
+        
       <Box
         visibility="display"
         onClick={changeCl}
