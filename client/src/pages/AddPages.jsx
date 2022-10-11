@@ -27,6 +27,9 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import FlatwareIcon from '@mui/icons-material/Flatware';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 
 const AddPages = () => {
   const [category, setCategory] = useState('');
@@ -239,7 +242,11 @@ const AddPages = () => {
             variant="subtitle1"
             color="#7a7a7a"
           >
-            <PlaceIcon />
+            <PlaceIcon
+              style={{
+                color: '#00c7ce',
+              }}
+            />
             Местоположение
           </Typography>
           <hr
@@ -262,7 +269,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px' }}
+              style={{ width: '410px' }}
             >
               <InputLabel id="demo-simple-select-label">Категория</InputLabel>
               <Select
@@ -279,7 +286,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">Тип</InputLabel>
               <Select
@@ -295,7 +302,7 @@ const AddPages = () => {
             <Box>
               <TextField
                 variant="standard"
-                style={{ width: '400px', marginTop: '10px' }}
+                style={{ width: '410px', marginTop: '10px' }}
                 size="small"
                 label="Страна"
                 onChange={handleCountry}
@@ -304,7 +311,7 @@ const AddPages = () => {
             <Box>
               <TextField
                 variant="standard"
-                style={{ width: '400px', marginTop: '10px' }}
+                style={{ width: '410px', marginTop: '10px', color: 'black' }}
                 size="small"
                 label="Город"
                 onChange={handleCity}
@@ -313,11 +320,38 @@ const AddPages = () => {
             <Box>
               <TextField
                 variant="standard"
-                style={{ width: '400px', marginTop: '10px' }}
+                style={{ width: '410px', marginTop: '10px' }}
                 size="small"
                 label="Адрес"
                 onChange={handleAddress}
               />
+            </Box>
+            <Box
+              style={{
+                display: 'flex',
+                padding: '5px',
+                width: '400px',
+                height: '48px',
+                background: '#eafccf',
+                marginTop: '10px',
+                borderRadius: '7px',
+              }}
+            >
+              <VerifiedUserIcon style={{ color: '#0080006e' }} />
+              <Typography
+                align="left"
+                style={{
+                  color: '#2d482e',
+                  fontSize: '13px',
+                  display: 'flex',
+                  wordWrap: 'wrap',
+                  lineHeight: '16px',
+                }}
+              >
+                Чтобы ваши данные не попали в базы мошенников, номер квартиры не
+                указывается, после бронирования сообщите гостю в личном
+                кабинете.
+              </Typography>
             </Box>
             <Box
               component="form"
@@ -325,13 +359,13 @@ const AddPages = () => {
               autoComplete="off"
             >
               <TextField
-                variant="standard"
+                variant="outlined"
                 multiline
-                maxRows={4}
+                maxRows={10}
                 style={{
-                  width: '400px',
+                  width: '410px',
                   marginTop: '10px',
-                  marginBottom: '20px',
+                  marginBottom: '17px',
                 }}
                 size="small"
                 label="Описание"
@@ -350,7 +384,11 @@ const AddPages = () => {
             variant="subtitle1"
             color="#7a7a7a"
           >
-            <AccountBoxIcon />
+            <AccountBoxIcon
+              style={{
+                color: '#f98787',
+              }}
+            />
             Основное
           </Typography>
           <hr
@@ -373,7 +411,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">
                 Количество спальных мест
@@ -397,7 +435,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">
                 Количество гостей
@@ -421,7 +459,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">
                 Ванная комната
@@ -440,7 +478,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">Парковка</InputLabel>
               <Select
@@ -457,7 +495,7 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">
                 Пребывание с питомцами
@@ -475,7 +513,11 @@ const AddPages = () => {
             <FormControl
               variant="filled"
               size="small"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{
+                width: '410px',
+                marginTop: '10px',
+                marginBottom: '17px',
+              }}
             >
               <InputLabel id="demo-simple-select-label">
                 Курение в помещении
@@ -490,19 +532,6 @@ const AddPages = () => {
                 <MenuItem value={false}>Нет</MenuItem>
               </Select>
             </FormControl>
-            <Box>
-              <TextField
-                variant="standard"
-                style={{
-                  width: '400px',
-                  marginTop: '10px',
-                  marginBottom: '20px',
-                }}
-                size="small"
-                label="Стоимость за ночь"
-                onChange={handleCost}
-              />
-            </Box>
           </Box>
         </Box>
         <Box
@@ -517,7 +546,11 @@ const AddPages = () => {
             variant="subtitle1"
             color="#7a7a7a"
           >
-            <FlatwareIcon />
+            <FlatwareIcon
+              style={{
+                color: '#76bb81',
+              }}
+            />
             Удобства
           </Typography>
           <hr
@@ -585,6 +618,7 @@ const AddPages = () => {
             onChange={handleStove}
           />
         </Box>
+
         <Box className="three">
           <Typography
             style={{
@@ -595,7 +629,11 @@ const AddPages = () => {
             variant="subtitle1"
             color="#7a7a7a"
           >
-            <AddPhotoAlternateIcon />
+            <AddPhotoAlternateIcon
+              style={{
+                color: '#76b4f1',
+              }}
+            />
             Добавьте фотографии
           </Typography>
           <hr
@@ -617,54 +655,77 @@ const AddPages = () => {
           >
             <TextField
               variant="standard"
-              style={{ width: '400px', marginTop: '5px' }}
+              style={{ width: '410px', marginTop: '5px' }}
               size="small"
               label="Главное фото"
               onChange={handlePhoto}
             />
             <TextField
               variant="standard"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 1"
               onChange={handlePhoto}
             />
             <TextField
               variant="standard"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 2"
               onChange={handlePhoto}
             />
             <TextField
               variant="standard"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 3"
               onChange={handlePhoto}
             />
             <TextField
               variant="standard"
-              style={{ width: '400px', marginTop: '10px' }}
+              style={{ width: '410px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 4"
               onChange={handlePhoto}
             />
           </Box>
         </Box>
-        <Fab
-          onClick={createAdd}
-          style={{ marginTop: '20px' }}
-          variant="extended"
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: '30px',
+            marginTop: '30px',
+          }}
         >
-          <LocalFloristIcon sx={{ mr: 1, color: 'gray' }} />
-          <Typography
-            variant="button"
-            style={{ color: 'black' }}
-          >
-            Добавить жилье
-          </Typography>
-        </Fab>
+          <CreditScoreIcon sx={{ display: 'flex', color: 'black', mr: 1 }} />
+          <TextField
+            label="Стоимость за ночь"
+            variant="standard"
+            style={{
+              display: 'flex',
+              width: '147px',
+
+              marginBottom: '15px',
+            }}
+            size="small"
+            onChange={handleCost}
+          />
+          <CurrencyRubleIcon
+          />
+        </Box>
+        <Button
+          onClick={createAdd}
+          variant="contained"
+          style={{
+            background: 'black',
+            marginTop: '20px',
+            width: '440px',
+            height: '45px',
+          }}
+        >
+          Разместить жилье
+        </Button>
       </Box>
       <Box style={{ background: 'black', paddingBottom: '20px' }}>
         <Typography
