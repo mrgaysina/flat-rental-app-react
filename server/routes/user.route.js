@@ -70,7 +70,6 @@ route.post('/logout', async (req, res) => {
   if (user.id) {
     await Token.destroy({ where: { userId: user.id } });
     res.clearCookie('refreshtoken');
-
     return res.send({
       message: 'Logged out',
     });
