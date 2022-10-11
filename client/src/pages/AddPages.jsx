@@ -15,6 +15,7 @@ import {
   Card,
   CardContent,
   Fab,
+  Input
 } from '@mui/material';
 
 import Box from '@mui/material/Box';
@@ -55,6 +56,12 @@ const AddPages = () => {
   const [refrigerator, setRefrigerator] = useState(false);
   const [stove, setStove] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [img, setImg] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
+  const sendFile = React.useCallback(async () => {
+    
+  }, [img])
 
   const navigate = useNavigate();
 
@@ -152,8 +159,19 @@ const AddPages = () => {
     setStove(yesno);
   };
 
-  const handlePhoto = (event) => {
-    setPhotos([...photos, event.target.value]);
+  const handlePhoto = (img) => {
+    console.log('aaaaaaaaahadlephotos');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img)
+    axios.post('http://localhost:3001/addFlat/upload', data, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+    .then((res) => 
+      setPhotos([...photos, `http://localhost:3001/${res.data.path.split(' ').join('')}`])
+      );
   };
 
   const handleBathroom = (event) => {
@@ -646,6 +664,10 @@ const AddPages = () => {
               border: 'none',
             }}
           />
+          {/* <Input type="file" onChange={(e) => {
+            setImg(e.target.files[0])
+            handlePhoto()
+          }} /> */}
           <Box
             style={{
               display: 'flex',
@@ -653,43 +675,62 @@ const AddPages = () => {
               padding: '0 15px 20px 15px',
             }}
           >
-            <TextField
-              variant="standard"
-              style={{ width: '410px', marginTop: '5px' }}
+
+            <Input
+            type="file"
+              style={{ width: '400px', marginTop: '5px' }}
               size="small"
               label="Главное фото"
-              onChange={handlePhoto}
+              onChange={(e) => {
+                // console.log(e.target.files);
+                handlePhoto(e.target.files[0])}}
             />
-            <TextField
-              variant="standard"
-              style={{ width: '410px', marginTop: '10px' }}
+            <Input
+            type="file"
+              style={{ width: '400px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 1"
-              onChange={handlePhoto}
+              onChange={(e) => {
+                // console.log(e.target.files);
+                handlePhoto(e.target.files[0])}}
             />
-            <TextField
-              variant="standard"
-              style={{ width: '410px', marginTop: '10px' }}
+            <Input
+            type="file"
+              style={{ width: '400px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 2"
-              onChange={handlePhoto}
+              onChange={(e) => {
+                // console.log(e.target.files);
+                handlePhoto(e.target.files[0])}}
             />
-            <TextField
-              variant="standard"
-              style={{ width: '410px', marginTop: '10px' }}
+            <Input
+            type="file"
+              style={{ width: '400px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 3"
-              onChange={handlePhoto}
+              onChange={(e) => {
+                // console.log(e.target.files);
+                handlePhoto(e.target.files[0])}}
             />
-            <TextField
-              variant="standard"
-              style={{ width: '410px', marginTop: '10px' }}
+
+            <Input
+            type="file"
+              style={{ width: '400px', marginTop: '10px' }}
               size="small"
               label="Доп. фото 4"
-              onChange={handlePhoto}
+              onChange={(e) => {
+                // console.log(e.target.files);
+                handlePhoto(e.target.files[0])}}
             />
           </Box>
         </Box>
+        <Fab
+          onClick={() => {
+            createAdd();
+            sendFile()}}
+          style={{ marginTop: '20px' }}
+          variant="extended"
+
         <Box
           sx={{
             display: 'flex',
@@ -723,6 +764,7 @@ const AddPages = () => {
             width: '440px',
             height: '45px',
           }}
+
         >
           Разместить жилье
         </Button>

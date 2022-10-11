@@ -1,6 +1,7 @@
 const route = require('express').Router();
 const axios = require('axios');
 const { Flat } = require('../db/models');
+const fileMiddleware = require('../middleware/file');
 
 route.post('/', async (req, res) => {
   console.log('baaaaaaaaaaaaack');
@@ -46,6 +47,20 @@ route.post('/', async (req, res) => {
   console.log('newFlat', newFlat.toJSON().id);
   const newId = newFlat.toJSON().id;
   res.json({ newId });
+});
+
+route.post('/upload', fileMiddleware.single('avatar'), (req, res) => {
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  try {
+    if (req.file) {
+      console.log(req.file);
+      res.json(req.file);
+    } else {
+      console.log('nooooooo');
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = route;
