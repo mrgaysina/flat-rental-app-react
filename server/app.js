@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+const path = require('path');
 /* const session = require('express-session');
 const FileStore = require('session-file-store')(session); */
 const cookieParser = require('cookie-parser');
@@ -16,8 +17,9 @@ const bookingRoute = require('./routes/booking.route');
 const searchRoute = require('./routes/search.route');
 const addflatRoute = require('./routes/addflat.route');
 
-
 const app = express();
+app.use(express.json({ extended: true }));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 const PORT = process.env.PORT || 3001;
 app.use(
