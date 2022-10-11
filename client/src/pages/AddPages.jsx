@@ -724,13 +724,13 @@ const AddPages = () => {
             />
           </Box>
         </Box>
-        <Fab
+        {/* <Fab
           onClick={() => {
             createAdd();
             sendFile()}}
           style={{ marginTop: '20px' }}
           variant="extended"
-
+          /> */}
         <Box
           sx={{
             display: 'flex',
@@ -756,7 +756,9 @@ const AddPages = () => {
           />
         </Box>
         <Button
-          onClick={createAdd}
+          onClick={() => {
+            createAdd();
+            sendFile()}}
           variant="contained"
           style={{
             background: 'black',
