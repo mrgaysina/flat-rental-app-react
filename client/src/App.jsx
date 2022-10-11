@@ -5,8 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import { Flat } from './pages/Flat';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Login from './components/signUp/Login';
-import Register from './components/signUp/Register';
+import FavoritePage from './pages/FavoritePage';
 import Protected from './components/signUp/Protected';
 import Navigation from './components/signUp/Navigation';
 import Content from './components/signUp/Content';
@@ -67,8 +66,6 @@ function App() {
       <Navbar logOutCallback={logOutCallback} />
       {/* <Navigation logOutCallback={logOutCallback} /> */}
       <Routes>
-        {/*  <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} /> */}
         <Route
           path="protected"
           element={<Protected />}
@@ -77,6 +74,10 @@ function App() {
           path="content"
           element={<Content />}
         />
+        <Route
+            path={`/favorite/${user.id}`}
+            element={<FavoritePage />}
+          />
         <Route
           path={`/`}
           element={<Home />}

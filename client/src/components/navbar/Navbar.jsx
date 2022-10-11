@@ -69,7 +69,7 @@ const Navbar = ({logOutCallback}) => {
   const handlFavorite = () => {
     changeTop();
     setModal(false);
-    navigate('/myfavorite');
+    navigate(`/favorite/${user.id}`);
   };
   const handleModal = () => {
     setModal(true);
