@@ -17,11 +17,18 @@ import AddPages from './pages/AddPages';
 import MyTrips from './pages/MyTrips';
 import Loader from './components/loader/Loader';
 import MainLoader from './components/mainLoader/MainLoader';
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const user = useSelector((store) => store.toolkit.user);
   const logOutCallback = async () => {

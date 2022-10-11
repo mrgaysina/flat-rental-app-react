@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider,CalendarPicker, PickersDay } from '@mui/x-date-pickers';
+import { LocalizationProvider,CalendarPicker, DatePicker } from '@mui/x-date-pickers';
 import { useSelector } from 'react-redux';
 
 
@@ -30,7 +30,7 @@ export const CalendarForFlat = () => {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <CalendarPicker 
+          <CalendarPicker
           date={date} 
           onChange={(newDate) => setDate(newDate)} 
           disablePast={true}
