@@ -12,8 +12,12 @@ import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/Loader';
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 const SingleCard = ({ el, isFetching }) => {
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } }; //? Смена стилей на сердечке после клика
   const navigate = useNavigate();
   return (
     <div>
@@ -31,9 +35,10 @@ const SingleCard = ({ el, isFetching }) => {
               zIndex: '10',
             }}
           >
-            <FavoriteTwoToneIcon
-              className="like"
-              sx={{ color: 'white' }}
+            <Checkbox className='like'
+              {...label}
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite style={{color:'red'}}/>}
             />
           </div>
           <Card

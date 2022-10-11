@@ -15,7 +15,7 @@ const flatRoute = require('./routes/flat.route');
 const bookingRoute = require('./routes/booking.route');
 const searchRoute = require('./routes/search.route');
 const addflatRoute = require('./routes/addflat.route');
-
+const favoriteRoute = require('./routes/favorite.route');
 
 const app = express();
 
@@ -40,6 +40,7 @@ app.use('/flat/booking', bookingRoute);
 app.use('/search', searchRoute);
 app.use('/auth', userRoute);
 app.use('/addFlat', addflatRoute);
+app.use('/favorite', favoriteRoute);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);

@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Favorite extends Model {
     /**
@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Favorite.init({
     userId: DataTypes.INTEGER,
-    flatId: DataTypes.INTEGER
+    flatId: DataTypes.INTEGER,
+    FlatId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Favorite',
