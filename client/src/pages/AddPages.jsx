@@ -60,6 +60,14 @@ const AddPages = () => {
   const [photos, setPhotos] = useState([]);
   const [img, setImg] = useState(null);
   const [avatar, setAvatar] = useState(null);
+  const [photo1, setPhoto1] = useState("https://via.placeholder.com/420x420")
+  const [photo2, setPhoto2] = useState("https://via.placeholder.com/206x206")
+  const [photo3, setPhoto3] = useState("https://via.placeholder.com/206x206")
+  const [photo4, setPhoto4] = useState("https://via.placeholder.com/206x206")
+  const [photo5, setPhoto5] = useState("https://via.placeholder.com/206x206")
+
+  
+
 
   const sendFile = React.useCallback(async () => {}, [img]);
 
@@ -170,12 +178,99 @@ const AddPages = () => {
           'content-type': 'multipart/form-data',
         },
       })
-      .then((res) =>
+      .then((res) => {
         setPhotos([
           ...photos,
           `http://localhost:3001/${res.data.path.split(' ').join('')}`,
         ])
-      );
+      });
+  };
+
+  const handlePhoto1 = (img) => {
+    console.log('handle1');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img);
+    axios
+      .post('http://localhost:3001/addFlat/upload', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setPhoto1(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`,
+        )
+      });
+  };
+
+  const handlePhoto2 = (img) => {
+    console.log('handle2');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img);
+    axios
+      .post('http://localhost:3001/addFlat/upload', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setPhoto2(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`,
+        )
+      });
+  };
+  const handlePhoto3 = (img) => {
+    console.log('handle3');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img);
+    axios
+      .post('http://localhost:3001/addFlat/upload', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setPhoto3(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`,
+        )
+      });
+  };
+  const handlePhoto4 = (img) => {
+    console.log('handle4');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img);
+    axios
+      .post('http://localhost:3001/addFlat/upload', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setPhoto4(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`,
+        )
+      });
+  };
+  const handlePhoto5 = (img) => {
+    console.log('handle5');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('avatar', img);
+    axios
+      .post('http://localhost:3001/addFlat/upload', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setPhoto5(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`,
+        )
+      });
   };
 
   const handleBathroom = (event) => {
@@ -674,15 +769,16 @@ const AddPages = () => {
                 size="small"
                 label="Главное фото"
                 onChange={(e) => {
-                  // console.log(e.target.files);
+                  console.log('e.target', e);
                   handlePhoto(e.target.files[0]);
+                  handlePhoto1(e.target.files[0])
                 }}
               />
               <CardMedia
                 className="bigImgAdd"
                 sx={{ borderRadius: '5% 0 0 5%' }}
                 component="img"
-                image="https://via.placeholder.com/420x420" //?главная фотка
+                image={photo1} //?главная фотка
               />
             </Box>
             <Box className="fourPicAdd">
@@ -690,25 +786,25 @@ const AddPages = () => {
                 className="smallImg1Add"
                 sx={{ borderRadius: '0 0 0 0' }}
                 component="img"
-                image="https://via.placeholder.com/206x206" //?маленькая фотка
+                image={photo2} //?маленькая фотка
               />
               <CardMedia
                 className="smallImg2Add"
                 sx={{ borderRadius: '0 0 0 0' }}
                 component="img"
-                image="https://via.placeholder.com/206x206" //?маленькая фотка
+                image={photo4} //?маленькая фотка
               />
               <CardMedia
                 className="smallImg3Add"
                 sx={{ borderRadius: '0 10% 0 0' }}
                 component="img"
-                image="https://via.placeholder.com/206x206" //?маленькая фотка
+                image={photo3} //?маленькая фотка
               />
               <CardMedia
                 className="smallImg4Add"
                 sx={{ borderRadius: '0 0 10% 0' }}
                 component="img"
-                image="https://via.placeholder.com/206x206" //?маленькая фотка
+                image={photo5} //?маленькая фотка
               />
               <input
                 type="file"
@@ -726,6 +822,7 @@ const AddPages = () => {
                 onChange={(e) => {
                   // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
+                  handlePhoto5(e.target.files[0])
                 }}
               />
               <input
@@ -744,6 +841,7 @@ const AddPages = () => {
                 onChange={(e) => {
                   // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
+                  handlePhoto2(e.target.files[0])
                 }}
               />
               <input
@@ -762,6 +860,7 @@ const AddPages = () => {
                 onChange={(e) => {
                   // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
+                  handlePhoto3(e.target.files[0])
                 }}
               />
               <input
@@ -780,6 +879,7 @@ const AddPages = () => {
                 onChange={(e) => {
                   // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
+                  handlePhoto4(e.target.files[0])
                 }}
               />
             </Box>
