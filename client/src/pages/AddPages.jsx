@@ -663,7 +663,7 @@ const AddPages = () => {
             </Box>
             <Box
               className="itembox"
-              style={{ marginTop: '20px', marginBottom: '20px' }}
+              style={{ marginTop: '40px', marginBottom: '20px' }}
             >
               <Typography
                 style={{

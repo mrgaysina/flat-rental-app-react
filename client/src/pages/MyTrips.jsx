@@ -31,47 +31,7 @@ const MyTrips = () => {
         >
           Поездки
         </Typography>
-        <Box className="tripsDisc">
-          <Box className="inside_Disc">
-            <RocketLaunchOutlinedIcon
-              sx={{ fontSize: '35px', color: '#00c7ce' }}
-            />
-            <Typography
-              variant="subtitle3"
-              sx={{
-                fontSize: '15px',
-                color: 'black',
-                fontWeight: '600',
-                margin: '20px 0 5px 0',
-              }}
-            >
-              Задумайся о жилье зарнее
-            </Typography>
-            <Typography
-              variant="subtitle3"
-              sx={{
-                fontSize: '13px',
-                color: '#adaaaa',
-                fontWeight: '500',
-                margin: '0 0 7px 0',
-              }}
-            >
-              Пора придумать новые путешествия
-            </Typography>
-            <button
-              onClick={() => navigate('/')}
-              className="btn__trips"
-            >
-              <p style={{ color: 'white', fontWeight: '600' }}>Начать поиск</p>
-            </button>
-          </Box>
-          <CardMedia
-            sx={{ borderRadius: '0px 10px 10px 0px', width: '820px' }}
-            component="img"
-            image="https://i.postimg.cc/FHwThB5F/1.png"
-            alt="green iguana"
-          />
-        </Box>
+       
         <Box style={{ paddingTop: '10px' }}>Карточки</Box>
         <hr
           style={{
@@ -93,6 +53,7 @@ const MyTrips = () => {
           </a>
         </Typography>
       </Box>
+      
     </Box>
   );
 };
