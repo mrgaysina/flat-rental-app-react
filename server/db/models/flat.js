@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     stove: DataTypes.BOOLEAN,
     rating: DataTypes.REAL,
     photos: DataTypes.JSON,
+    ownerId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Flat',

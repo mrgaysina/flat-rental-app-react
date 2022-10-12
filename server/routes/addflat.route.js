@@ -16,6 +16,7 @@ route.post('/', async (req, res) => {
   console.log('coordinates', coordinates);
   const findmaxid = await Flat.max('id');
   console.log('ownerId from back', ownerId);
+  console.log('req.body from addroute', req.body);
   
   const newFlat = await Flat.create({
     ownerId,
