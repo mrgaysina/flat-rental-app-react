@@ -10,6 +10,7 @@ body {
 }
 
 .one {
+  width: 440px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
@@ -18,23 +19,25 @@ body {
   margin-top: 0px;
 }
 .two {
+  width: 440px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   border-radius: 10px;
 }
 .three {
+  width: 440px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   border-radius: 10px;
 }
 .allField {
+  width: 100%;
   margin: 20px 0 20px 0;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .header__mytrips {
@@ -119,4 +122,83 @@ body {
   padding-left: 110px;
   color: gray;
   font-size: 14px;
+}
+
+/*--------------------------------------------*/
+
+.smallImg1Add {
+  width: 206px !important;
+  height: 206px !important;
+  position: absolute;
+}
+.smallImg2Add {
+  width: 206px !important;
+  height: 206px !important;
+  bottom: 0;
+  position: absolute;
+}
+.smallImg3Add {
+  width: 206px !important;
+  height: 206px !important;
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+.smallImg4Add {
+  width: 206px !important;
+  height: 206px !important;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+.bigImgAdd {
+  height: 420px !important;
+  width: 420px !important;
+}
+
+.fourPicAdd {
+  position: relative;
+  margin-left: 8px;
+  width: 420px;
+}
+.box__photoAdd {
+  margin: 20px 0px 20px 0px;
+  justify-content: space-between;
+  top: 250px;
+  display: flex;
+  position: sticky;
+  max-width: 1219px;
+}
+
+.all__block {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.input_block {
+  display: flex;
+  flex-direction: column;
+  margin-left: 110px;
+  width: 55vh;
+}
+
+.cost__block {
+  align-items: center;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 40px;
+}
+
+.disc__upload__pic {
+  justify-content: space-between;
+  display: flex;
+  padding: 10px 10px 0px 10px ;
+  width: 250px;
+  height: 120px;
+  background-color: #d2eefca6;
+  border-radius: 10px;
 }

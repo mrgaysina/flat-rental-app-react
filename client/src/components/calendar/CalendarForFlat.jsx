@@ -30,7 +30,7 @@ export const CalendarForFlat = () => {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <CalendarPicker
+          <CalendarPicker 
           date={date} 
           onChange={(newDate) => setDate(newDate)} 
           disablePast={true}
