@@ -6,7 +6,7 @@ const fileMiddleware = require('../middleware/file');
 route.post('/', async (req, res) => {
   console.log('baaaaaaaaaaaaack');
   const {
-    category, bed, bathroom, type, guests, parking, pets, smoking, country, city, address,
+    ownerId, category, bed, bathroom, type, guests, parking, pets, smoking, country, city, address,
     costPerNight, description, kitchen, airCondition, wifi, TV, heating, hairdryer,
     washingMachine, refrigerator, stove, photos,
   } = req.body;
@@ -15,8 +15,10 @@ route.post('/', async (req, res) => {
   const coordinates = coord.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').reverse().join(', ');
   console.log('coordinates', coordinates);
   const findmaxid = await Flat.max('id');
-
+  console.log('ownerId from back', ownerId);
+  
   const newFlat = await Flat.create({
+    ownerId,
     id: findmaxid + 1,
     category,
     country,

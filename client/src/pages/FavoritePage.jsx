@@ -24,7 +24,7 @@ export default function FavoritePage() {
     axios
       .post(`http://localhost:3001/favorite/${userId}`, { userId }, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.favorites);
+        console.log(res.data);
         setFavorite(res.data.favorites)
       });
   }, []);

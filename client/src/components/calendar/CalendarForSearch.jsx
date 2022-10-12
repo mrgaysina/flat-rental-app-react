@@ -63,6 +63,7 @@ export function CalendarForSearch({ guests, cost }) {
   };
 
   const handleBooking = () => {
+    console.log(user, 'uuuuuuuuuuuuuuuuuuuu');
     axios.post(
       `http://localhost:3001/flat/booking/${id}`,
       { id, checkin, checkout, bookCost, duration, person, userId },
