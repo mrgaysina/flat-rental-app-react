@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Flat extends Model {
     /**
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       // this.hasMany(models.PhotoFlat, { foreignKey: 'flatId' });
       this.hasMany(models.Booking, { foreignKey: 'flatId' });
       this.hasMany(models.Review, { foreignKey: 'flatId' });
-
+      this.belongsToMany(models.User, { foreignKey: 'ownerId' });
     }
   }
   Flat.init({

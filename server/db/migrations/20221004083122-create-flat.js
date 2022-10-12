@@ -83,6 +83,13 @@ module.exports = {
       photos: {
         type: Sequelize.JSON,
       },
+      ownerId: {
+        type: Sequelize.INTEGER,
+        reference: {
+          model: 'Users',
+          key: 'id',
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

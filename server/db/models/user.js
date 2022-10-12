@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -16,12 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Booking, { foreignKey: 'userId' });
       this.hasMany(models.Review, { foreignKey: 'userId' });
       this.hasOne(models.Token, { foreignKey: 'userId' });
+      this.hasMany(models.Flat, { foreignKey: 'ownerId' });
     }
   }
   User.init({
     username: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',
