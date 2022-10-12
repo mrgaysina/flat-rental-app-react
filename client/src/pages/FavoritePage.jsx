@@ -18,14 +18,20 @@ export default function FavoritePage() {
   const navigate = useNavigate();
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
-  const [favorites, setFavorite] = useState([])
+  const [favorites, setFavorite] = useState([]) //! инфа о  лайкнутых квартирах
+  const [myflats, setMyflats] = useState([]) //! инфа о моих квартирах
+  const [mytrips,setMytrips] = useState([]) //! инфа от моих поездках
 
   useEffect(() => {
     axios
       .post(`http://localhost:3001/favorite/${userId}`, { userId }, { withCredentials: true })
       .then((res) => {
-        console.log(res.data);
         setFavorite(res.data.favorites)
+        setMyflats(res.data.myflats)
+        setMytrips(res.data.mytrips)
+        console.log('favorites from Favorite Page тут мои любимые квартиры',favorites);
+        console.log('myflats from Favorite Page тут мои квартиры',myflats);
+        console.log('mytrips from Favorite Page тут мои поездки',mytrips);
       });
   }, []);
   
