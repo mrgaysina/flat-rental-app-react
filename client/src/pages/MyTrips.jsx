@@ -29,7 +29,7 @@ const MyTrips = () => {
             margin: '20px 0 30px 0',
           }}
         >
-          Поездки
+          Мои Квартиры
         </Typography>
         <Box className="tripsDisc">
           <Box className="inside_Disc">

@@ -6,11 +6,13 @@ import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { CalendarForSearch } from '../calendar/CalendarForSearch';
 import { useEffect, useState } from 'react';
 import StarRateIcon from '@mui/icons-material/StarRate';
+import { useSelector } from 'react-redux';
 
 export const Calculator = ({ id }) => {
   const [cost, setCost] = useState('');
   const [rate, setRate] = useState(0);
   const [guests, setGuests] = useState(0);
+
 
   useEffect(() => {
     flatHandler();
