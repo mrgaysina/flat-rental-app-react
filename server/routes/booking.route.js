@@ -7,11 +7,13 @@ route.get('/:id', async (req, res) => {
 });
 
 route.post('/:id', async (req, res) => {
+  console.log('req.body from BOKING ROUTE',req.body);
   try {
     const {
-      id, checkin, checkout, bookCost, duration, person,
+      id, checkin, checkout, bookCost, duration, person, userId,
     } = req.body;
     await Booking.create({
+      userId,
       flatId: id,
       startDate: checkin,
       endDate: checkout,

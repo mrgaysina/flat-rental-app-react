@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Booking, { foreignKey: 'userId' });
       this.hasMany(models.Review, { foreignKey: 'userId' });
       this.hasOne(models.Token, { foreignKey: 'userId' });
-      this.hasMany(models.Flat, { foreignKey: 'ownerId' });
+      // this.hasMany(models.Flat, { foreignKey: 'ownerId' });
     }
   }
   User.init({

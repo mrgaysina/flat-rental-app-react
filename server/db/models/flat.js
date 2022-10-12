@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       // this.hasMany(models.PhotoFlat, { foreignKey: 'flatId' });
       this.hasMany(models.Booking, { foreignKey: 'flatId' });
       this.hasMany(models.Review, { foreignKey: 'flatId' });
-      this.belongsToMany(models.User, { foreignKey: 'ownerId' });
+      // this.belongsTo(models.User, { foreignKey: 'ownerId' });
     }
   }
   Flat.init({
