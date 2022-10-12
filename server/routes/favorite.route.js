@@ -46,6 +46,7 @@ route.post('/:id', async (req, res) => {
     const myflats = await Flat.findAll({ raw: true, where: { ownerId: userId } });
     const mytrips = await Booking.findAll({ raw: true, where: { userId }, include: Flat });
     console.log('myflats', myflats);
+    console.log('mytrips', mytrips);
 
     res.json({ favorites, myflats, mytrips });
   } catch (error) {

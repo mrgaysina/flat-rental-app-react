@@ -13,10 +13,7 @@ route.post('/', async (req, res) => {
 
   const coord = await axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=9e68dad6-a5b6-4237-bfa0-02b4a68d8290&format=json&geocode=${city}+${address}`, { withCredentials: true });
   const coordinates = coord.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').reverse().join(', ');
-  console.log('coordinates', coordinates);
   const findmaxid = await Flat.max('id');
-  console.log('ownerId from back', ownerId);
-  console.log('req.body from addroute', req.body);
   
   const newFlat = await Flat.create({
     ownerId,
