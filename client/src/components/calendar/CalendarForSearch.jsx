@@ -34,6 +34,9 @@ export function CalendarForSearch({ guests, cost }) {
   const [value, setValue] = useState([null, null]);
   const dispatch = useDispatch();
 
+  const user = useSelector((store) => store.toolkit.user);
+  const userId = user.id;
+
   useEffect(() => {
     disableDate();
   }, [])
@@ -60,9 +63,10 @@ export function CalendarForSearch({ guests, cost }) {
   };
 
   const handleBooking = () => {
+    console.log(user, 'uuuuuuuuuuuuuuuuuuuu');
     axios.post(
       `http://localhost:3001/flat/booking/${id}`,
-      { id, checkin, checkout, bookCost, duration, person },
+      { id, checkin, checkout, bookCost, duration, person, userId },
       { withCredentials: true }
     );
   };

@@ -31,6 +31,7 @@ const Cards = () => {
 
     axios.get(`http://localhost:3001/allFlat/${catagory}`)
     .then((res)=>{
+      
       dispatch(getFilterCard(res.data))
     })
     setIsFetching(false)
@@ -39,6 +40,7 @@ const Cards = () => {
   useEffect(()=>{
     return setIsFetching(true)
   },[])
+
 
 
   useEffect(() => {
@@ -50,6 +52,7 @@ const Cards = () => {
           { withCredentials: true },
         )
         .then((res) => {
+          console.log('res.data card', res.data);
           dispatch(getAllCard([...card, ...res.data.flat.rows]));
           setCurrentPage((prevState) => prevState + 10);
         })

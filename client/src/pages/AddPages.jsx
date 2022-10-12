@@ -33,6 +33,7 @@ import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
+import { useSelector } from 'react-redux';
 
 const AddPages = () => {
   const [category, setCategory] = useState('');
@@ -70,6 +71,8 @@ const AddPages = () => {
 
 
   const sendFile = React.useCallback(async () => {}, [img]);
+  const user = useSelector((store) => store.toolkit.user)
+  const ownerId = user.id;
 
   const navigate = useNavigate();
 
@@ -279,10 +282,12 @@ const AddPages = () => {
 
   const createAdd = () => {
     console.log('aaaaaaaaaaaaaaaaa');
+    console.log('ownerId from createAd', ownerId);
     axios
       .post(
         'http://localhost:3001/addFlat',
         {
+          ownerId,
           category,
           bed,
           bathroom,
