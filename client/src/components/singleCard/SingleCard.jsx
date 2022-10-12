@@ -67,7 +67,7 @@ const SingleCard = ({ el, isFetching }) => {
               zIndex: "10",
             }}
           >
-            {
+             {userId ? <>{
               color === 'red' ? 
               <Checkbox
                 className="like"
@@ -84,7 +84,24 @@ const SingleCard = ({ el, isFetching }) => {
                 checkedIcon={<Favorite style={{ color: "red" }} />}
                 onChange={handleAddToFav}
               />
-            }
+            }</> : <>{
+              color === 'red' ? 
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<Favorite style={{ color: "red" }} />}
+                checkedIcon={<Favorite style={{ color: "red" }} />}
+                onChange={handleAddToFav}
+              />
+              :
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<FavoriteBorder/>}
+                checkedIcon={<FavoriteBorder/>}
+                onChange={handleAddToFav}
+              />
+            }</>}
           </div>
           <Card
             sx={{

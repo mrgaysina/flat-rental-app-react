@@ -124,7 +124,7 @@ export const Flat = () => {
           </Box>
           <Box>
             <u>Сохранить</u>
-            {
+            {userId ? <>{
               color === 'red' ? 
               <Checkbox
                 className="like"
@@ -141,7 +141,24 @@ export const Flat = () => {
                 checkedIcon={<Favorite style={{ color: "red" }} />}
                 onChange={handleAddToFav}
               />
-            }
+            }</> : <>{
+              color === 'red' ? 
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<Favorite style={{ color: "red" }} />}
+                checkedIcon={<Favorite style={{ color: "red" }} />}
+                onChange={handleAddToFav}
+              />
+              :
+              <Checkbox
+                className="like"
+                {...label}
+                icon={<FavoriteBorder/>}
+                checkedIcon={<FavoriteBorder/>}
+                onChange={handleAddToFav}
+              />
+            }</>}
           </Box>
         </Box>
         <Box className="box__photo">
