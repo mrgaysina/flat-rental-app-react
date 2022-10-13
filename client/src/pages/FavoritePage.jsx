@@ -808,7 +808,7 @@ export default function FavoritePage() {
               Осталось добавить объявление о своей квартире
             </Typography>
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/addFlats')}
               className="btn__trips"
             >
               <p style={{ color: 'white', fontWeight: '600' }}>Сдать жилье</p>

@@ -60,7 +60,7 @@ const SingleCard = ({ el, isFetching }) => {
         { userId, id },
         { withCredentials: true },
       );
-      // window.location.reload();
+      window.location.reload();
       console.log("result from delete", result.data);
     }
   }
