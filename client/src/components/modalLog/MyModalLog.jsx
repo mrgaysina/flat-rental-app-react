@@ -15,7 +15,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [iss, setIss] = useState('');
+  const [picture, setPicture] = useState('');
   const user = useSelector((store) => store.toolkit.user);
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
     setEmail(userObject.email)
     document.getElementById("signInBtn").hidden = true;
     console.log('email', email);
-    setIss(userObject.iss)
+    setPicture(userObject.picture)
     console.log('email', email);
   };
 
@@ -36,7 +36,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
     const sendData = async() => {
       const result = await axios.post(
         "http://localhost:3001/auth/login",
-        { email, iss },
+        { email, picture },
         { withCredentials: true }
       );
       console.log("result data from login", result.data);
