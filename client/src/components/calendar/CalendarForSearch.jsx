@@ -19,7 +19,7 @@ import { DateRangePicker } from '@mui/lab';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDisableDates } from '../../RTKSlice/rtkslice';
 
@@ -32,7 +32,9 @@ export function CalendarForSearch({ guests, cost }) {
   const [bookCost, setBookCost] = useState(1);
   const [duration, setDuration] = useState(0);
   const [value, setValue] = useState([null, null]);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
@@ -148,10 +150,25 @@ export function CalendarForSearch({ guests, cost }) {
       <Button
         sx={{ width: '300px', height: '40px' }}
         variant="contained"
-        onClick={handleBooking}
+        onClick={() => {
+          handleBooking()
+          navigate(`/favorite/${userId}`)
+        }}
       >
         Забронировать
       </Button>
+      <Box style={{ display: 'flex', justifyContent: 'space-around', width: 250}}>
+        <Typography style={{ paddingTop: '10px', color: 'grey', textDecoration: 'underline' }}>
+          {`${duration} ночей x ${cost} руб`}  
+        </Typography>
+        {(bookCost > 2) ? 
+        <>
+          <Typography style={{  paddingTop: '10px', color: 'grey' }}>
+          {`${bookCost} руб`}
+        </Typography>
+        </> : <></>}
+        
+      </Box>
       <Typography style={{ paddingTop: '10px', color: 'grey' }}>
         Пока вы ничего не платите
       </Typography>
