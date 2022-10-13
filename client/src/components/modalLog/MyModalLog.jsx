@@ -67,10 +67,11 @@ const MyModalLog = ({ children, visible, setVisible }) => {
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById("signInBtn"), {
-      theme: "outline",
-      size: "large",
+      // 'theme': "outline",
+      // 'size': "large",
+      'width': 450,
     });
-    google.accounts.id.prompt();
+    // google.accounts.id.prompt();
   }, []);
   
 
