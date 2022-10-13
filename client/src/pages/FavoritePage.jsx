@@ -572,9 +572,7 @@ export default function FavoritePage() {
                         padding: '10px 0 0 0',
                         cursor: 'pointer',
                       }}
-                      onClick={() =>
-                        navigate(`/flat/${favorite['Flats.flatId']}`)
-                      } //приходит андефайн
+                      onClick={() => navigate(`/flat/${favorite['Flats.id']}`) } //* done
                     >
                       <div className="container__rate">
                         <Typography
