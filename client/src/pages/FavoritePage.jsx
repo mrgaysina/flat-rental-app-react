@@ -177,8 +177,10 @@ export default function FavoritePage() {
             marginTop: '40px',
           }}
         >
-          <div className="tripsCard">
-            {mytrips.map((mytrip) => {
+        {mytrips[0] ? // проверка есть ли забронированные квартиры / поездки
+        <>
+          <div className="tripsCard"> 
+            {mytrips.map((mytrip) => { // если есть, то показываем карточки
               return (
                 <Box
                   className="oneFavCard"
@@ -395,6 +397,52 @@ export default function FavoritePage() {
               ); //поездки
             })}
           </div>
+        </> :  // если нет поездок, то показываем карточку
+        <> 
+        <Box style={{ display: 'flex', justifyContent: 'center' }}> 
+        <Box className="tripsDisc">
+          <Box className="inside_Disc">         
+            <RocketLaunchOutlinedIcon 
+              sx={{ fontSize: '35px', color: '#00c7ce' }} 
+            />
+            <Typography
+              variant="subtitle3"
+              sx={{
+                fontSize: '15px',
+                color: 'black',
+                fontWeight: '600',
+                margin: '20px 0 5px 0',
+              }}
+            >
+              Задумайся о жилье заранее
+            </Typography>
+            <Typography
+              variant="subtitle3"
+              sx={{
+                fontSize: '13px',
+                color: '#adaaaa',
+                fontWeight: '500',
+                margin: '0 0 7px 0',
+              }}
+            >
+              Пора придумать новые путешествия
+            </Typography>
+            <button
+              onClick={() => navigate('/')}
+              className="btn__trips"
+            >
+              <p style={{ color: 'white', fontWeight: '600' }}>Начать поиск</p>
+            </button>
+          </Box>
+          <CardMedia
+            sx={{ borderRadius: '0px 10px 10px 0px', width: '600px' }}
+            component="img"
+            image="https://i.postimg.cc/fLNLbb1D/image-5.png"
+            alt="green iguana"
+          />
+        </Box>
+      </Box>
+        </>}
 
           <Box
             style={{
@@ -572,9 +620,7 @@ export default function FavoritePage() {
                         padding: '10px 0 0 0',
                         cursor: 'pointer',
                       }}
-                      onClick={() =>
-                        navigate(`/flat/${favorite['Flats.flatId']}`)
-                      } //приходит андефайн
+                      onClick={() => navigate(`/flat/${favorite['Flats.id']}`) } //* done
                     >
                       <div className="container__rate">
                         <Typography
@@ -642,6 +688,8 @@ export default function FavoritePage() {
           Мои квартиры
         </Typography>
       </Box>
+      {myflats[0] ? 
+      <>
       <Box
         style={{
           display: 'flex',
@@ -729,9 +777,11 @@ export default function FavoritePage() {
           ); //любимое
         })}
       </Box>
+      </> :
+      <>
       <Box style={{ display: 'flex', justifyContent: 'center' }}>
-        <Box className="tripsDisc">
-          <Box className="inside_Disc">
+        <Box className="myflatDisc">
+          <Box className="myflatinside_Disc">
             <RocketLaunchOutlinedIcon
               sx={{ fontSize: '35px', color: '#00c7ce' }}
             />
@@ -744,7 +794,7 @@ export default function FavoritePage() {
                 margin: '20px 0 5px 0',
               }}
             >
-              Задумайся о жилье зарнее
+              Скоро вы сможете принимать гостей!
             </Typography>
             <Typography
               variant="subtitle3"
@@ -755,23 +805,25 @@ export default function FavoritePage() {
                 margin: '0 0 7px 0',
               }}
             >
-              Пора придумать новые путешествия
+              Осталось добавить объявление о своей квартире
             </Typography>
             <button
               onClick={() => navigate('/')}
               className="btn__trips"
             >
-              <p style={{ color: 'white', fontWeight: '600' }}>Начать поиск</p>
+              <p style={{ color: 'white', fontWeight: '600' }}>Сдать жилье</p>
             </button>
           </Box>
           <CardMedia
             sx={{ borderRadius: '0px 10px 10px 0px', width: '820px' }}
             component="img"
-            image="https://i.postimg.cc/FHwThB5F/1.png"
+            image="https://i.postimg.cc/x8z7sK0S/image-6.png"
             alt="green iguana"
           />
         </Box>
       </Box>
+      </>}
+      
       <div className="footerAdd">
         <div className="footer__content_add">
           <span>© 2022 Nolimit, Inc.</span>
