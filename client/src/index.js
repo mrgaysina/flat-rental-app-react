@@ -5,12 +5,16 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from './RTKSlice/index'
+// import {GoogleOAuthProvider} from "@react-oauth/google"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
   <BrowserRouter>
-    <App />
+  {/* <GoogleOAuthProvider
+                clientId={`ENTER_YOUR_CLIENTID`}> */}
+       <App />
+       {/* </GoogleOAuthProvider> */}
   </BrowserRouter>
 </Provider>
 );

@@ -107,6 +107,34 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        username: 'Oleg',
+        email: 'yau7237@gmail.com',
+        password: '123',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: 'Evgeniya',
+        email: 'shusha989@gmail.com',
+        password: '123',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: 'Margarita',
+        email: 'mrgaysina@gmail.com',
+        password: '123',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        username: 'Evgeniy',
+        email: 'Evgeniy3234@gmail.com',
+        password: '123',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
 
     ], {});
   },
