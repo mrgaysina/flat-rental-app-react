@@ -359,23 +359,7 @@ const Navbar = ({logOutCallback}) => {
                   </Typography>
                 </Box></> 
         :
-        <><Box
-                className="log__btn"
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'start',
-                }}
-                onClick={handlnav}
-              >
-                <Typography
-                  variant="subtitle"
-                  style={{ paddingLeft: '15px', fontSize: '15px' }}
-                >
-                  Мои поездки
-                </Typography>
-              </Box>
+        <>
               <Box
                 className="log__btn"
                 style={{
@@ -390,7 +374,7 @@ const Navbar = ({logOutCallback}) => {
                   variant="subtitle"
                   style={{ paddingLeft: '15px', fontSize: '15px' }}
                 >
-                  Мое избранное
+                  Профиль
                 </Typography>
               </Box>
               <hr

@@ -92,6 +92,18 @@ export const Flat = () => {
       console.log("result", result.data.fav);
     }
   };
+  const handleDelFromFav = async() => {
+    if (userId) {
+      console.log("add to fav");
+      const result = await axios.post(
+        "http://localhost:3001/favorite/delete",
+        { userId, id },
+        { withCredentials: true },
+      );
+      // window.location.reload();
+      console.log("result from delete", result.data);
+    }
+  }
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", marginTop: "15px" }}>
@@ -131,7 +143,7 @@ export const Flat = () => {
                 {...label}
                 icon={<Favorite style={{ color: "red" }} />}
                 checkedIcon={<Favorite style={{ color: "red" }} />}
-                onChange={handleAddToFav}
+                onChange={handleDelFromFav}
               />
               :
               <Checkbox
@@ -141,24 +153,14 @@ export const Flat = () => {
                 checkedIcon={<Favorite style={{ color: "red" }} />}
                 onChange={handleAddToFav}
               />
-            }</> : <>{
-              color === 'red' ? 
-              <Checkbox
-                className="like"
-                {...label}
-                icon={<Favorite style={{ color: "red" }} />}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
-                onChange={handleAddToFav}
-              />
-              :
+            }</> : 
               <Checkbox
                 className="like"
                 {...label}
                 icon={<FavoriteBorder/>}
                 checkedIcon={<FavoriteBorder/>}
-                onChange={handleAddToFav}
               />
-            }</>}
+            }
           </Box>
         </Box>
         <Box className="box__photo">

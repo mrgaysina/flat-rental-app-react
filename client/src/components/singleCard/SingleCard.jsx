@@ -51,6 +51,20 @@ const SingleCard = ({ el, isFetching }) => {
       console.log("result", result.data.fav);
     }
   };
+
+  const handleDelFromFav = async() => {
+    if (userId) {
+      console.log("add to fav");
+      const result = await axios.post(
+        "http://localhost:3001/favorite/delete",
+        { userId, id },
+        { withCredentials: true },
+      );
+      // window.location.reload();
+      console.log("result from delete", result.data);
+    }
+  }
+
   return (
     <div>
       {isFetching ? (
@@ -74,7 +88,7 @@ const SingleCard = ({ el, isFetching }) => {
                 {...label}
                 icon={<Favorite style={{ color: "red" }} />}
                 checkedIcon={<Favorite style={{ color: "red" }} />}
-                onChange={handleAddToFav}
+                onChange={handleDelFromFav}
               />
               :
               <Checkbox
@@ -84,24 +98,14 @@ const SingleCard = ({ el, isFetching }) => {
                 checkedIcon={<Favorite style={{ color: "red" }} />}
                 onChange={handleAddToFav}
               />
-            }</> : <>{
-              color === 'red' ? 
-              <Checkbox
-                className="like"
-                {...label}
-                icon={<Favorite style={{ color: "red" }} />}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
-                onChange={handleAddToFav}
-              />
-              :
+            }</> : 
               <Checkbox
                 className="like"
                 {...label}
                 icon={<FavoriteBorder/>}
                 checkedIcon={<FavoriteBorder/>}
-                onChange={handleAddToFav}
               />
-            }</>}
+            }
           </div>
           <Card
             sx={{
