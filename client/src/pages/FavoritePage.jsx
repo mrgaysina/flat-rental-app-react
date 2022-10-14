@@ -213,6 +213,7 @@ export default function FavoritePage() {
                     }}
                     component="img"
                     image={mytrip['Flat.photos'][0]}
+                    onClick={() => navigate(`/flat/${mytrip['Flat.id']}`) }
                   />
                   <Box
                     style={{

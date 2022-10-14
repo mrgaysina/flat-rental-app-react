@@ -76,9 +76,9 @@ const SingleCard = ({ el, isFetching }) => {
               width: "20px",
               heigth: "20px",
               position: "absolute",
-              top: "15px",
-              right: "20px",
-              zIndex: "10",
+              top: "10px",
+              right: "30px",
+              zIndex: "3",
             }}
           >
              {userId ? <>{
@@ -86,8 +86,8 @@ const SingleCard = ({ el, isFetching }) => {
               <Checkbox
                 className="like"
                 {...label}
-                icon={<Favorite style={{ color: "red" }} />}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
+                icon={<Favorite style={{ color: "#ff6464" }} />}
+                checkedIcon={<Favorite style={{ color: "#ff6464" }} />}
                 onChange={handleDelFromFav}
               />
               :
@@ -95,7 +95,7 @@ const SingleCard = ({ el, isFetching }) => {
                 className="like"
                 {...label}
                 icon={<FavoriteBorder/>}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
+                checkedIcon={<Favorite style={{ color: "#ff6464" }} />}
                 onChange={handleAddToFav}
               />
             }</> : 
@@ -144,13 +144,13 @@ const SingleCard = ({ el, isFetching }) => {
                 </Typography>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <StarIcon sx={{ fontSize: "16px" }} />
-                  <span>4.89</span>
+                  <span>{el.rating}</span>
                 </div>
               </div>
               <Typography variant="body2" color="text.secondary">
                 {el.address}
                 <br />
-                9-15 окт.
+                14-19 окт.
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 <b style={{ color: "black" }}>{el.costPerNight}</b> руб./сутки

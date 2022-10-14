@@ -148,7 +148,7 @@ const ResultSingleCard = ({ el, isFetching }) => {
                 </Typography>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <StarIcon sx={{ fontSize: '16px' }} />
-                  <span>4.89</span>
+                  <span> {el.rating}</span>
                 </div>
               </div>
               <Typography
@@ -157,7 +157,7 @@ const ResultSingleCard = ({ el, isFetching }) => {
               >
                 {el.address}
                 <br />
-                9-15 окт.
+                14-19 окт.
               </Typography>
               <Typography
                 variant="body2"

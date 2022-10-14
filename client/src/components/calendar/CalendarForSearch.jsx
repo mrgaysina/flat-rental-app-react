@@ -41,9 +41,9 @@ export function CalendarForSearch({ guests, cost }) {
 
   useEffect(() => {
     disableDate();
-  }, [])
+  }, []);
 
-  const disable = useSelector((store) => store.toolkit.disableDates)
+  const disable = useSelector((store) => store.toolkit.disableDates);
 
   const disableDate = () => {
     axios
@@ -51,8 +51,8 @@ export function CalendarForSearch({ guests, cost }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('calendar res.data',res.data);
-        dispatch(getDisableDates(res.data))
+        console.log('calendar res.data', res.data);
+        dispatch(getDisableDates(res.data));
       });
     return false;
   };
@@ -74,18 +74,24 @@ export function CalendarForSearch({ guests, cost }) {
   };
 
   const customRenderDate = (date) => {
-    const dateToCompare = `${date.$y}-${date.$M + 1}-${date.$D}`
-    const stopDates = disable.map((el) => (
-      [el.startDate.slice(0,10), el.endDate.slice(0,10)]
-    ))
+    const dateToCompare = `${date.$y}-${date.$M + 1}-${date.$D}`;
+    const stopDates = disable.map((el) => [
+      el.startDate.slice(0, 10),
+      el.endDate.slice(0, 10),
+    ]);
     for (let i = 0; i < stopDates.length; i++) {
       console.log('stopDates[i]', stopDates[i]);
-      if (dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]){
-        return dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]
+      if (
+        dateToCompare >= stopDates[i][0] &&
+        dateToCompare <= stopDates[i][1]
+      ) {
+        return (
+          dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]
+        );
       }
       //   return false
     }
-  }
+  };
 
   return (
     <Box
@@ -119,7 +125,7 @@ export function CalendarForSearch({ guests, cost }) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Stack spacing={3}>
             <DatePicker
-            minDate={checkin}
+              minDate={checkin}
               disablePast="true"
               label="Выезд"
               renderInput={(params) => <TextField {...params} />}
@@ -151,23 +157,34 @@ export function CalendarForSearch({ guests, cost }) {
         sx={{ width: '300px', height: '40px' }}
         variant="contained"
         onClick={() => {
-          handleBooking()
-          navigate(`/favorite/${userId}`)
+          handleBooking();
+          // navigate(`/favorite/${userId}`)
+          window.location.reload();
         }}
       >
         Забронировать
       </Button>
-      <Box style={{ display: 'flex', justifyContent: 'space-around', width: 250}}>
-        <Typography style={{ paddingTop: '10px', color: 'grey', textDecoration: 'underline' }}>
-          {`${duration} ночей x ${cost} руб`}  
+      <Box
+        style={{ display: 'flex', justifyContent: 'space-around', width: 250 }}
+      >
+        <Typography
+          style={{
+            paddingTop: '10px',
+            color: 'grey',
+            textDecoration: 'underline',
+          }}
+        >
+          {`${duration} ночей x ${cost} руб`}
         </Typography>
-        {(bookCost > 2) ? 
-        <>
-          <Typography style={{  paddingTop: '10px', color: 'grey' }}>
-          {`${bookCost} руб`}
-        </Typography>
-        </> : <></>}
-        
+        {bookCost > 2 ? (
+          <>
+            <Typography style={{ paddingTop: '10px', color: 'grey' }}>
+              {`${bookCost} руб`}
+            </Typography>
+          </>
+        ) : (
+          <></>
+        )}
       </Box>
       <Typography style={{ paddingTop: '10px', color: 'grey' }}>
         Пока вы ничего не платите

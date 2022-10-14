@@ -4,44 +4,72 @@ import './Cards.css';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import './Category.css';
-import PublicIcon from '@mui/icons-material/Public'; 
+import PublicIcon from '@mui/icons-material/Public';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCard,getFilterCard } from '../../RTKSlice/rtkslice';
+import { getAllCard, getFilterCard } from '../../RTKSlice/rtkslice';
 
 import Loader from '../loader/Loader';
 import Chip from '@mui/material/Chip';
 import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
 import SkateboardingOutlinedIcon from '@mui/icons-material/SkateboardingOutlined';
-
+import { Typography } from '@mui/material';
 
 const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true); //! Подгрузка порционалная
-  const [isFetching, setIsFetching] = useState(false);//! скелетоны
+  const [isFetching, setIsFetching] = useState(false); //! скелетоны
   const [catFilter, setCatFilter] = useState('All');
+  const [all, setAll] = useState('catDef');
+  const [city, setCity] = useState('');
+  const [sea, setSea] = useState('');
+  const [mount, setMount] = useState('');
+
+  const allHand = () => {
+    setAll('cat1_on');
+    setCity('cat1');
+    setSea('cat1');
+    setMount('cat1');
+  };
+
+  const allCity = () => {
+    setAll('cat1');
+    setCity('cat1_on');
+    setSea('cat1');
+    setMount('cat1');
+  };
+
+  const allSea = () => {
+    setAll('cat1');
+    setCity('cat1');
+    setSea('cat1_on');
+    setMount('cat1');
+  };
+
+  const allMount = () => {
+    setAll('cat1');
+    setCity('cat1');
+    setSea('cat1');
+    setMount('cat1_on');
+  };
 
   const card = useSelector((store) => store.toolkit.card);
   const dispatch = useDispatch();
 
   const handlFilter = (catagory) => {
-    setIsFetching(true)
-    setCatFilter(catagory)
+    setIsFetching(true);
+    setCatFilter(catagory);
 
-    axios.get(`http://localhost:3001/allFlat/${catagory}`)
-    .then((res)=>{
-      
-      dispatch(getFilterCard(res.data))
-    })
-    setIsFetching(false)
-  }
+    axios.get(`http://localhost:3001/allFlat/${catagory}`).then((res) => {
+      dispatch(getFilterCard(res.data));
+    });
+    setIsFetching(false);
+  };
 
-  useEffect(()=>{
-    return setIsFetching(true)
-  },[])
-
-
+  useEffect(() => {
+    return setIsFetching(true);
+  }, []);
 
   useEffect(() => {
     if (fetching) {
@@ -49,7 +77,7 @@ const Cards = () => {
         .post(
           'http://localhost:3001/allFlat',
           { currentPage },
-          { withCredentials: true },
+          { withCredentials: true }
         )
         .then((res) => {
           console.log('res.data card', res.data);
@@ -61,7 +89,6 @@ const Cards = () => {
           setIsFetching(false);
         });
     }
-  
   }, [fetching]);
 
   useEffect(() => {
@@ -86,39 +113,85 @@ const Cards = () => {
     <div>
       <div className="categ">
         <div className="categIcon">
-          <Chip
-            onClick={() => handlFilter('Город')}
-            icon={
-              <SkateboardingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />
-            }
-            label="Город"
-            variant="filled"
-          />
-          <Chip
-            onClick={() => handlFilter('Море')}
-            icon={<SurfingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />}
-            label="Море"
-            variant="filled"
-          />
-          <Chip
-            onClick={() => handlFilter('Горы')}
-            icon={<HikingOutlinedIcon sx={{ fontSize: 22, color: 'gray' }} />}
-            label="Горы"
-            variant="filled"
-          />
-          <Chip
-            onClick={()=> handlFilter('All')}
-            icon={
-              <PublicIcon
-                sx={{
-                  paddingLeft: '12px',
-                  fontSize: 22,
-                  color: 'gray',
-                }}
-              />
-            }
-            variant="filled"
-          />
+          <Box
+            className={all}
+            onClick={(event) => {
+              handlFilter('All');
+              allHand();
+            }}
+          >
+            <img
+              src="https://i.postimg.cc/T14F8NBy/all.png"
+              alt=""
+              width={'28px'}
+            />
+            <Typography
+              variant="subtitle2"
+              style={{ fontSize: '13px', color: 'grey' }}
+            >
+              Общее
+            </Typography>
+          </Box>
+          <Box
+            className={city}
+            onClick={(event) => {
+              handlFilter('Город');
+              allCity();
+            }}
+          >
+            <img
+              src="https://i.postimg.cc/4xQCyP90/city.png"
+              alt=""
+              width={'28px'}
+            />
+
+            <Typography
+              variant="subtitle2"
+              style={{ fontSize: '13px', color: 'grey' }}
+            >
+              Город
+            </Typography>
+          </Box>
+          <Box
+            className={sea}
+            onClick={(event) => {
+              handlFilter('Море');
+              allSea();
+            }}
+          >
+            <img
+              src="https://i.postimg.cc/7Y1tn6ZG/sea.png"
+              alt=""
+              width={'28px'}
+            />
+
+            <Typography
+              variant="subtitle2"
+              style={{ fontSize: '13px', color: 'grey' }}
+            >
+              Море
+            </Typography>
+          </Box>
+          <Box
+            className={mount}
+            onClick={(event) => {
+              handlFilter('Горы');
+              allMount();
+            }}
+          >
+            <img
+              src="https://i.postimg.cc/TPdzDbj3/mount.png"
+              alt=""
+              width={'28px'}
+            />
+
+            <Typography
+              variant="subtitle2"
+              style={{ fontSize: '13px', color: 'grey' }}
+            >
+              Горы
+            </Typography>
+          </Box>
         </div>
       </div>
       <Box
