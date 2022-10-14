@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import MyModal from '../modal/MyModal';
-import { Typography } from '@mui/material';
+import { Typography, Avatar } from '@mui/material';
 import MyModalProf from '../modalProf/MyModalProf';
 import Box from '@mui/material/Box';
 import MyModalLog from '../modalLog/MyModalLog';
@@ -90,6 +90,8 @@ const Navbar = ({ logOutCallback }) => {
     setModal3(true);
     setModal(false);
   };
+
+  console.log('user from nav', user);
 
   const navigate = useNavigate();
   const card = useSelector((store) => store.toolkit.card);
@@ -299,8 +301,18 @@ const Navbar = ({ logOutCallback }) => {
           className="profile__menu"
           onClick={handleModal}
         >
-          <MenuIcon style={{ color: 'gray' }} />
-          <AccountCircleIcon style={{ fontSize: '35px', color: '#cdcccc' }} />
+          <MenuIcon
+            style={{ color: 'gray', marginLeft: '5px', marginRight: '2px' }}
+          />
+          <Avatar
+            src={user.picture}
+            style={{
+              marginRight: '6px',
+              width: '32px',
+              height: '32px',
+              color: '#cdcccc',
+            }}
+          />
         </div>
       </div>
       <MyModalProf

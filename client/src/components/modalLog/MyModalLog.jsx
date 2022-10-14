@@ -47,6 +47,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
           getUser({
             id: result.data.id,
             email: result.data.email,
+            picture: result.data.picture,
             accesstoken: result.data.accesstoken,
           })
         );

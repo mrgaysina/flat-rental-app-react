@@ -74,7 +74,7 @@ const ResultSingleCard = ({ el, isFetching }) => {
               width: '20px',
               heigth: '20px',
               position: 'absolute',
-              top: '15px',
+              top: '5px',
               right: '20px',
               zIndex: '100',
             }}
@@ -84,8 +84,8 @@ const ResultSingleCard = ({ el, isFetching }) => {
               <Checkbox
                 className="like"
                 {...label}
-                icon={<Favorite style={{ color: "red" }} />}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
+                icon={<Favorite style={{ color: "rgb(206, 71, 71)" }} />}
+                checkedIcon={<Favorite style={{ color: "rgb(206, 71, 71)" }} />}
                 onChange={handleDelFromFav}
               />
               :
@@ -93,7 +93,7 @@ const ResultSingleCard = ({ el, isFetching }) => {
                 className="like"
                 {...label}
                 icon={<FavoriteBorder/>}
-                checkedIcon={<Favorite style={{ color: "red" }} />}
+                checkedIcon={<Favorite style={{ color: "rgb(206, 71, 71)" }} />}
                 onChange={handleAddToFav}
               />
             }</> : 

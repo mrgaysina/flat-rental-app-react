@@ -42,6 +42,23 @@ export const Flat = () => {
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
   const [color, setColor] = useState('');
+  const owner = flat.ownerId;
+  const [flatOwner, setflatOwner] = useState({});
+
+  useEffect(() => {
+    axios
+      .post(
+        'http://localhost:3001/flat/owner',
+        { owner },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setflatOwner(res.data.user);
+      });
+  }, [flat]);
+
+  console.log('flatOwner', flatOwner);
 
   useEffect(() => {
     axios
@@ -148,8 +165,10 @@ export const Flat = () => {
                   <Checkbox
                     className="like"
                     {...label}
-                    icon={<Favorite style={{ color: 'red' }} />}
-                    checkedIcon={<Favorite style={{ color: 'red' }} />}
+                    icon={<Favorite style={{ color: 'rgb(206, 71, 71)' }} />}
+                    checkedIcon={
+                      <Favorite style={{ color: 'rgb(206, 71, 71)' }} />
+                    }
                     onChange={handleDelFromFav}
                   />
                 ) : (
@@ -157,7 +176,7 @@ export const Flat = () => {
                     className="like"
                     {...label}
                     icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite style={{ color: 'red' }} />}
+                    checkedIcon={<Favorite style={{ color: 'rgb(206, 71, 71)' }} />}
                     onChange={handleAddToFav}
                   />
                 )}
@@ -219,8 +238,13 @@ export const Flat = () => {
           >
             <Box>
               <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h5">Хозяин: Олег Кизару</Typography>
-                <Avatar sx={{ width: 40, height: 40 }}>ЧК</Avatar>
+                <Typography variant="h5">
+                  Хозяин: {flatOwner.username}
+                </Typography>
+                <Avatar
+                  sx={{ width: 40, height: 40 }}
+                  src={flatOwner.picture}
+                />
               </Box>
               <Typography
                 variant="body2"
@@ -495,10 +519,7 @@ export const Flat = () => {
               <Avatar
                 src={el['User.picture']}
                 style={{
-                  border: '2px gray  solid',
-                  background: `${getRandomColor()}`,
                   marginRight: '10px',
-
                 }}
               >
                 UN
