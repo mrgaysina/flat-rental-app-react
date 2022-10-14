@@ -22,9 +22,9 @@ const Cards = () => {
   const [isFetching, setIsFetching] = useState(false); //! скелетоны
   const [catFilter, setCatFilter] = useState('All');
   const [all, setAll] = useState('catDef');
-  const [city, setCity] = useState('');
-  const [sea, setSea] = useState('');
-  const [mount, setMount] = useState('');
+  const [city, setCity] = useState('cat1');
+  const [sea, setSea] = useState('cat1');
+  const [mount, setMount] = useState('cat1');
 
   const allHand = () => {
     setAll('cat1_on');
