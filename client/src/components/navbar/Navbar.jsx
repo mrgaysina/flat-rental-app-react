@@ -172,14 +172,14 @@ const Navbar = ({ logOutCallback }) => {
             position: 'absolute',
             height: '48px',
             cursor: 'pointer',
-            zIndex: 100,
+            zIndex: 0,
             transition: '0.2s',
           }}
           src="https://i.postimg.cc/h4HSxJQL/12345.png"
           alt="222"
         />
         <Stack
-          style={{ opacity: [opacity], transition: '0.2s' }}
+          style={{ opacity: [opacity], transition: '0.2s', zIndex: 2 }}
           direction="row"
           divider={
             <Divider

@@ -5,40 +5,38 @@ import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MyModal = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('executing submit');
     const result = await axios.post(
-      "http://localhost:3001/auth/signup",
+      'http://localhost:3001/auth/signup',
       { name, email, password },
       { withCredentials: true }
     );
 
     if (!result.error) {
       console.log(result.data);
-      setVisible(false)
-      navigate("/");
-
-
+      setVisible(false);
+      navigate('/');
     } else {
       console.log(result.error);
     }
   };
 
   const handleChange = (e) => {
-  if (e.currentTarget.name === "name") {
-    setName(e.currentTarget.value)
-  } else if (e.currentTarget.name === "email") {
+    if (e.currentTarget.name === 'name') {
+      setName(e.currentTarget.value);
+    } else if (e.currentTarget.name === 'email') {
       setEmail(e.currentTarget.value);
     } else {
       setPassword(e.currentTarget.value);
@@ -68,7 +66,8 @@ const MyModal = ({ children, visible, setVisible }) => {
             flexDirection: 'column',
           }}
         >
-          <CloseIcon  className={styles.x}
+          <CloseIcon
+            className={styles.x}
             onClick={handleX}
             style={{
               display: 'flex',
@@ -116,7 +115,7 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-login-input"
             label="Ваше имя"
             type="text"
-            name='name'
+            name="name"
             onChange={handleChange}
           />
           <TextField
@@ -127,7 +126,7 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-email-input"
             label="Email"
             type="email"
-            name='email'
+            name="email"
             onChange={handleChange}
           />
           <TextField
@@ -138,7 +137,7 @@ const MyModal = ({ children, visible, setVisible }) => {
             id="outlined-password-input"
             label="Пароль"
             type="password"
-            name='password'
+            name="password"
             onChange={handleChange}
           />
           <Typography
@@ -156,9 +155,11 @@ const MyModal = ({ children, visible, setVisible }) => {
             Политика конфиденциальности) действует в отношении всей информации,
             которую пользователь передает компании ООО «Nolimit.».
           </Typography>
-          <button onClick={handleSubmit} className={styles.btn__reg__form}>
+          <button
+            onClick={handleSubmit}
+            className={styles.btn__reg__form}
+          >
             <Typography
-            
               variant="subtitle1"
               style={{
                 color: 'white',
@@ -208,38 +209,51 @@ const MyModal = ({ children, visible, setVisible }) => {
               }}
             />
           </Box>
-          <button className={styles.btn__google__form}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
-              alt=""
-              style={{
-                width: '22px',
-                height: '22px',
-              }}
-            />
-            <Typography
-              variant="subtitle2"
-              style={{ paddingLeft: '5px' }}
-            >
-              С помощью Facebook
-            </Typography>
-          </button>
-          <button className={styles.btn__facebook__form}>
-            <img
-              src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
-              alt=""
-              style={{
-                width: '26px',
-                height: '26px',
-              }}
-            />
-            <Typography
-              variant="subtitle2"
-              style={{ paddingLeft: '9px' }}
-            >
-              С помощью Google
-            </Typography>
-          </button>
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <button className={styles.btn__google__form}>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
+                alt=""
+                style={{
+                  width: '22px',
+                  height: '22px',
+                  paddingLeft:"7x"
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                style={{ paddingLeft: '5px', fontSize: '14px', color: '#505050', fontWeight:"500" }}
+              >
+                Вход через аккаунт Facebook
+              </Typography>
+              <Box></Box>
+            </button>
+            <button className={styles.btn__facebook__form}>
+              <img
+                src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
+                alt=""
+                style={{
+                  width: '26px',
+                  height: '26px',
+                  paddingLeft:"5px"
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                style={{ paddingLeft: '5px', fontSize: '14px', color: '#505050', fontWeight:"500" }}
+              >
+                Вход через аккаунт Google
+              </Typography>
+              <Box></Box>
+            </button>
+          </Box>
         </Box>
       </div>
     </div>
