@@ -3,24 +3,16 @@ const { User } = require('../db/models');
 
 const avatarMiddleware = require('../middleware/avatar');
 
-route.post('/', avatarMiddleware.single('favorite'), (req, res) => {
+route.post('/:id', avatarMiddleware.single('favorite'), async (req, res) => {
+  const { id } = req.params;
   try {
     if (req.file) {
-      console.log(req.file);
+      const user = await User.update({ picture: `http://localhost:3001/${req.file.path}` }, { where: { id } });
+      console.log('useruseruseruser', user);
       res.json(req.file);
     } else {
       console.log('nooooooo');
     }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-route.post('/update', async (req, res) => {
-  const { avatar, userId } = req.body;
-  console.log(avatar, userId, 'pupupupupupuup');
-  try {
-    const user = await User.update({ picture: avatar }, { where: { id: userId } });
   } catch (error) {
     console.log(error);
   }

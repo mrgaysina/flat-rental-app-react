@@ -18,7 +18,9 @@ const bookingRoute = require('./routes/booking.route');
 const searchRoute = require('./routes/search.route');
 const addflatRoute = require('./routes/addflat.route');
 const favoriteRoute = require('./routes/favorite.route');
-const addavatarRoute = require('./routes/addavatar')
+const addavatarRoute = require('./routes/addavatar');
+const findinfoRoute = require('./routes/findinfo.route');
+
 
 const app = express();
 app.use(express.json({ extended: true }));
@@ -48,7 +50,8 @@ app.use('/search', searchRoute);
 app.use('/auth', userRoute);
 app.use('/addFlat', addflatRoute);
 app.use('/favorite', favoriteRoute);
-app.use('/addavatar', addavatarRoute)
+app.use('/addavatar', addavatarRoute);
+app.use('/findinfo', findinfoRoute);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);

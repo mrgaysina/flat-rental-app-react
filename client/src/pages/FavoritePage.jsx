@@ -45,35 +45,32 @@ export default function FavoritePage() {
   const [favorites, setFavorite] = useState([]); //! инфа о  лайкнутых квартирах
   const [myflats, setMyflats] = useState([]); //! инфа о моих квартирах
   const [mytrips, setMytrips] = useState([]); //! инфа от моих поездках
-  const [avatar, setAvatar] = useState('https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg');
+  const [avatar, setAvatar] = useState(''); //! аватарка из бд
+  const [userinfo, setUserinfo] = useState({}); // инфа о юзере
 
 
-  useEffect(() => {
-    axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
-        .then((res) => {
-          console.log('reeeees from avatar', res.data);
-        })
-  }, [avatar])
+  // const changePhoto = () => {
+  //   axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
+  //       .then((res) => {
+  //         console.log('reeeees from avatar', res.data);
+  //       })
+  // }
+
   const handlePhoto = (img) => {
     console.log('aaaaaaaaahadlephotos');
     console.log('img', img);
     const data = new FormData();
     data.append('favorite', img);
     axios
-      .post('http://localhost:3001/addavatar', data, {
+      .post(`http://localhost:3001/addavatar/${userId}`, data, {
         headers: {
           'content-type': 'multipart/form-data',
         },
       })
       .then((res) => {
-        setAvatar(
-          `http://localhost:3001/${res.data.path.split(' ').join('')}`
-        )
+        setAvatar(`http://localhost:3001/${res.data.path.split(' ').join('')}`)
       })
   };
-
-
-
 
   useEffect(() => {
     axios
@@ -86,9 +83,17 @@ export default function FavoritePage() {
         setFavorite(res.data.favorites);
         setMyflats(res.data.myflats);
         setMytrips(res.data.mytrips);
-        console.log('reeeeeeeeeeees', res.data);
       });
   }, []);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/findinfo/${userId}`, { withCredentials: true })
+    .then((res) => {
+      console.log('res user', res.data);
+      setUserinfo(res.data.user)
+      setAvatar(res.data.user.picture)
+    })
+  }, [])
 
   console.log('favorites', favorites);
   console.log('mytrips', mytrips);
@@ -149,7 +154,10 @@ export default function FavoritePage() {
               }}
               onChange={(e) => {
                 handlePhoto(e.target.files[0]);
+                // window.location.reload();
               }} />
+              {userinfo.picture ? 
+              <>
               <CardMedia
                 className="avaPic"
                 style={{
@@ -164,13 +172,30 @@ export default function FavoritePage() {
                 alt="green iguana"
                 
               />
+              </> : 
+              <>
+              <CardMedia
+                className="avaPic"
+                style={{
+                  border: '5px solid white',
+                  borderRadius: '50%',
+                  height: '160px',
+                  width: '160px',
+                }}
+                component="img"
+                height="220"
+                image='https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg'
+                alt="green iguana"
+                
+              />
+              </>}
             </Box>
             <Box className="insideNav">
               <Typography
                 variant="subtitle3"
                 style={{ fontSize: '22px', display: 'flex' }}
               >
-                Олег Кизару
+                {userinfo.username}
               </Typography>
               <Box>
                 <Typography
@@ -193,7 +218,7 @@ export default function FavoritePage() {
                       color: 'black',
                     }}
                   />
-                  Oleg123@gmail.com
+                  {userinfo.email}
                 </Typography>
               </Box>
             </Box>
