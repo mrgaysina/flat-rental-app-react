@@ -5,6 +5,7 @@ const {
   User, Flat, Favorite, Booking,
 } = require('../db/models');
 
+
 route.post('/', async (req, res) => {
   // console.log('req.body', req.body);
   const { userId, id } = req.body;
@@ -73,5 +74,7 @@ route.post('/:id', async (req, res) => {
     console.error('error in profile router ', error);
   }
 });
+
+
 
 module.exports = route;

@@ -45,6 +45,32 @@ export default function FavoritePage() {
   const [favorites, setFavorite] = useState([]); //! инфа о  лайкнутых квартирах
   const [myflats, setMyflats] = useState([]); //! инфа о моих квартирах
   const [mytrips, setMytrips] = useState([]); //! инфа от моих поездках
+  const [avatar, setAvatar] = useState('https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg');
+
+  const handlePhoto = (img) => {
+    console.log('aaaaaaaaahadlephotos');
+    console.log('img', img);
+    const data = new FormData();
+    data.append('favorite', img);
+    axios
+      .post('http://localhost:3001/addavatar', data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        setAvatar(
+          `http://localhost:3001/${res.data.path.split(' ').join('')}`
+        )
+      })
+      .then(() => {
+        axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
+        .then((res) => {
+          
+        })
+      })
+
+  };
 
   useEffect(() => {
     axios
@@ -108,6 +134,19 @@ export default function FavoritePage() {
                 width: '160px',
               }}
             >
+              <input type="file"
+              style={{
+                width: '200px',
+                height: '200px',
+                marginTop: '10px',
+                opacity: '0',
+                position: 'absolute',
+                right: '0',
+                bottom: '0',
+              }}
+              onChange={(e) => {
+                handlePhoto(e.target.files[0]);
+              }} />
               <CardMedia
                 className="avaPic"
                 style={{
@@ -118,8 +157,9 @@ export default function FavoritePage() {
                 }}
                 component="img"
                 height="220"
-                image="https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg"
+                image={avatar}
                 alt="green iguana"
+                
               />
             </Box>
             <Box className="insideNav">
