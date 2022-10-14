@@ -125,14 +125,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          username: 'Oleg',
-          email: 'yau7237@gmail.com',
-          password: '123',
-          picture: '',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
           username: 'Margarita',
           email: 'mrgaysina@gmail.com',
           password: '123',
