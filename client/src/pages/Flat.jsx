@@ -165,8 +165,10 @@ export const Flat = () => {
                   <Checkbox
                     className="like"
                     {...label}
-                    icon={<Favorite style={{ color: 'red' }} />}
-                    checkedIcon={<Favorite style={{ color: 'red' }} />}
+                    icon={<Favorite style={{ color: 'rgb(206, 71, 71)' }} />}
+                    checkedIcon={
+                      <Favorite style={{ color: 'rgb(206, 71, 71)' }} />
+                    }
                     onChange={handleDelFromFav}
                   />
                 ) : (
@@ -174,7 +176,7 @@ export const Flat = () => {
                     className="like"
                     {...label}
                     icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite style={{ color: 'red' }} />}
+                    checkedIcon={<Favorite style={{ color: 'rgb(206, 71, 71)' }} />}
                     onChange={handleAddToFav}
                   />
                 )}
@@ -236,8 +238,13 @@ export const Flat = () => {
           >
             <Box>
               <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h5">Хозяин: {flatOwner.username}</Typography>
-                <Avatar sx={{ width: 40, height: 40 }} src={flatOwner.picture}/>
+                <Typography variant="h5">
+                  Хозяин: {flatOwner.username}
+                </Typography>
+                <Avatar
+                  sx={{ width: 40, height: 40 }}
+                  src={flatOwner.picture}
+                />
               </Box>
               <Typography
                 variant="body2"
@@ -512,8 +519,6 @@ export const Flat = () => {
               <Avatar
                 src={el['User.picture']}
                 style={{
-                  
-                  
                   marginRight: '10px',
                 }}
               >

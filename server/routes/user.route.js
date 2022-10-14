@@ -25,7 +25,10 @@ route.post('/signup', async (req, res) => {
     } else {
       const user = await User.create({ username: name, email, picture });
       res.json({
-        name: user.username, email: user.email, id: user.id, picture: user.picture,
+        name: user.username,
+        email: user.email,
+        id: user.id,
+        picture: user.picture,
       });
     }
   } else {
@@ -48,7 +51,9 @@ route.post('/login', async (req, res) => {
     const user = await User.findOne({ where: { email }, raw: true });
     console.log('user from login google', user);
 
-    if (!user) { return res.status(404).json({ message: "User don't exist!" }); }
+    if (!user) {
+      return res.status(404).json({ message: "User don't exist!" });
+    }
     const accesstoken = createAccessToken(user.id);
     // console.log('accesstoken from login ==>', accesstoken);
     const refreshtoken = createRefreshToken(user.id);
@@ -58,7 +63,10 @@ route.post('/login', async (req, res) => {
     // Then just increase the version number on the revoke endpoint
     const token = await Token.findOne({ where: { userId: user.id } });
     if (token) {
-      await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
+      await Token.update(
+        { refreshToken: refreshtoken },
+        { where: { userId: user.id } }
+      );
     } else {
       await Token.create({ refreshToken: refreshtoken, userId: user.id });
     }
@@ -67,7 +75,11 @@ route.post('/login', async (req, res) => {
     // console.log('req.cookies from login', req.cookies);
     // sendAccessToken(req, res, accesstoken);
     res.json({
-      email: user.email, name: user.username, id: user.id, accesstoken,
+      email: user.email,
+      name: user.username,
+      id: user.id,
+      accesstoken,
+      picture: user.picture,
     });
   } else {
     console.log('req.body from login ==>', req.body);
@@ -77,7 +89,7 @@ route.post('/login', async (req, res) => {
 
     if (user) {
       if (password === user.password) {
-      // 3. Create Refresh- and Accesstoken
+        // 3. Create Refresh- and Accesstoken
         const accesstoken = createAccessToken(user.id);
         // console.log('accesstoken from login ==>', accesstoken);
         const refreshtoken = createRefreshToken(user.id);
@@ -87,7 +99,10 @@ route.post('/login', async (req, res) => {
         // Then just increase the version number on the revoke endpoint
         const token = await Token.findOne({ where: { userId: user.id } });
         if (token) {
-          await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
+          await Token.update(
+            { refreshToken: refreshtoken },
+            { where: { userId: user.id } }
+          );
         } else {
           await Token.create({ refreshToken: refreshtoken, userId: user.id });
         }
@@ -96,7 +111,11 @@ route.post('/login', async (req, res) => {
         // console.log('req.cookies from login', req.cookies);
         // sendAccessToken(req, res, accesstoken);
         res.json({
-          email: user.email, name: user.username, id: user.id, accesstoken,
+          email: user.email,
+          name: user.username,
+          id: user.id,
+          accesstoken,
+          picture: user.picture,
         });
       } else {
         return res.send('wrong password');
@@ -148,7 +167,11 @@ route.post('/refresh_token', async (req, res) => {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
     // console.log('payload from refresh', payload);
     // token is valid, check if user exist
-    const user = await User.findOne({ where: { id: payload.userId }, include: Token, raw: true });
+    const user = await User.findOne({
+      where: { id: payload.userId },
+      include: Token,
+      raw: true,
+    });
     // console.log('user from refresh_token', user);
     if (!user) {
       console.log('no user');
@@ -164,11 +187,18 @@ route.post('/refresh_token', async (req, res) => {
     const refreshtoken = createRefreshToken(user.id);
     // update refreshtoken on user in db
     // Could have different versions instead!
-    await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
+    await Token.update(
+      { refreshToken: refreshtoken },
+      { where: { userId: user.id } }
+    );
     // All good to go, send new refreshtoken and accesstoken
     sendRefreshToken(res, refreshtoken);
     return res.send({
-      accesstoken, email: user.email, name: user.username, id: user.id,
+      accesstoken,
+      email: user.email,
+      name: user.username,
+      id: user.id,
+      picture: user.picture,
     });
   } catch (err) {
     return res.send({ accesstoken: '' });

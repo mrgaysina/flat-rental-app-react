@@ -61,6 +61,7 @@ function App() {
           id: result.data.id,
           email: result.data.email,
           accesstoken: result.data.accesstoken,
+          picture: result.data.picture
         })
       );
     
