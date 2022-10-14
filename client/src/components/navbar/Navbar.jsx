@@ -21,7 +21,7 @@ import FaceIcon from '@mui/icons-material/Face';
 import Chip from '@mui/material/Chip';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-const Navbar = ({logOutCallback}) => {
+const Navbar = ({ logOutCallback }) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
@@ -30,17 +30,21 @@ const Navbar = ({logOutCallback}) => {
   const [sizeCh1, setSizeCh1] = useState('7ch');
   const [sizeCh2, setSizeCh2] = useState('17ch');
   const [titleNav, setTitleNav] = useState('title__modal');
-  const [textF, setTextF] = useState('standard');
-  const user = useSelector((store) => store.toolkit.user)
+  const [textF, setTextF] = useState('outlined');
+  const [opacity, setOpacity] = useState('0');
+  const [opacityPic, setOpacityPic] = useState('1');
+  const user = useSelector((store) => store.toolkit.user);
 
   const changeCl = () => {
     setChange('header__center__on');
     setChange2('header__on');
     // setTextF('outlined');
-    setSizeCh1('21ch');
-    setSizeCh2('21ch');
+    setSizeCh1('22ch');
+    setSizeCh2('22ch');
     setTextF('outlined');
     setTitleNav('title__modal_on');
+    setOpacity('1');
+    setOpacityPic('0');
   };
 
   const changeOff = () => {
@@ -49,8 +53,10 @@ const Navbar = ({logOutCallback}) => {
     // setTextF('outlined');
     setSizeCh1('7ch');
     setSizeCh2('17ch');
-    setTextF('standard');
+    setTextF('outlined');
     setTitleNav('title__modal_off');
+    setOpacity('0');
+    setOpacityPic('1');
   };
 
   const changeTop = () => {
@@ -127,14 +133,8 @@ const Navbar = ({logOutCallback}) => {
   return (
     <div className={change2}>
       <Box className={titleNav}>
-        <Typography
-          sx={{ fontSize: '18px', color: '#616262' }}
-          variant="body1"
-        >
-          Выберите даты аренды и мы найдем для вас варианты
-        </Typography>
         <Chip
-          sx={{ marginLeft: '10px' }}
+          sx={{ marginLeft: '10px', width: '150px' }}
           label="Поиск"
           onClick={(event) => {
             onClickFunc(event);
@@ -147,26 +147,39 @@ const Navbar = ({logOutCallback}) => {
           onClick={changeOff}
         />
       </Box>
-      
+
       <img
         className="header__icon"
         src="https://i.postimg.cc/VNVPptW3/no.png"
         alt="header__icon"
         onClick={(event) => {
-        navigate('/')
-        window.location.reload();
+          navigate('/');
+          window.location.reload();
           changeDown();
           changeOff();
         }}
-        />
-        
+      />
+
       <Box
         visibility="display"
         onClick={changeCl}
         sx={{ margin: '150px' }}
         className={change}
       >
+        <img
+          style={{
+            opacity: [opacityPic],
+            position: 'absolute',
+            height: '48px',
+            cursor: 'pointer',
+            zIndex: 100,
+            transition: '0.2s',
+          }}
+          src="https://i.postimg.cc/h4HSxJQL/12345.png"
+          alt="222"
+        />
         <Stack
+          style={{ opacity: [opacity], transition: '0.2s' }}
           direction="row"
           divider={
             <Divider
@@ -192,7 +205,7 @@ const Navbar = ({logOutCallback}) => {
             <TextField
               size="small"
               id="outlined-basic"
-              label={<PublicIcon sx={{ paddingLeft: '16px' }} />}
+              label={<PublicIcon />}
               variant={textF}
               placeholder="Поиск направлений"
               value={direction}
@@ -255,7 +268,7 @@ const Navbar = ({logOutCallback}) => {
             <TextField
               size="small"
               id="outlined-basic"
-              label={<FaceIcon sx={{ paddingLeft: '16px' }} />}
+              label={<FaceIcon />}
               variant={textF}
               placeholder="Количество"
               value={guests}
@@ -300,9 +313,11 @@ const Navbar = ({logOutCallback}) => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        > {
-          !user.id ? 
-          <><Box
+        >
+          {' '}
+          {!user.id ? (
+            <>
+              <Box
                 className="reg__btn"
                 style={{
                   width: '100%',
@@ -318,7 +333,8 @@ const Navbar = ({logOutCallback}) => {
                 >
                   <b>Зарегистрироваться</b>
                 </Typography>
-              </Box><Box
+              </Box>
+              <Box
                 className="log__btn"
                 style={{
                   width: '100%',
@@ -328,38 +344,42 @@ const Navbar = ({logOutCallback}) => {
                 }}
                 onClick={handleModal3}
               >
-                  <Typography
-                    variant="subtitle"
-                    style={{ paddingLeft: '15px', fontSize: '15px' }}
-                  >
-                    Войти
-                  </Typography>
-                </Box><hr
-                  style={{
-                    margin: '10px 0 10px 0',
-                    width: '100%',
-                    height: '0.5px',
-                    color: 'lightgray',
-                    backgroundColor: 'lightgray',
-                    border: 'none',
-                  }} /><Box
-                    className="help__btn"
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'start',
-                    }}
-                  >
-                  <Typography
-                    variant="subtitle"
-                    style={{ paddingLeft: '15px', fontSize: '15px' }}
-                  >
-                    Помощь
-                  </Typography>
-                </Box></> 
-        :
-        <>
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  Войти
+                </Typography>
+              </Box>
+              <hr
+                style={{
+                  margin: '10px 0 10px 0',
+                  width: '100%',
+                  height: '0.5px',
+                  color: 'lightgray',
+                  backgroundColor: 'lightgray',
+                  border: 'none',
+                }}
+              />
+              <Box
+                className="help__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+              >
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  Помощь
+                </Typography>
+              </Box>
+            </>
+          ) : (
+            <>
               <Box
                 className="log__btn"
                 style={{
@@ -378,47 +398,50 @@ const Navbar = ({logOutCallback}) => {
                 </Typography>
               </Box>
               <hr
-                  style={{
-                    margin: '10px 0 10px 0',
-                    width: '100%',
-                    height: '0.5px',
-                    color: 'lightgray',
-                    backgroundColor: 'lightgray',
-                    border: 'none',
-                  }} /><Box
-                    className="help__btn"
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'start',
-                    }}
-                  >
-                  <Typography
-                    variant="subtitle"
-                    style={{ paddingLeft: '15px', fontSize: '15px' }}
-                  >
-                    Помощь
-                  </Typography>
-                </Box><Box onClick={logOutCallback}
-                  className="help__btn"
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'start',
-                  }}
+                style={{
+                  margin: '10px 0 10px 0',
+                  width: '100%',
+                  height: '0.5px',
+                  color: 'lightgray',
+                  backgroundColor: 'lightgray',
+                  border: 'none',
+                }}
+              />
+              <Box
+                className="help__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+              >
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
                 >
-                  <Typography
-                    variant="subtitle"
-                    style={{ paddingLeft: '15px', fontSize: '15px' }}
-                  >
-                    Выйти
-                  </Typography>
-                </Box></>
-       
-        }
-         
+                  Помощь
+                </Typography>
+              </Box>
+              <Box
+                onClick={logOutCallback}
+                className="help__btn"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                }}
+              >
+                <Typography
+                  variant="subtitle"
+                  style={{ paddingLeft: '15px', fontSize: '15px' }}
+                >
+                  Выйти
+                </Typography>
+              </Box>
+            </>
+          )}
         </Box>
       </MyModalProf>
       <MyModal

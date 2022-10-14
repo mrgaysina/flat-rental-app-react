@@ -13,7 +13,6 @@ export const Calculator = ({ id }) => {
   const [rate, setRate] = useState(0);
   const [guests, setGuests] = useState(0);
 
-
   useEffect(() => {
     flatHandler();
   }, []);
@@ -51,18 +50,7 @@ export const Calculator = ({ id }) => {
           variant="h5"
         >
           {cost.costPerNight}
-          <CurrencyRubleIcon />{' '}
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <StarRateIcon />
-          {rate}
+          <CurrencyRubleIcon />
         </Typography>
       </Box>
       <CalendarForSearch

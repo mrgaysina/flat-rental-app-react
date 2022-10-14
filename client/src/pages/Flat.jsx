@@ -210,7 +210,7 @@ export const Flat = () => {
           >
             <Box>
               <Box style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h5">Хозяин: Четкий Кекс</Typography>
+                <Typography variant="h5">Хозяин: Олег Кизару</Typography>
                 <Avatar sx={{ width: 40, height: 40 }}>ЧК</Avatar>
               </Box>
               <Typography

@@ -61,11 +61,11 @@ const AddPages = () => {
   const [photos, setPhotos] = useState([]);
   const [img, setImg] = useState(null);
   const [avatar, setAvatar] = useState(null);
-  const [photo1, setPhoto1] = useState("https://via.placeholder.com/420x420")
-  const [photo2, setPhoto2] = useState("https://via.placeholder.com/206x206")
-  const [photo3, setPhoto3] = useState("https://via.placeholder.com/206x206")
-  const [photo4, setPhoto4] = useState("https://via.placeholder.com/206x206")
-  const [photo5, setPhoto5] = useState("https://via.placeholder.com/206x206")
+  const [photo1, setPhoto1] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
+  const [photo2, setPhoto2] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
+  const [photo3, setPhoto3] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
+  const [photo4, setPhoto4] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
+  const [photo5, setPhoto5] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
 
   
 
