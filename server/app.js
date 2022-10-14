@@ -18,10 +18,13 @@ const bookingRoute = require('./routes/booking.route');
 const searchRoute = require('./routes/search.route');
 const addflatRoute = require('./routes/addflat.route');
 const favoriteRoute = require('./routes/favorite.route');
+const addavatarRoute = require('./routes/addavatar')
 
 const app = express();
 app.use(express.json({ extended: true }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/avatar', express.static(path.join(__dirname, 'avatar')));
+
 
 const PORT = process.env.PORT || 3001;
 app.use(
@@ -45,6 +48,7 @@ app.use('/search', searchRoute);
 app.use('/auth', userRoute);
 app.use('/addFlat', addflatRoute);
 app.use('/favorite', favoriteRoute);
+app.use('/addavatar', addavatarRoute)
 
 app.listen(PORT, () => {
   console.log(`server started PORT: ${PORT}`);
