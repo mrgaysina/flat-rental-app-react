@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MyModal.module.css';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -7,14 +7,67 @@ import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const MyModal = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [picture, setPicture] = useState('');
   const navigate = useNavigate();
 
+  const handleCallbackResponse = async (response) => {
+    console.log('Encoded JWT Id token: ' + response.credential);
+    let userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setEmail(userObject.email);
+    document.getElementById('signUpBtn').hidden = true;
+    setPicture(userObject.picture);
+    setName(userObject.name)
+  };
+
+  useEffect(() => {
+    const sendData = async () => {
+      const result = await axios.post(
+        'http://localhost:3001/auth/signup',
+        { name, email, picture },
+        { withCredentials: true }
+      );
+      console.log('result data from login', result.data);
+
+      /* if (result.data.accesstoken) {
+        dispatch(
+          getUser({
+            id: result.data.id,
+            email: result.data.email,
+            accesstoken: result.data.accesstoken,
+          })
+        );
+        setVisible(false);
+        navigate('/');
+        window.location.reload();
+      } else {
+        console.log('error');
+      } */
+    };
+    sendData();
+  }, [email]);
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        '1012668726691-3qsgukme0q8igfih5b4djt7kdp1h7ble.apps.googleusercontent.com',
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById('signUpBtn'), {
+      // 'theme': "outline",
+      // 'size': "large",
+      width: 450,
+    });
+    // google.accounts.id.prompt();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('executing submit');
@@ -235,7 +288,7 @@ const MyModal = ({ children, visible, setVisible }) => {
               </Typography>
               <Box></Box>
             </button>
-            <button className={styles.btn__facebook__form}>
+            <button id='signUpBtn' className={styles.btn__facebook__form}>
               <img
                 src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
                 alt=""
