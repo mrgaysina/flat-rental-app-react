@@ -17,13 +17,26 @@ const { User, Token } = require('../db/models');
 
 route.post('/signup', async (req, res) => {
   // console.log('req.body from signup ==>', req.body);
-  const { name, email, password } = req.body;
-  const userCheck = await User.findOne({ where: { email }, raw: true });
-  if (userCheck) {
-    res.send('Такой пользователь уже есть');
+  if (req.body.picture) {
+    const { name, email, picture } = req.body;
+    const userCheck = await User.findOne({ where: { email }, raw: true });
+    if (userCheck) {
+      res.send('Такой пользователь уже есть');
+    } else {
+      const user = await User.create({ username: name, email, picture });
+      res.json({
+        name: user.username, email: user.email, id: user.id, picture: user.picture,
+      });
+    }
   } else {
-    const user = await User.create({ username: name, email, password });
-    res.json({ name: user.username, email: user.email, id: user.id });
+    const { name, email, password } = req.body;
+    const userCheck = await User.findOne({ where: { email }, raw: true });
+    if (userCheck) {
+      res.send('Такой пользователь уже есть');
+    } else {
+      const user = await User.create({ username: name, email, password });
+      res.json({ name: user.username, email: user.email, id: user.id });
+    }
   }
 });
 route.post('/login', async (req, res) => {
