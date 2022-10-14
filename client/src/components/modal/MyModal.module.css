@@ -48,16 +48,15 @@
 
 .btn__google__form {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   background: white;
   border: 1px solid rgb(0, 0, 0);
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 515px;
-  height: 45px;
-  margin-left: 22px;
+  width: 402px;
+  height: 42px;
   border-radius: 6px;
 }
 .btn__google__form:hover {
@@ -65,21 +64,19 @@
 }
 .btn__facebook__form {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   background: white;
   border: 1px solid rgb(0, 0, 0);
   margin-bottom: 25px;
-  width: 515px;
-  height: 45px;
-  margin-left: 22px;
+  width: 402px;
+  height: 42px;
   border-radius: 6px;
 }
 .btn__facebook__form:hover {
   background: #f6f6f6;
 }
-
 .x:active {
   transform: scale(1.2);
 }
