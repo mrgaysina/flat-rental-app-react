@@ -1,8 +1,5 @@
 const route = require('express').Router();
-
-const {
-  User, Flat, Favorite, Booking,
-} = require('../db/models');
+const { User } = require('../db/models');
 
 const avatarMiddleware = require('../middleware/avatar');
 
@@ -21,7 +18,12 @@ route.post('/', avatarMiddleware.single('favorite'), (req, res) => {
 
 route.post('/update', async (req, res) => {
   const { avatar, userId } = req.body;
-  console.log(avatar, userId);
+  console.log(avatar, userId, 'pupupupupupuup');
+  try {
+    const user = await User.update({ picture: avatar }, { where: { id: userId } });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = route;

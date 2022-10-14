@@ -47,6 +47,13 @@ export default function FavoritePage() {
   const [mytrips, setMytrips] = useState([]); //! инфа от моих поездках
   const [avatar, setAvatar] = useState('https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg');
 
+
+  useEffect(() => {
+    axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
+        .then((res) => {
+          console.log('reeeees from avatar', res.data);
+        })
+  }, [avatar])
   const handlePhoto = (img) => {
     console.log('aaaaaaaaahadlephotos');
     console.log('img', img);
@@ -63,14 +70,10 @@ export default function FavoritePage() {
           `http://localhost:3001/${res.data.path.split(' ').join('')}`
         )
       })
-      .then(() => {
-        axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
-        .then((res) => {
-          
-        })
-      })
-
   };
+
+
+
 
   useEffect(() => {
     axios
