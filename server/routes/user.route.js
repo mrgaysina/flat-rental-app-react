@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const route = require('express').Router();
 const { hash, compare } = require('bcryptjs');
+const axios = require('axios');
 // hash(password, 10)
 const { verify } = require('jsonwebtoken');
 const { isAuth } = require('../src/isAuth');
@@ -26,39 +27,70 @@ route.post('/signup', async (req, res) => {
   }
 });
 route.post('/login', async (req, res) => {
-  // console.log('req.body from login ==>', req.body);
-  const { email, password } = req.body;
-  const user = await User.findOne({ where: { email }, raw: true });
-  // console.log('user from login', user);
+  console.log('req.body', req.body);
+  if (req.body.picture) {
+    console.log('req.body from login google', req.body);
+    // gogole-auth
+    const { email } = req.body;
+    const user = await User.findOne({ where: { email }, raw: true });
+    console.log('user from login google', user);
 
-  if (user) {
-    if (password === user.password) {
-      // 3. Create Refresh- and Accesstoken
-      const accesstoken = createAccessToken(user.id);
-      // console.log('accesstoken from login ==>', accesstoken);
-      const refreshtoken = createRefreshToken(user.id);
-      // console.log('refreshtoken from login ==>', refreshtoken);
-      // 4. Store Refreshtoken with user in "db"
-      // Could also use different version numbers instead.
-      // Then just increase the version number on the revoke endpoint
-      const token = await Token.findOne({ where: { userId: user.id } });
-      if (token) {
-        await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
-      } else {
-        await Token.create({ refreshToken: refreshtoken, userId: user.id });
-      }
-      // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
-      sendRefreshToken(res, refreshtoken);
-      // console.log('req.cookies from login', req.cookies);
-      // sendAccessToken(req, res, accesstoken);
-      res.json({
-        email: user.email, name: user.username, id: user.id, accesstoken,
-      });
+    if (!user) { return res.status(404).json({ message: "User don't exist!" }); }
+    const accesstoken = createAccessToken(user.id);
+    // console.log('accesstoken from login ==>', accesstoken);
+    const refreshtoken = createRefreshToken(user.id);
+    // console.log('refreshtoken from login ==>', refreshtoken);
+    // 4. Store Refreshtoken with user in "db"
+    // Could also use different version numbers instead.
+    // Then just increase the version number on the revoke endpoint
+    const token = await Token.findOne({ where: { userId: user.id } });
+    if (token) {
+      await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
     } else {
-      return res.send('wrong password');
+      await Token.create({ refreshToken: refreshtoken, userId: user.id });
     }
+    // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
+    sendRefreshToken(res, refreshtoken);
+    // console.log('req.cookies from login', req.cookies);
+    // sendAccessToken(req, res, accesstoken);
+    res.json({
+      email: user.email, name: user.username, id: user.id, accesstoken,
+    });
   } else {
-    return res.send('wrong email');
+    console.log('req.body from login ==>', req.body);
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email }, raw: true });
+    // console.log('user from login', user);
+
+    if (user) {
+      if (password === user.password) {
+      // 3. Create Refresh- and Accesstoken
+        const accesstoken = createAccessToken(user.id);
+        // console.log('accesstoken from login ==>', accesstoken);
+        const refreshtoken = createRefreshToken(user.id);
+        // console.log('refreshtoken from login ==>', refreshtoken);
+        // 4. Store Refreshtoken with user in "db"
+        // Could also use different version numbers instead.
+        // Then just increase the version number on the revoke endpoint
+        const token = await Token.findOne({ where: { userId: user.id } });
+        if (token) {
+          await Token.update({ refreshToken: refreshtoken }, { where: { userId: user.id } });
+        } else {
+          await Token.create({ refreshToken: refreshtoken, userId: user.id });
+        }
+        // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
+        sendRefreshToken(res, refreshtoken);
+        // console.log('req.cookies from login', req.cookies);
+        // sendAccessToken(req, res, accesstoken);
+        res.json({
+          email: user.email, name: user.username, id: user.id, accesstoken,
+        });
+      } else {
+        return res.send('wrong password');
+      }
+    } else {
+      return res.send('wrong email');
+    }
   }
 });
 

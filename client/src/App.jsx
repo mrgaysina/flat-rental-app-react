@@ -18,13 +18,15 @@ import MyTrips from './pages/MyTrips';
 import Loader from './components/loader/Loader';
 import MainLoader from './components/mainLoader/MainLoader';
 import { useLocation } from "react-router-dom";
+import { getOptionGroupUnstyledUtilityClass } from '@mui/base';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { pathname } = useLocation();
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
