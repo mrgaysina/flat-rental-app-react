@@ -493,9 +493,12 @@ export const Flat = () => {
           {comments.map((el) => (
             <Box className="single__comment">
               <Avatar
+                src={el['User.picture']}
                 style={{
+                  border: '2px gray  solid',
                   background: `${getRandomColor()}`,
                   marginRight: '10px',
+
                 }}
               >
                 UN
@@ -508,7 +511,7 @@ export const Flat = () => {
               </Typography>
               <Typography
                 variant="subtitle1"
-                style={{ color: 'grey', fontSize:"14px", lineHeight:"21px" }}
+                style={{ color: 'grey', fontSize: '14px', lineHeight: '21px' }}
               >
                 {el.description}
               </Typography>

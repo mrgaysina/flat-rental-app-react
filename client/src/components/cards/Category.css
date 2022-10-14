@@ -17,6 +17,7 @@
 }
 
 .catDef {
+  cursor: pointer;
   border-bottom: 2px solid grey;
   transition: 0.2s;
 }
@@ -34,4 +35,10 @@
   cursor: pointer;
   transition: 0.2s;
   border-bottom: 2px solid grey;
+}
+
+.catDef:hover {
+  cursor: pointer;
+  border-bottom: 2px solid grey;
+  transition: 0.2s;
 }
