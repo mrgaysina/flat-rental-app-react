@@ -5,7 +5,6 @@ const {
   User, Flat, Favorite, Booking,
 } = require('../db/models');
 
-
 route.post('/', async (req, res) => {
   // console.log('req.body', req.body);
   const { userId, id } = req.body;
@@ -66,15 +65,11 @@ route.post('/:id', async (req, res) => {
     const favorites = await User.findAll({ where: { id: userId }, include: Flat, raw: true });
     const myflats = await Flat.findAll({ raw: true, where: { ownerId: userId } });
     const mytrips = await Booking.findAll({ raw: true, where: { userId }, include: Flat });
-    console.log('myflats', myflats);
-    console.log('mytrips', mytrips);
-
+    // console.log('favorites', favorites);
     res.json({ favorites, myflats, mytrips });
   } catch (error) {
     console.error('error in profile router ', error);
   }
 });
-
-
 
 module.exports = route;
