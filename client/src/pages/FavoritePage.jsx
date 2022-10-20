@@ -71,7 +71,7 @@ export default function FavoritePage() {
         setAvatar(`http://localhost:3001/${res.data.path.split(' ').join('')}`)
       })
   };
-
+                                                                                                  
   useEffect(() => {
     axios
       .post(
