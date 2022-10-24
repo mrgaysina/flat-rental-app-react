@@ -17,6 +17,7 @@ const MyModalLog = ({ children, visible, setVisible }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [picture, setPicture] = useState('');
+  const [name, setName] = useState('');
   const user = useSelector((store) => store.toolkit.user);
   const dispatch = useDispatch();
 
@@ -27,17 +28,17 @@ const MyModalLog = ({ children, visible, setVisible }) => {
     let userObject = jwt_decode(response.credential);
     console.log(userObject);
     setEmail(userObject.email);
+    console.log('email', email);
     document.getElementById('signInBtn').hidden = true;
-    console.log('email', email);
     setPicture(userObject.picture);
-    console.log('email', email);
+    setName(userObject.name)
   };
 
   useEffect(() => {
     const sendData = async () => {
       const result = await axios.post(
         'http://localhost:3001/auth/login',
-        { email, picture },
+        {name, email, picture },
         { withCredentials: true }
       );
       console.log('result data from login', result.data);
