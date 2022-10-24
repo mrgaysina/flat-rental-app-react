@@ -65,7 +65,7 @@ route.post('/:id', async (req, res) => {
     const favorites = await User.findAll({ where: { id: userId }, include: Flat, raw: true });
     const myflats = await Flat.findAll({ raw: true, where: { ownerId: userId } });
     const mytrips = await Booking.findAll({ raw: true, where: { userId }, include: Flat });
-    // console.log('favorites', favorites);
+    console.log('favorites', favorites);
     res.json({ favorites, myflats, mytrips });
   } catch (error) {
     console.error('error in profile router ', error);
