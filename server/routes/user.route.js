@@ -32,6 +32,7 @@ route.post('/signup', async (req, res) => {
       });
     }
   } else {
+    console.log('req.body', req.body);
     const { name, email, password } = req.body;
     const userCheck = await User.findOne({ where: { email }, raw: true });
     if (userCheck) {
