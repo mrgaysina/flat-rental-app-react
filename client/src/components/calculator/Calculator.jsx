@@ -1,12 +1,10 @@
 import * as React from 'react';
 import './Calculator.css';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { CalendarForSearch } from '../calendar/CalendarForSearch';
 import { useEffect, useState } from 'react';
-import StarRateIcon from '@mui/icons-material/StarRate';
-import { useSelector } from 'react-redux';
 
 export const Calculator = ({ id }) => {
   const [cost, setCost] = useState('');

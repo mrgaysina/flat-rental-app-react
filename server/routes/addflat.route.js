@@ -4,7 +4,6 @@ const { Flat } = require('../db/models');
 const fileMiddleware = require('../middleware/file');
 
 route.post('/', async (req, res) => {
-  console.log('baaaaaaaaaaaaack');
   const {
     ownerId, category, bed, bathroom, type, guests, parking, pets, smoking, country, city, address,
     costPerNight, description, kitchen, airCondition, wifi, TV, heating, hairdryer,
@@ -43,16 +42,13 @@ route.post('/', async (req, res) => {
     rating: 5,
     photos,
   });
-  console.log('newFlat', newFlat.toJSON().id);
   const newId = newFlat.toJSON().id;
   res.json({ newId });
 });
 
 route.post('/upload', fileMiddleware.single('avatar'), (req, res) => {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
   try {
     if (req.file) {
-      console.log(req.file);
       res.json(req.file);
     } else {
       console.log('nooooooo');

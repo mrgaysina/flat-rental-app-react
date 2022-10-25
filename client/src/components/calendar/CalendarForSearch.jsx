@@ -14,7 +14,6 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
-import { DateRangePicker } from '@mui/lab';
 
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
@@ -28,14 +27,10 @@ export function CalendarForSearch({ guests, cost }) {
   const [checkin, setCheckin] = useState(dayjs(new Date()));
   const [checkout, setCheckOut] = useState(dayjs(new Date()));
   const [person, setPerson] = useState();
-  const [guestsLimit, setGuestsLimit] = useState([]);
   const [bookCost, setBookCost] = useState(1);
   const [duration, setDuration] = useState(0);
-  const [value, setValue] = useState([null, null]);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
 
@@ -51,7 +46,6 @@ export function CalendarForSearch({ guests, cost }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('calendar res.data', res.data);
         dispatch(getDisableDates(res.data));
       });
     return false;
@@ -65,7 +59,6 @@ export function CalendarForSearch({ guests, cost }) {
   };
 
   const handleBooking = () => {
-    console.log(user, 'uuuuuuuuuuuuuuuuuuuu');
     axios.post(
       `http://localhost:3001/flat/booking/${id}`,
       { id, checkin, checkout, bookCost, duration, person, userId },

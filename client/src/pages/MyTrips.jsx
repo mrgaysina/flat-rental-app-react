@@ -1,22 +1,8 @@
 import React from 'react';
 import './MyTrips.css';
-import {
-  Typography,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControlLabel,
-  Switch,
-  Box,
-  CardMedia,
-} from '@mui/material';
-import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-import { useNavigate } from 'react-router-dom';
+import {Typography,Box} from '@mui/material';
 
 const MyTrips = () => {
-  const navigate = useNavigate();
   return (
     <Box className="mainTrips">
       <Box className="overlay">

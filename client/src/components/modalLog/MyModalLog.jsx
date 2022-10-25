@@ -3,14 +3,12 @@ import styles from './MyModalLog.module.css';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../RTKSlice/rtkslice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { fontSize } from '@mui/system';
 
 const MyModalLog = ({ children, visible, setVisible }) => {
   const rootClasses = [styles.myModal];

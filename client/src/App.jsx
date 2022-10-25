@@ -2,12 +2,10 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
 import { Flat } from './pages/Flat';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import FavoritePage from './pages/FavoritePage';
 import Protected from './components/signUp/Protected';
-import Navigation from './components/signUp/Navigation';
 import Content from './components/signUp/Content';
 import axios from 'axios';
 import { Results } from './pages/Results';
@@ -15,10 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './RTKSlice/rtkslice';
 import AddPages from './pages/AddPages';
 import MyTrips from './pages/MyTrips';
-import Loader from './components/loader/Loader';
 import MainLoader from './components/mainLoader/MainLoader';
 import { useLocation } from "react-router-dom";
-import { getOptionGroupUnstyledUtilityClass } from '@mui/base';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -42,12 +38,10 @@ function App() {
       }
     );
     dispatch(getUser({}));
-    // Navigate back to startpage
     navigate('/');
     window.location.reload();
   };
 
-  // First thing, check if a refreshtoken exist
   useEffect(() => {
     async function checkRefreshToken() {
       const result = await axios.post(
@@ -55,7 +49,6 @@ function App() {
         {},
         { withCredentials: true }
       );
-      console.log('result.data from useEffect App', result.data);
       dispatch(
         getUser({
           id: result.data.id,
@@ -75,7 +68,6 @@ function App() {
   return (
     <div className="App">
       <Navbar logOutCallback={logOutCallback} />
-      {/* <Navigation logOutCallback={logOutCallback} /> */}
       <Routes>
         <Route
           path="protected"

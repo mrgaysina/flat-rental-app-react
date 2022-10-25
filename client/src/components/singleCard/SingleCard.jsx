@@ -5,7 +5,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import StarIcon from "@mui/icons-material/Star";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -31,7 +30,6 @@ const SingleCard = ({ el, isFetching }) => {
       axios
         .post('http://localhost:3001/favorite/one', { userId, id }, { withCredentials: true })
         .then((res) => {
-          console.log('res.data from single card useeffect',res.data);
           if (res.data === 'yes') {
             setColor('red')
           }
@@ -42,13 +40,11 @@ const SingleCard = ({ el, isFetching }) => {
 
   const handleAddToFav = async () => {
     if (userId) {
-      console.log("add to fav");
       const result = await axios.post(
         "http://localhost:3001/favorite",
         { userId, id },
         { withCredentials: true }
       );
-      console.log("result", result.data.fav);
     }
   };
 
@@ -61,7 +57,6 @@ const SingleCard = ({ el, isFetching }) => {
         { withCredentials: true },
       );
       window.location.reload();
-      console.log("result from delete", result.data);
     }
   }
 
@@ -111,7 +106,7 @@ const SingleCard = ({ el, isFetching }) => {
             sx={{
               maxWidth: 305,
               maxHeight: 390,
-              paddingLeft: "30px",
+              paddingLeft: "20px",
               marginBottom: "20px",
               border: 0,
               boxShadow: 0,

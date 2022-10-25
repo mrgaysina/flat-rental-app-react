@@ -27,33 +27,6 @@ const MyModal = ({ children, visible, setVisible }) => {
     setName(userObject.name)
   };
 
- /*  useEffect(() => {
-    const sendData = async () => {
-      const result = await axios.post(
-        'http://localhost:3001/auth/signup',
-        { name, email, picture },
-        { withCredentials: true }
-      );
-      console.log('result data from signup', result.data);
-
-      //  if (result.data.accesstoken) {
-      //   dispatch(
-      //     getUser({
-      //       id: result.data.id,
-      //       email: result.data.email,
-      //       accesstoken: result.data.accesstoken,
-      //     })
-      //   );
-      //   setVisible(false);
-      //   navigate('/');
-      //   window.location.reload();
-      // } else {
-      //   console.log('error');
-      // } 
-    };
-    sendData();
-  }, [email]); */
-
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({

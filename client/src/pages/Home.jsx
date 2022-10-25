@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.css';
 import '../components/footer/Footer.css';
 import Cards from '../components/cards/Cards';
-import Category from '../components/category/Category';
 import Footer from '../components/footer/Footer';
 
 

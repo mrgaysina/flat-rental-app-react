@@ -4,16 +4,9 @@ import './Cards.css';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import './Category.css';
-import PublicIcon from '@mui/icons-material/Public';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCard, getFilterCard } from '../../RTKSlice/rtkslice';
-
 import Loader from '../loader/Loader';
-import Chip from '@mui/material/Chip';
-import SurfingOutlinedIcon from '@mui/icons-material/SurfingOutlined';
-import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
-import SkateboardingOutlinedIcon from '@mui/icons-material/SkateboardingOutlined';
 import { Typography } from '@mui/material';
 
 const Cards = () => {

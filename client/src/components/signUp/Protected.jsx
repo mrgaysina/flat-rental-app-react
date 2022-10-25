@@ -18,7 +18,6 @@ const user = useSelector((store) => store.toolkit.user)
         }
       );
       if (result.data) 
-      // console.log('result.data', result.data.message);
       setContent(result.data.message);
     }
     fetchProtected();

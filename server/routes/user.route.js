@@ -2,7 +2,6 @@
 const route = require('express').Router();
 const { hash, compare } = require('bcryptjs');
 const axios = require('axios');
-// hash(password, 10)
 const { verify } = require('jsonwebtoken');
 const { isAuth } = require('../src/isAuth');
 
@@ -16,7 +15,6 @@ const {
 const { User, Token } = require('../db/models');
 
 route.post('/signup', async (req, res) => {
-  // console.log('req.body from signup ==>', req.body);
   if (req.body.picture) {
     const { name, email, picture } = req.body;
     const userCheck = await User.findOne({ where: { email }, raw: true });
@@ -32,7 +30,6 @@ route.post('/signup', async (req, res) => {
       });
     }
   } else {
-    console.log('req.body', req.body);
     const { name, email, password } = req.body;
     const userCheck = await User.findOne({ where: { email }, raw: true });
     if (userCheck) {
@@ -44,9 +41,7 @@ route.post('/signup', async (req, res) => {
   }
 });
 route.post('/login', async (req, res) => {
-  console.log('req.body from login 47 ', req.body);
   if (req.body.picture) {
-    console.log('req.body from login google 49 ', req.body);
     // gogole-auth
     const { name, email, picture } = req.body;
     const user = await User.findOne({ where: { email }, raw: true });
@@ -61,7 +56,6 @@ route.post('/login', async (req, res) => {
       console.log('refreshtoken from login ==>', refreshtoken);
       await Token.create({ refreshToken: refreshtoken, userId: newUser.id });
       sendRefreshToken(res, refreshtoken);
-      // console.log('req.cookies from login', req.cookies);
       res.json({
         email: newUser.email,
         name: newUser.username,

@@ -5,8 +5,6 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const path = require('path');
-/* const session = require('express-session');
-const FileStore = require('session-file-store')(session); */
 const cookieParser = require('cookie-parser');
 
 // экспорт роутов
@@ -21,12 +19,10 @@ const favoriteRoute = require('./routes/favorite.route');
 const addavatarRoute = require('./routes/addavatar');
 const findinfoRoute = require('./routes/findinfo.route');
 
-
 const app = express();
 app.use(express.json({ extended: true }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/avatar', express.static(path.join(__dirname, 'avatar')));
-
 
 const PORT = process.env.PORT || 3001;
 app.use(

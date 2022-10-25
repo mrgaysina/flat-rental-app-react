@@ -1,38 +1,18 @@
 import React from 'react';
 import './AddPages.css';
 import videoBG from '../assets/video.mp4';
-import {
-  Typography,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControlLabel,
-  Switch,
-  Button,
-  CardMedia,
-  Card,
-  CardContent,
-  Fab,
-  Input,
-} from '@mui/material';
-
+import {Typography,TextField,FormControl,Select,MenuItem,InputLabel,FormControlLabel,Switch,Button,CardMedia,Card,CardContent} from '@mui/material';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { fontWeight } from '@mui/system';
 import PlaceIcon from '@mui/icons-material/Place';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import FlatwareIcon from '@mui/icons-material/Flatware';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import FeedbackIcon from '@mui/icons-material/Feedback';
-import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import { useSelector } from 'react-redux';
 
 const AddPages = () => {
@@ -60,7 +40,6 @@ const AddPages = () => {
   const [stove, setStove] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [img, setImg] = useState(null);
-  const [avatar, setAvatar] = useState(null);
   const [photo1, setPhoto1] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
   const [photo2, setPhoto2] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
   const [photo3, setPhoto3] = useState("https://i.postimg.cc/FzWbxN6n/1212.png")
@@ -750,13 +729,6 @@ const AddPages = () => {
                 onChange={handleStove}
               />
             </Box>
-            {/* <Fab
-          onClick={() => {
-            createAdd();
-            sendFile()}}
-          style={{ marginTop: '20px' }}
-          variant="extended"
-          /> */}
           </Box>
           <Box className="box__photoAdd">
             <Box>
@@ -825,7 +797,6 @@ const AddPages = () => {
                 size="small"
                 label="Доп. фото 4"
                 onChange={(e) => {
-                  // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
                   handlePhoto5(e.target.files[0])
                 }}
@@ -844,7 +815,6 @@ const AddPages = () => {
                 size="small"
                 label="Доп. фото 1"
                 onChange={(e) => {
-                  // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
                   handlePhoto2(e.target.files[0])
                 }}
@@ -863,7 +833,6 @@ const AddPages = () => {
                 size="small"
                 label="Доп. фото 2"
                 onChange={(e) => {
-                  // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
                   handlePhoto3(e.target.files[0])
                 }}
@@ -882,7 +851,6 @@ const AddPages = () => {
                 size="small"
                 label="Доп. фото 3"
                 onChange={(e) => {
-                  // console.log(e.target.files);
                   handlePhoto(e.target.files[0]);
                   handlePhoto4(e.target.files[0])
                 }}

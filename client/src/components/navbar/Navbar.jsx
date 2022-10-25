@@ -1,19 +1,18 @@
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import dayjs from 'dayjs';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import MyModal from '../modal/MyModal';
 import { Typography, Avatar } from '@mui/material';
 import MyModalProf from '../modalProf/MyModalProf';
 import Box from '@mui/material/Box';
 import MyModalLog from '../modalLog/MyModalLog';
-import { Divider, Paper, Stack, TextField } from '@mui/material';
+import { Divider, Stack, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import axios from 'axios';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPoints, getCoordinates, getCost } from '../../RTKSlice/rtkslice';
 import PublicIcon from '@mui/icons-material/Public';
@@ -38,7 +37,6 @@ const Navbar = ({ logOutCallback }) => {
   const changeCl = () => {
     setChange('header__center__on');
     setChange2('header__on');
-    // setTextF('outlined');
     setSizeCh1('22ch');
     setSizeCh2('22ch');
     setTextF('outlined');
@@ -50,7 +48,6 @@ const Navbar = ({ logOutCallback }) => {
   const changeOff = () => {
     setChange('header__center__off');
     setChange2('header');
-    // setTextF('outlined');
     setSizeCh1('7ch');
     setSizeCh2('17ch');
     setTextF('outlined');
@@ -277,12 +274,6 @@ const Navbar = ({ logOutCallback }) => {
               onChange={handlerGuests}
             />
           </Box>
-          {/* <button
-            className="search"
-            onClick={onClickFunc}
-          >
-            <SearchIcon style={{ color: 'white' }} />
-          </button> */}
         </Stack>
       </Box>
 

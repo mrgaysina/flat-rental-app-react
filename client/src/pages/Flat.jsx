@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './flat.css';
-import { BrowserRouter, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { YaMap } from '../components/yaMap/YaMap';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
@@ -29,7 +29,6 @@ import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import { CalendarForFlat } from '../components/calendar/CalendarForFlat';
 import { useSelector } from 'react-redux';
-import { lineHeight } from '@mui/system';
 
 export const Flat = () => {
   const { id } = useParams();
@@ -38,7 +37,6 @@ export const Flat = () => {
   const [comments, setComments] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [flat, setFlat] = useState([]);
-  const [costPerNight, setCostPerNight] = useState([]); //! тут будет оплата
   const user = useSelector((store) => store.toolkit.user);
   const userId = user.id;
   const [color, setColor] = useState('');
@@ -53,24 +51,19 @@ export const Flat = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
         setflatOwner(res.data.user);
       });
   }, [flat]);
-
-  console.log('flatOwner', flatOwner);
 
   useEffect(() => {
     axios
       .post('http://localhost:3001/yaMap', { id }, { withCredentials: true })
       .then((res) => {
-        console.log('reeeeeeesdata flat', res.data.flat.photos[0]);
         setFlat(res.data.flat);
         setX(res.data.coordinats.split(',')[0]);
         setY(res.data.coordinats.split(',')[1]);
         setPhotos(res.data.flat.photos);
         setComments(res.data.comments);
-        console.log(res.data);
       });
   }, []);
 
@@ -83,15 +76,12 @@ export const Flat = () => {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log('res.data from single card useeffect', res.data);
           if (res.data === 'yes') {
             setColor('red');
           }
         });
     }
   }, []);
-
-  console.log(typeof x);
 
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -106,25 +96,20 @@ export const Flat = () => {
 
   const handleAddToFav = async () => {
     if (userId) {
-      console.log('add to fav');
       const result = await axios.post(
         'http://localhost:3001/favorite',
         { userId, id },
         { withCredentials: true }
       );
-      console.log('result', result.data.fav);
     }
   };
   const handleDelFromFav = async () => {
     if (userId) {
-      console.log('add to fav');
       const result = await axios.post(
         'http://localhost:3001/favorite/delete',
         { userId, id },
         { withCredentials: true }
       );
-      // window.location.reload();
-      console.log('result from delete', result.data);
     }
   };
 

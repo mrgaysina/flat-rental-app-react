@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider,CalendarPicker, DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider,CalendarPicker } from '@mui/x-date-pickers';
 import { useSelector } from 'react-redux';
 
 
@@ -22,7 +22,6 @@ export const CalendarForFlat = () => {
       if (dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]){
         return dateToCompare >= stopDates[i][0] && dateToCompare <= stopDates[i][1]
       }
-      //   return false
     }
   }
 

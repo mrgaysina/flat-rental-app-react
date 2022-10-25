@@ -1,17 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import StarIcon from '@mui/icons-material/Star';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addCard, addPhoto } from '../../RTKSlice/rtkslice';
 import Loader from '../loader/Loader';
 import axios from 'axios';
 import Checkbox from "@mui/material/Checkbox";
@@ -58,8 +54,6 @@ const ResultSingleCard = ({ el, isFetching }) => {
         { userId, id },
         { withCredentials: true },
       );
-      // window.location.reload();
-      console.log("result from delete", result.data);
     }
   }
 

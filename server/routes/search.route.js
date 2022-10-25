@@ -3,7 +3,6 @@ const { Op } = require('sequelize');
 const { Booking, Flat } = require('../db/models');
 
 route.post('/', async (req, res) => {
-  console.log(req.body);
   const {
     checkin, checkout, direction, guests,
   } = req.body;
@@ -18,8 +17,6 @@ route.post('/', async (req, res) => {
       required: false,
     }],
     where: { city: direction, guestsQty: { [Op.gte]: guests } },
-    // limit: 10,
-    // offset: req.body.currentPage,
   });
   const coor = findHome.map((el) => (
     el.coordinates.split(', ')

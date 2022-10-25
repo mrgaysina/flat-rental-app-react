@@ -7,8 +7,7 @@ route.post('/:id', avatarMiddleware.single('favorite'), async (req, res) => {
   const { id } = req.params;
   try {
     if (req.file) {
-      const user = await User.update({ picture: `http://localhost:3001/${req.file.path}` }, { where: { id } });
-      console.log('useruseruseruser', user);
+      await User.update({ picture: `http://localhost:3001/${req.file.path}` }, { where: { id } });
       res.json(req.file);
     } else {
       console.log('nooooooo');

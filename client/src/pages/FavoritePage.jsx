@@ -4,33 +4,10 @@ import "./MyTrips.css";
 import "./AddPages.css";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Typography,
-  Avatar,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControlLabel,
-  Switch,
-  Button,
-  CardMedia,
-  Card,
-  CardContent,
-  Fab,
-  Input,
-  Box,
-  Checkbox,
-} from "@mui/material";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import {Typography,Avatar,CardMedia,Card,CardContent,Box} from "@mui/material";
 import EventBusyTwoToneIcon from "@mui/icons-material/EventBusyTwoTone";
 import EventNoteTwoToneIcon from "@mui/icons-material/EventNoteTwoTone";
-
 import { Carousel } from "react-responsive-carousel";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
@@ -50,16 +27,7 @@ export default function FavoritePage() {
   const [avatar, setAvatar] = useState(""); //! аватарка из бд
   const [userinfo, setUserinfo] = useState({}); // инфа о юзере
 
-  // const changePhoto = () => {
-  //   axios.post('http://localhost:3001/addavatar/update', {avatar, userId}, {withCredentials: true})
-  //       .then((res) => {
-  //         console.log('reeeees from avatar', res.data);
-  //       })
-  // }
-
   const handlePhoto = (img) => {
-    console.log("aaaaaaaaahadlephotos");
-    console.log("img", img);
     const data = new FormData();
     data.append("favorite", img);
     axios
@@ -95,16 +63,10 @@ export default function FavoritePage() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("res user", res.data);
         setUserinfo(res.data.user);
         setAvatar(res.data.user.picture);
       });
   }, []);
-
-  console.log("favorites", favorites);
-  console.log("mytrips", mytrips);
-  console.log("myflats", myflats);
-  console.log("user from favorite", user);
 
   if (!user.accesstoken) return <Navigate to="/" />;
 
@@ -174,19 +136,6 @@ export default function FavoritePage() {
               width: "160px",
             }}
           />
-                 {/*  <CardMedia
-                    className="avaPic"
-                    style={{
-                      border: "5px solid white",
-                      borderRadius: "50%",
-                      height: "160px",
-                      width: "160px",
-                    }}
-                    component="img"
-                    height="220"
-                    image="https://studio21.ru/wp-content/uploads/2020/07/kizaru1.jpg"
-                    alt="green iguana"
-                  /> */}
                 </>
               )}
             </Box>
@@ -547,7 +496,6 @@ export default function FavoritePage() {
                   backgroundPositionY: "-40px",
                   backgroundImage: "url(https://i.postimg.cc/XJJtX1zL/cap.png)",
                   boxShadow: "rgba(0, 0, 0, 0.15) 0px 2px 8px",
-                  // border: '2px solid gray',
                   zIndex: "5",
                 }}
               >
