@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getUser } from '../../RTKSlice/rtkslice';
 import styles from './MyModal.module.css';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const MyModal = ({ children, visible, setVisible }) => {
+const MyModal = ({ visible, setVisible }) => {
   const rootClasses = [styles.myModal];
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [picture, setPicture] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCallbackResponse = async (response) => {
     console.log('Encoded JWT Id token: ' + response.credential);
@@ -27,32 +29,35 @@ const MyModal = ({ children, visible, setVisible }) => {
     setName(userObject.name)
   };
 
- /*  useEffect(() => {
-    const sendData = async () => {
-      const result = await axios.post(
-        'http://localhost:3001/auth/signup',
-        { name, email, picture },
-        { withCredentials: true }
-      );
-      console.log('result data from signup', result.data);
-
-      //  if (result.data.accesstoken) {
-      //   dispatch(
-      //     getUser({
-      //       id: result.data.id,
-      //       email: result.data.email,
-      //       accesstoken: result.data.accesstoken,
-      //     })
-      //   );
-      //   setVisible(false);
-      //   navigate('/');
-      //   window.location.reload();
-      // } else {
-      //   console.log('error');
-      // } 
-    };
-    sendData();
-  }, [email]); */
+  useEffect(() => {
+    if (picture.length > 2) {
+      const sendData = async () => {
+        const result = await axios.post(
+          'http://localhost:3001/auth/signup',
+          { name, email, picture },
+          { withCredentials: true }
+        );
+        console.log('result data from google signup', result.data);
+  
+         if (result.data.accesstoken) {
+          dispatch(
+            getUser({
+              id: result.data.id,
+              email: result.data.email,
+              accesstoken: result.data.accesstoken,
+            })
+          );
+          setVisible(false);
+          navigate('/');
+          window.location.reload();
+        } else {
+          console.log('error');
+        } 
+      };
+      sendData();
+      setPicture('');
+    }
+  }, [email]);
 
   useEffect(() => {
     /* global google */
@@ -62,12 +67,11 @@ const MyModal = ({ children, visible, setVisible }) => {
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById('signUpBtn'), {
-      // 'theme': "outline",
-      // 'size': "large",
       width: 450,
     });
     // google.accounts.id.prompt();
   }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('executing submit');
@@ -76,14 +80,20 @@ const MyModal = ({ children, visible, setVisible }) => {
       { name, email, password },
       { withCredentials: true }
     );
-
-    if (!result.error) {
-      console.log(result.data);
+    if (result.data.accesstoken) {
+      dispatch(
+        getUser({
+          id: result.data.id,
+          email: result.data.email,
+          accesstoken: result.data.accesstoken,
+        })
+      );
       setVisible(false);
       navigate('/');
+      window.location.reload();
     } else {
-      console.log(result.error);
-    }
+      console.log('error');
+    } 
   };
 
   const handleChange = (e) => {

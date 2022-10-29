@@ -18,16 +18,54 @@ const { User, Token } = require('../db/models');
 route.post('/signup', async (req, res) => {
   // console.log('req.body from signup ==>', req.body);
   if (req.body.picture) {
+    // gogole-auth
     const { name, email, picture } = req.body;
-    const userCheck = await User.findOne({ where: { email }, raw: true });
-    if (userCheck) {
-      res.send('Такой пользователь уже есть');
-    } else {
-      const user = await User.create({ username: name, email, picture });
+    const user = await User.findOne({ where: { email }, raw: true });
+    console.log('user from login google', user);
+    if (!user) {
+      await User.create({ username: name, email, picture });
+      const newUser = await User.findOne({ where: { email }, raw: true });
+      console.log('newUser', newUser);
+      const accesstoken = createAccessToken(newUser.id);
+      console.log('accesstoken from login ==>', accesstoken);
+      const refreshtoken = createRefreshToken(newUser.id);
+      console.log('refreshtoken from login ==>', refreshtoken);
+      await Token.create({ refreshToken: refreshtoken, userId: newUser.id });
+      sendRefreshToken(res, refreshtoken);
+      // console.log('req.cookies from login', req.cookies);
       res.json({
-        name: user.username,
+        email: newUser.email,
+        name: newUser.username,
+        id: newUser.id,
+        accesstoken,
+        picture: newUser.picture,
+      });
+    } else {
+      const accesstoken = createAccessToken(user.id);
+      // console.log('accesstoken from login ==>', accesstoken);
+      const refreshtoken = createRefreshToken(user.id);
+      // console.log('refreshtoken from login ==>', refreshtoken);
+      // 4. Store Refreshtoken with user in "db"
+      // Could also use different version numbers instead.
+      // Then just increase the version number on the revoke endpoint
+      const token = await Token.findOne({ where: { userId: user.id } });
+      if (token) {
+        await Token.update(
+          { refreshToken: refreshtoken },
+          { where: { userId: user.id } },
+        );
+      } else {
+        await Token.create({ refreshToken: refreshtoken, userId: user.id });
+      }
+      // 5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
+      sendRefreshToken(res, refreshtoken);
+      // console.log('req.cookies from login', req.cookies);
+      // sendAccessToken(req, res, accesstoken);
+      res.json({
         email: user.email,
+        name: user.username,
         id: user.id,
+        accesstoken,
         picture: user.picture,
       });
     }
@@ -36,10 +74,44 @@ route.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
     const userCheck = await User.findOne({ where: { email }, raw: true });
     if (userCheck) {
-      res.send('Такой пользователь уже есть');
+      const accesstoken = createAccessToken(userCheck.id);
+      // console.log('accesstoken from login ==>', accesstoken);
+      const refreshtoken = createRefreshToken(userCheck.id);
+      // console.log('refreshtoken from login ==>', refreshtoken);
+      const token = await Token.findOne({ where: { userId: userCheck.id } });
+      if (token) {
+        await Token.update(
+          { refreshToken: refreshtoken },
+          { where: { userId: userCheck.id } },
+        );
+      } else {
+        await Token.create({ refreshToken: refreshtoken, userId: userCheck.id });
+      }
+      sendRefreshToken(res, refreshtoken);
+      // console.log('req.cookies from login', req.cookies);
+      res.json({
+        email: userCheck.email,
+        name: userCheck.username,
+        id: userCheck.id,
+        accesstoken,
+        picture: userCheck.picture,
+      });
     } else {
       const user = await User.create({ username: name, email, password });
-      res.json({ name: user.username, email: user.email, id: user.id });
+      const accesstoken = createAccessToken(user.id);
+      // console.log('accesstoken from login ==>', accesstoken);
+      const refreshtoken = createRefreshToken(user.id);
+      // console.log('refreshtoken from login ==>', refreshtoken);
+      await Token.create({ refreshToken: refreshtoken, userId: user.id });
+      sendRefreshToken(res, refreshtoken);
+      // console.log('req.cookies from login', req.cookies);
+      // sendAccessToken(req, res, accesstoken);
+      res.json({
+        email: user.email,
+        name: user.username,
+        id: user.id,
+        accesstoken,
+      });
     }
   }
 });
